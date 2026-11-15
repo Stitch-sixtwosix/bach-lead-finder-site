@@ -407,7 +407,11 @@ $rows_loading();
 function $rows_loading() { document.getElementById("rows").innerHTML = `<tr><td colspan="6" class="empty"><strong>Loading leads…</strong></td></tr>`; }
 let DATA, BASEMAP;
 try {
-  [DATA, BASEMAP] = await Promise.all([fetch("leads.json").then(r => r.json()), fetch("basemap.json").then(r => r.json())]);
+  const manifest = await fetch("leads-parts.json").then(r => r.ok ? r.json() : null).catch(() => null);
+  const leadData = manifest
+    ? Promise.all(manifest.parts.map(p => fetch(p).then(r => r.json()))).then(ps => ({generated: manifest.generated, leads: ps.flat()}))
+    : fetch("leads.json").then(r => r.json());
+  [DATA, BASEMAP] = await Promise.all([leadData, fetch("basemap.json").then(r => r.json())]);
 } catch (e) {
   document.getElementById("rows").innerHTML = `<tr><td colspan="6" class="empty"><strong>Couldn't load the leads.</strong>Reload the page to try again.</td></tr>`;
   throw e;
