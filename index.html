@@ -1,0 +1,938 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><link rel="icon" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZlcnNpb249IjEuMSIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHdpZHRoPSI1MTIiIGhlaWdodD0iNTEyIiB2aWV3Qm94PSIwIDAgNTEyIDUxMiI+PG1ldGFkYXRhPjxyZGY6UkRGIHhtbG5zOnJkZj0iaHR0cDovL3d3dy53My5vcmcvMTk5OS8wMi8yMi1yZGYtc3ludGF4LW5zIyIgeG1sbnM6ZGM9Imh0dHA6Ly9wdXJsLm9yZy9kYy9lbGVtZW50cy8xLjEvIj48cmRmOkRlc2NyaXB0aW9uPjxkYzpjcmVhdG9yPlJlYWxGYXZpY29uR2VuZXJhdG9yPC9kYzpjcmVhdG9yPjxkYzpzb3VyY2U+aHR0cHM6Ly9yZWFsZmF2aWNvbmdlbmVyYXRvci5uZXQ8L2RjOnNvdXJjZT48L3JkZjpEZXNjcmlwdGlvbj48L3JkZjpSREY+PC9tZXRhZGF0YT48aW1hZ2Ugd2lkdGg9IjUxMiIgaGVpZ2h0PSI1MTIiIHhsaW5rOmhyZWY9ImRhdGE6aW1hZ2UvcG5nO2Jhc2U2NCxVa2xHUnVRaEFBQlhSVUpRVmxBNFdBb0FBQUFRQUFBQS93RUEvd0VBUVV4UVNEZ1BBQUFCOEZadFc5NXMyN1loQVFsSWlJUklxSU10RG80NENBNWFCNm1ESGc0aUlSS1FnSVIxakc3ZEdsaFpQOC96K29nSVdaQWt5V296bStWRHhzZURGeGpCNCtrL3VILzl2Ly96UC9ZbTN0YjlLQVhlcTU3SG51Zm82bCtiN3dVYVZ0bHYwY2N6M3l1MHI5Zk53VDg2b0hPVkpUbjRSOTAvMkJ6N2VPTUZTS3NzVHAxYkJieTFKNC9PSFZCWDhhZDRBUGI2Y2Vha0F2aHI5WDRBbXpNYnc1VzVYandCeG5GanZ2Zk85M2FBMFJ6WWVPN0w5ellBR2x3WEZZNkxEcmRGaWRPaXhXVlI0LzBBZG5kRmtiUHl2WDhBZk84SGdDNDNSWm1Ub3MxRlVlZWc2SE5QSERnbjM1c0FmRytxd0lkZllzVDdBYnlpOHdNNG8wUGl4eDF4NUl4NGNrVmNPU0srM0JCblRvZzNGOFNkQStMUC9FbkErTW5BOUVuQjhNbkJhMVZLbk5hVUtmRlpJWkRpczRqeFdPVDRLNEs4bGQvTVZQS2JIeUFTV1g2S01DOUZtbzhpemtPUjU1OFk4RTRzK0NZbVBCTWJmb2tScitRM0c1V1k4VWpzK0NPR3ZCRkxQaXVFaFJKUHhKWWZZc3dMc2VhRG1MTis1UjE3eGkrRklBRHJKd0xiSndUTEp3YTdKd2lySndxYkp3eUxKdzU3SnhCcjV6YzdsWVJpNmNSaTV3Umo1VVJqNDRSajRjUmozK1JTejlmK3lQbG0zbVJTOW5VeTg1OG1rSHFzeWRMUE44ampXSTM5YktNMDZtTUt3ZFlKbytZWXJKMHdIakdZTzFrY0tkZzdVZFJiTUhpaWVKbjhJRE5KMURWWVBFbWNIZGZDdE41Zlp5bmxQTzdyYklaWmFDVExsZlZvLzNJcGU3MjZkOXB2SnBoVWlTU0oxb3ZGcmUzNkxVdFNmMkloa2lESzFQeWo5aXR0MVg3dVJHSUs4MHJZYXVmMXB2ck1SQkxFRWR1dTJ4TjYxNmI1RkJvSjRqbnNudlhVKzRNYmpRU1IyeDVXSDBoWG45WlNJWkVnY3ZPWHlMU01qVVNDV0VMTC9BTUFwbEVvSklDKzdnQzJzV2hRQ0V2SHVRM2pEbUFjQjRHRTBONEpZQnlKUUdKb3ZBN1NPK3RZdENpRXFhMENZQjc3NEpUNmpMcE1xczVwa0FDcXFyVExRSkp5V2Npa1czYnhRK0lsNTFuQ0YxUHM0Z2RJVEVueVpSYy9BSW5JaDZYTExuN2dhb2FTTGJ2NGdmZDh2VUxyV0pKbEZ6L1hMOCtlb0kvcG5WMzhOQnlWL3dCMVRCWEFMbjVhM3BSemc5RmtpaGlkampBN3ZyNHdYd1V6eDFIWnhmYnR5cnc0N2tRdStZeGpJa2lsNDB2VDl6ZWQ4TExoRHB4eFJIYXh3WHZhanMrc3JHeUFPZzk0dzg4dXRvNTNaV2RnWkFPSW1QT0VYOWpaeFhhNXEzeWRXQ25BM1BpRU9TLzRnQnJoOWFQTWUwc3ViLzRWdU5nQWV3NzRoSmxkYkwzblpUaVkyR0RBL0lFWGNjb0V4OVhCSnl4c2dEOG4vSVVWZWJvRWNQRlFLdE9BdGZFVDdodml2c0NKQVFYcWVYL3VRZDgyNUhpbEN0OWd4SUlxUVkxWDU1MGlZZXJiK0NFRDhGVi9UT2hRNjF0MForS2ZubTh3YUM3MHhvYmd0VjM0WXExRVlHejhEWEVTWE9tTEVRWHF1QWZJUkNCcy9JSTZsM3BpUlpHZ1hEL05TOVlHbzJhQ2ErMHhvMGNBS3hNYkRKc1pHclRHamg1QmpTeHNNSEphdE1XUUdnSGNBMUdkRzc4aXpnMmF0TVNTR2dGTVZQVnRmRVk5STBhYjY1aFNJemdEZFJzTW5SVWFYY1dXbUdGOGlMZ054azZHVnQ5alRJK3p5Y3lrYlRCOG1uM0xMbmJBbXhMSmFyL3IyeEhuQ2UzK3hwd2E1NUk2QWxrYkVKZ09uN0dueHFuRU5xb0F4czhMZXZ4bUZ6dUY2Kzhwd3h6UTQ1MWQ3RFJlSzNnS01YM0xMdll4Und5eGNtQitOUlRpYzA1Rkp6dkFFTEdKZG5QR2tGU3lEN3NWMnZDZlNyMmdrcDNXbzRFbit5R2ZTbllBQVJYRW9SNGhteHdUQno5UXY3ZmhQWWw0R29rbnhhdnZ5WHRvUjQwY2tjUjVadExSSTBWRWNSN0tVU1JEWWtJY3d0RWtRWFJsdHJQUWpTb2RBcmkxWVR0a28wdUhjZ2h0bU01S05jcVVpSU9JTnBsb3RDa1FrMzBnNFEzTnFOT3JFRExIZVpLTVB2SHJ3M0VveG9IdzllSTNCOEY0RUQwMkpyeWhGeGVDeDhlTU4rVGlRK3h3TUp0Q0xVNkVEZ3V6SVJZdklvZUgxUkNMRzRIalpVRWJXdkVqYnJnWURhazRFalpzYkNaUmlpZFJ3OGRtQ01XVm9ORTM3TVJUTTUzNGtyRWxCSVl5MnBDSk15RWJoY2RRaVRjUkc0ZkRMRVRpVHE5Q09EZ01qVlFpUkJ1TW5BZVhUMi9xTzVYczhnYzdtK2MzdGlBRHJXSXhEOUNDVHZHWUo2aEJvOWlNSHRTSnpZbEhEbENFTmpFYWM3aExFWjg1d1JvMktXSTBCWFJoaWVERUcyVW9FYThUandCb1E0ZVlqVDQwaU5kRVVJajhNWnNFeE1qd2F1OW1oS0NpblhWUUl6K2l4Ky9FTXpPWXdZOFVjUnlseUIzRHVZRldwSTdqTEdBRGswcEJ3anJyb0FsTVZZaDRUZ2JGeUJ2Yk1ZQlVoSWpyUEVBMXNzWjJucUFieWVOejRwSFh1R2UxMytzODNtdi9YZm05MXVXOTV2ZWEwbnVGSUlNWlkrdWtpUEVjcmJ0VU9kN3JkYkZMM2Y3dVVsSFM4ejFWaFAzL1RxaXhLNlY1bnBjbDU4ZitPbzZ6VkVhei9OMmxadFJkU2xKbi82ZmR0QnUrSzA2L3UrS2E4NzRmeDFIS2tCbXk5SkdaWEdqaGNqUDg3b3EzejEzeDlic3IxdTRyd3dhbXpvL0pFSjMvc2ZiZi83SEs5OUVCN2NOdkU3OTQzVDB0VXpDQ21mNDdUQlpKYjhScG5xSytqcDd2ZFMwdXI4K0hLZlcxaUl2dWQ0dW14ZTM3WTlTeTZXcnZlTXVGb2szWFYzRkp3aUo2WnBSSjhrZ2NWYk1LaStiT2tmWHNId0FGa1B6cG9lZXZ0ajh2S1N5Q1IrQkhOVXVsZVVyVVUrTXpNTE9hZit1OTYyVEl3aUszaDZ4YWx2cE9HYWltUitNUlYxbysyN2dBZEgybnBYOGJMNm5sazgxbjU2a3B0RlRvblhDbjNnUzlyWHEvTnJtNENxbmZXSVltNlV0NmMrZmNwSjJOMWx1d3RHblVheXVMbGtGc21yRVpmVFpxaCtBUFRaT1JObUxmS0ZtNDlYNVl5NERVUmZZZzB3dzd0bWFTTnhGKzJ5YXR2bU9UaXk3aFA3L3lBaVU5ZExnUDNVZ2VldmdFSmMxZE0wc2J0ZGNkVnRBSTl2UHJoeXFOZUhnOWd6N3dENjlMYWdZVHdlTk83bUxCdllQTmVsWTY3NUExL0V1ZmpmTVVOcEw3U0FaRktSL01yVE9Eb3JLQ3Z6cm0yWldUQ0prUFBqMW1ZU083ZjJUUVZKaWZmNStCck84ZnFScWs5b21WQW1FL3NPYWNsemtHWmR2N1RycEhnR25YeHVEMGV3bU00UGc0aGR5KzMzUCtPSE5jU3BLSC9RRDdvUzdNSjJEcTc2NzQrdDBWMStYMmU4SzVLSFVsOUUyc05uRGczWWJsNHp5VCtmUHVhVXBKaXNZZVdiR0NlbWlkZTdiejd1bmo3SVVwUmVhTmVIcmxFRjVNN3pYTkg2ZVoramhINGU4cDZUNU9TbmVjNWIxcXBuWHVZZXk3cDhpdlFVK3Vwa29DcTExcVB6NU9RbG5RemtPNU1ENzM5Q0pDSjhxK3Y0QU10aEc3RktsUnZSQ3lERklCenVlZWZxclJzSE1yUGFYQWViTHloWEJxWmtJYTdRdFJNd2xwVkV2WVgrUTdXbVVEQVdkVzlSTDE3MkU2aTA0WlFjVWFNZHJwWE50VENGWlFzRWFqek9ERUdvVlMxL0IzbHQzMFNYejhaaFkzeXFkU1dOVHhMOWFvMGhLQ0tleFlvMHkyOEVDYVNaVUlyTG1xSW1OdHBTYVJXSk1RS3EvUkpFVk1SQ3hZbzBpcVdGaU52TkgvT2txcGlPQkJZbWFraVRxVVE5QkdySHdtYUpFK25veEdpUlN5VUppRU5UcWtrU1RqckdLa0U2S0hIWkg3RWl4bkZDS2RUS3htTEJFU0ZhK2o0U3ZpRENaQVNua0JnU21JTXhyN2xMSURyeG1PZVVxNUE0azUwT2FBOFZpbmxBMjREUUdNWStCa2FTTnoyQm5pVUtCV0lVU09OcUF5TytLUXdEUTV2U0p5N09ZRk5MQk1VbWRFamQ4dDh3UWlHQ1l0eEZnT0VZbGQ4dUlYck13R1NtS1d4TmdGQytMUXdTcVpjUXR1aUllNEVjSW9xVEVMWnJUSlFBbWI1TllkM3lHRlNVcjVBWEl6SVE0dExGTEtQMEJ2RXVJUXd5Q2xiRUJ3SXRxc3dNQ2RWUExqRXdTMFdZQ0JxUkpLQTQweEh4N0lwQU11RmN4aFlhYVNGaHBpUHp3c05OSURpK0RFbXh0d1FTRk5jQWdPdkptQml6dytYWHhOZ3VGamROcWdIK3lZdzhqWTlQRW5HWWFSNThnMFFqMTQ0RTBDVG81eEo1WFJDZkVnWXc0bnNZdzZwWlJTN2lER3NKTEttSVFpM2xvd2g1ZXBqa2dxbWd3enk0Q3NaaDUvaHBOeVV2VkF6ektPL1ZVSVQwbVJyQU01dy9qODJ1NjNRbUE2OWhleVVrWE5MdXF0KzM0OElVNzcza0xZakpsU3lOMlllZmpVMXMwaTdZR1hoUGlHY0RNR3hDbU5tMFZiTEZncGhlUU5lWXlldHMwaVo4Q0g2anU3cUJQR3hsZlVhZHBMNkh1aGZBRTVPWEVNNWVuY01uQktJbm5GbnZINkQyU1VBQ2VuNHZHR29sU0dUc09qUkJaeWY0YXhJRzM4Z1RuSGRUekUycHRoTEIwYlAzQXVJK3U0L0s0encxalFOdjVmMUxtS3NQM3l1NjRNWThIYitCMTFMaUp0dS9xdUo4UEkzUnMvYUY3ZjYwSHZWQ2l4SThQSW1CdWZNZWY1TmVycXhaWWR6UmxHUnRuNE1mT3RYdVQrZ0xrMXc4aTRHNytpenBlNmtUaEQ2WHB4NGJZTUl5TnYvSUk2bnpFNVJWMk5YWnRSM2hsR3h0NzRHK1k4L3NSRWJqNEU4YysyRzBaRzMvZ1pjekxxVGY2azlWMXN5REF5OGhkTFFCL2NtL3hKNnhvOEw5TUJrekErUTVoUTUvY21aNlIrUDJEbUtpMVFEVi9DbkNXRndNcjg5UmN1MGdQTkJvaUI4SG9TZWtQczlEMU5VR3lBZDZUUitXbjhtaTdJTldoSjV1dE9WcitrRFdxcFkvbjZHLyttRDFvSmhjcFYrZnFUUmlpbGtQM3J2LzR6bmRCSkk4ZlgrY2d3MWhCRVEyTHliNGF4aENBY0NyTzgwNHgycFRKd3ZpL2RxTmZBVVpSTmdrZlFsRW1DTmFqS0lzRWNkRVduSmVyeGlDb0daVkZwZ3pOSzA5QkxXa2VkMjRJM0pUNmZXb04xMUtteER5b0VLZWpyeEoyU0d2dERnNDZnOElwUHpEbGIrMEtGWjFOVlhobHZuckd4cjhTdkJLWFhVZ2MrSnRzQkxyQlA5Ty9sdThWSzAxOFpkNEJMc3ZjS0g4c29sM3JFMWpkN054RDlwZlQwTzBiNVlKbWJQMlZwSW5nNUtMK1dqbHV1NXRoOFN6Y1N1MWRRZjZWY01IOFU1Z3JRVE9oS0NoWll5OUh3VE16YXVodjlBd0FkUks3K3lRQVhYNzU5dVpqNld0dHZqVHRBSDRtYmdpVlduT2RsdVUyeDg4bHFTVXdWQ013dG1HcmRLa0EvYVZ0TTlhTjRCd0FNZm0wdUFFaGNXUE16eldnOFd0d3FBQ2FOTXNFems3aUV6RmlYUU9mSTV2dnZiVHlDRDR0L1BqS0k5MHEzOVg2T2ZqWEhiOTFLK1h2TGpxWkNpaCtOU29UVENxa1FJdGp2c0RPeHNqU2gvbFpiRXlsckUrakpabnZ6Mmt0TlV5VkVtTU5NYkU2VXJFNlE3RTZNTEUrSWJFK0VyRStBN0k5OUhzQThIMkNkRnpET0Q5am1DVXp6QlpaNUE4UDh3V2VGY0FOQ2ZGWUlDeVdzOGdwRytRV2JQSU5KdnNFaTcyQ1FmNURQUTRqbkk2VHpFc0w1Q2RuODVvZEtmdk1EUlBJV254WENTb25QQ2lGVFFpeWZJWlhYRU1wdnlPUTRGUDdwZFE3QmM0aDgrVWliRXlXckV5UzdFeVBMRXlMYkV5SHJFeUQ3WTU4SE1NOEhXT2NGalBNRHRua0MwM3lCWmQ3QU1IOWdsMGN3eXlkWTVSV004Z3MyZVFhVGZJTkYzc0VnL3lDZmh4RFBSMGpuSmQ0dmhOWDdoYkFRelZkSTVucmxuZXVWRklMSEVNdG5TT1UxaFBJYmY5ZHlLbkVhT1ErRjNHZDhEalE2RnhxYkR4WG5GMElxNDNLa1ViblNtSnhwUk82RW56K2RtSE5pNTgvRGtaOHhPSFhOU0plcWEvaFlidi9nSXdiWHJ2U3NuYk9uNE42VmxyUGp6OGt4K0hpbDlXajZYT014QjFldmVYMGM1OGZqMEZLT2ZaMWpjUC82Zi8vbmYreE5BRlpRT0NDR0VnQUEwSlVBblFFcUFBSUFBajV0TXBaSXBDS2lJU1J5U1hpQURZbGpidUZ3YmhiK0FmZ0IraEg4SSs1Q0FFajc1YnpNZmJ2eWcvaWYvLy8vKzYwOTIvUnIrOWZsRjZBbWRqcFA4ZS9KWDgvL1huNURmd0QxUTZvOUVQd3I4Zi95WDlaL3BQN3gvTjcwaS93RDFBUDROL0JQOGYvWWY2VjZnSHN4L2dIb0EvZFAvbGYxWDNrZjBBOWdIb0FmMXovNCttQjdBbjlyOVFEOWh2VTEvdlA3Vy8vcjVBdjR0L3h2MnkrQWY5V1AvNy84T3dBL2YvOS8va1YvZ0gveTlxL29CL0FQd0kvUUQvLy92TDMrRGVPeW9xUElQN3R0VDkzSlQ2bmxtNlJkQVNQTitRWkNCZ3FQSVA4Z2ZFa1RsSFZsMk5kNTQ3andWSGtIK1FaQ0JncVBJTCtFcGpEVlMwa0MxM25qamI4Z3lFREJVZVFmNUJob3dpY1FNRlg5clFUaWRVNlBJUDhneUVEQlVlUVg4SlM4a3Zyc21tZDNCZnkwYWNIN1V3N0tpbzhnL3lCOFNSTW1ERUkyNmdkUUxhbEExcTBjQit2cDNZZGxSVWVRZjVCaG93aVpMeWxNU2Jab1lTanM5ZTNtSFJ3SDYrbmRoMlZGUjVCL2pvbXlWcU1WZnV2ZlA3akFMZ1JzMC82OE1kMkNPNEc3eG1QSG5HMzVCa0lHQi8zZ3dJMEhrRTRkaTdXWC9HYUI1Ym9pdFZZMHZNK2pUZy9hbUhaVVV5T1FubU52VmRUM1RzaCtNaXVRTzBQUFZ4RGVxVWJHM3ptMnA3ZCtCa0JNTFd1ODhjYmZrR1A5MUtSWnE2ejgyZUQ4Y2VLK0FacWVyTGFqWTlCczgxUElOVi92RmNnZFcyQ1JKd1I1dHpiTmoveEV4SzUvSGY2RDhsdlVoQWRscVoyRSt5dUQxOU83RHNnc0N2UGpGZEFlQjdNMndiTHdXWi85RG5mSm9FT0NCLzE5V2JPSjFUb3pYcDlHbkIrelN0TEhweUN5MkEwMktSRXZGZVZCcG5TL2R2VWYvenQ2M0w5T3dRcmtEcTF2d282Tk9EeE1CSWl4NmNnc3RnTk5KWHphZ0h5d2U3aDhZZ1F0dDB5VGt4K1VPZ1hkWTlydlBIY2NIT0NjVHFXNWtkdE0xZ0thbXhxSU1UVzdVZ1JVblhqQjRFdGZFK2VoWGVlTzQ0S2p2bVlzaGlLNXlyOEgrTzJnZTJhbUhaQTducHIzcCt6dkthYTdXb3dlR2FCNkxmSFZ3Q2dHK0doTFlTWXkydGtCTHJkcU8xMjUyVEdJYjMreEFkN3c3bksrNVpRdUJDenhMWEpqOG9kQXU2eGlMTHp4eHQ0b09uZnptelFrNmZsc3RoeFN4dzdVQlZKUWdvSG5vQ2FsNE1SaXZTK1B6TDZ4OENJVzQrWEd3WWIwbXcvbVlxbGdWalZsSnFNOFVFaWJ0dHFSKzJBMlZTT3pVb3VUeUVlYzBVZDlzM2YwdlFJdVh3VXpnc25UV1J0K09zb1hBamZHZUREZmRGcVhKL0lES3dlOG8ySGltQ0xtalRnL05DdXNUQnAyVkZSa2NNMEQwVythVk5DdXNTYXN6N24rMlR1ZUVJQVVtTm04VGtrMmQyR20yaitpZ09ySDRUemZrR1FlVkFDdXQwK1lrRW5aVGZ3TXJGUUErNlZieEhtQVhFUEgxRTdQb3RoaWJoNlZhbUhaVVUwQWVMakE2eHViOXZRODB2MUlsNjBFNG5WT2p4MWFGL3d2VWw2VkkyK09vZHNFanpma0dJRkRuU0hvN3VkTVFya0RxMVJnTktDQTNlREdZRFRTcDhGUjVCL2tHUDVCaHNrK0kybWp3VXpYMTlPNHVRSC9XZWtZUWlkWWwrUWY1QmtJR0NvOGd3czNpY2ttenV3K0cybC8wdm9vekNaNk5LRmRWYW1IWlVWSGtIK1FRQjFBdHFKcUNTb3BlbmtCLzIyMndTUE4rUVpDQmdxUEhXaVB5aVlxejBsMGlXelVaM0JrSUdDbzhnL3lESVFNRkx0eWtqT2FKck44Z0ZxQXBxanlEL0lNaEF3VkhrSCtRWWNQYmFrZTAvNE94bW5SVVZIa0grUVlZQUQ5ZWtnRlV0MVVrM0hJVTg0ZXB5dFhiUGpOMGM3QzdveXp6d3lxM01Ua3dkSEFpZTZQUTQrcjlRcTlvL1dtNEl0YkoxcTJGdmlZUHVXWURmcVRWYVA5Y1JIM0pVaDlzVFBzYU5YTEFBQUJSODF5YklzTEc2M3YwdHdVcDZkb1IwenpYa0F3WWVFcWErSUtXdW5xQTU2SkNHeFdIWmJma2pQcCtJZFFIamZOZkJIWjF1dk1hTkpCQlc1NzNFV2VLeU1PMkM1R2szamwyczRYYzFFQUFBcWVhNU5rV0ZqZGIzNlc0S1U5UEdSWmlJRW9pQWxzVXh0ZS9TS2hLdy8vWkFCTFpVckVlMTVYaU1rRjVGT3FZQUNjWFpKSUs0N21pRFZrcEtwWFNUYXhveVJRV3RvQlpCMkovMEFNVUFBQlU4MXliSXNMRzYzdjB0d1VwNmVOR2Z4VzJIMlNnQ0lrRys5K2tWQ1ZoLyt5QUFrM01xTzNLVS9iS09pWUdMZWRlTlR3cUhMRjZhL0NjOWpKa1FzMEN0ZGhTaWdBQUtIbXVUWkZoWTNXOStsdUNsUFR4b3orSzJ3K3lVQVJFZzMzdjBpb1NzUC8yUUJ1SlZPemJRMUZESEMwaXBzVDEweklhOWszY2N1akJCU0ZyMXVBdThzTktzYlBQblh1alV3NTBwN2RBdkFuQUk5YVFCRWV0b2NzWHBzcHl1MTJ0SXpReXB6TUxvOXdBQ3A1cmsyUllXTjF2ZnBiZ3BUMDhaRm1JZ1NpSUNXeFRHMTc5SXFFckQvOWtBUEh5QUJEeU1yWmhBM014d3BnZ3dJbnRXZ1hsOHJ4N1NFVWVaOWxORWd1TlBSK29nRDJFN1JjUURsMkorSndqT2pPTlF5bEFlSlRVbU56WVJVaWNBajFwQUVSNjJoeXhlbXluSzdYYTBqTkRLbk13dWozQUFxZWE1TmtXRmpkYjM2VzRLVTlQR1JaaUlFb2lBbHNVeHRlL1NLaEt3Ly9aQUNLYjdUQWJkck5mbFRBYmRyTmZjbW41Q3NOZDJrTkUvU05TSzRmMFN4N1Q4T0xva29CZ3hwZnlkbHpRQUZYUStUKy84YWhsS0E4U25EajdWaUV6VTQ1c3I5eU0wV0YzTkVqZWpXRWw4WUtmNmhOZmhTMkQvL2hLVUFWUzNnVnVyZkpVUU9TTlpOWnZWTHh2REdsNWlSZDBDY3kySG4zcDdsc0NLcFJ1Qmg4aEFBM0VybXhXMVQveHVLRjU4YjRJUWdPOGUwaEZIdTRDN3l3MHF6MzhKL0MvbmNISGw3QWlmNHhOTm1xclBBZFZPMlZLYitBVXVYNDJXODZYMVdqNTBlWFd5TUVpU2hxWTdJWm1kUDMxVGZabFh0QjRhRkVkZm5kdmdqcmJrQ2wzVjN6ZkFXQ3FLT3lEWVEvRnVjancvY1NZTUp4Zkt4akdBUEpNck1NWDAwSi9FSHNGSkhoZGJoVWoxOXVrOUFBV0RwOUhMVEdpYnNrYkxmRmlXRDNDblptUVp1d1FiN1RBYmRyTmZqdmJ4ckVJUnZ1VkFIdmM4eE1JR1o1NjJjTmd0cTIvQ2Z3djUzQnd1N0FDdXljZHdUSGlUeTVHZnNGdVNFZzJCYnd6ejdsZCt6d0JqcVN1N245SFUzcHNydW5VTjFpL2E3MVhtS2k2anl3cWRPUDJCVVAvRGIveVUydFhPVll0OGZtVnFZTUVMeGhyRnUrVkNSSmduMFFEbUEva2Q3SG5CS1ZpUGF6YStTS1prVlR6KzNRSG1EN1FWdUc4MU0vQ1hJVmI3NHZteExhNlRqZXFDT0lJcFdTa3FldExRaDNaMlRUNFAzaldBMmRqU2MvUXUwRDJ4S1FOU0JuSEVRSUg4bERvczdVOEdSNjQ5dGc5enFoNVdwZGJwWHluSU9OZVZZdGhWUC9EYi9kVTliN2JUZjdOemVmLzB5SE4vRU5IaWNaSzhmWXQ1aFZpQWRkcDBhNHZ3dkE0a05XbnZRaDBteXU5UEJETlQrTUVwWHVHYWpyakUxeDgzMEg4a0xPQmZlRFRCS05lR2x1Z29xTFJIYUEvenJ4cWVtUzhEcTBCdHNPVHBVTkl4cFlJR2R0UENHRytZbm1sVWlpUkZZWitXY2srMjV3ZHo0a2VTb0hOTXlKSlFFTSt2OVlaZ2NxZitGYkNvbTQ0N3JyYUw5cHJ5ckZzdEgvaHQvdXFldDlnazhMNWNJUE13QXMzWFhwMTM0OHo2Z0ZmWWtLWmFQNE9nV1NQS1lFUlI4cVFBYk8ra3VrbDlwL1VPdmg2V2hubWFYcE44Y0JHOGhTSEFnWGJMSkhHeHNtQVArYkNPV25NVGpCWGk4bTduK3o0SHR6RkFwNjlWVDdXSkkxMkRFQXJNQ2FiNHRIWEY2YzdhTGxBR0dnS3YyUTlGM1FqeFc4L2M5Y2ZOOUIvZEE5d0tzTktBZnlDSVorVlFSRkdHUnI1YmhUeEl0Yzdtb2ZhaXRvTDdWMUpEZm01dlJ1ai93Mi8zVlBXK3djNmZGTXNtSGtDVUdEdHlNYnhEVk5SSXBKQThKRUNSU1NCNFJRenNHM0R5U1lnNEMrRmtMSFlwZDk2RHVnVlEvZFJRZ0pGVnNFdkVUTDYrMmkwZGVlamZnelBueXlCTVBJRW9NQ3krenp5aXgvZThVbzI4ZitWY3Z0dWF6RFVON2ovOUN4YUR0VzRvWDlPYWwwQ0FxbUE0N1QxLzdzWGI4Ym1oZ2dHSkJ3Umt6L0YySG4wdSs0L2w0ZlYvQUJnUk9FSlhST0VKV2tkM0VsQXFVVUtmN0ZRTWgyYVNvUHJkOXI4N2JDRmhueUVkRTFPdllpbFA2SkI3SHRjN21vZmF4ckRvajZwQUFkYjhzSVhRclUyOFhLWUgrK3grNEVYdmpOZ051UWpvQjNNNUF0Uk01elJITWpiQUhUYXhRWERUTkFxSG50L3Mxd2YxZkJZUGZxdmxJdlRWNm8rejRjM1VYczJudkpacktpVGZ1ZWljWjMzczZLQXFTS2lEMkYwbzVrdThPdDQyL0dvTjdJd3VENGI0dFNWdWVYemg0QkJXNTVZeG5SNFhNdFNpazZDeDJXZnBaLzFDRE9jbGM2dGc4YXlNQmVJcHFWZEUwY2lhYmlmTTZoRHUzRW5zWDlobTdHL0ROYzZHcXdDUG83ejMrcUpnUk8xTm5ISHgzcnpUaWNDRDltYi9hSzNVQlVQUlNpWUdCODhsV1RNaGNuUklJaC9QZUw1S1pHQ0laZkYwUm1vQWF2OHdQTXhROSttUlhTcENKMmZSWFNwQ0oyYzNJdHMzQ1RnN1BRQ0Q5bXZnQWE0NktjNGNOM2cvZkViei9wNy9DRzZsTm85b3RWclNsWTMzb3dORFJsVlVvUFYyY0FGd3ZxREhudC9ySGxlVlhXMWkwV0I2MzQ0Q0VMdTFURkpTZEw1Rk1oZ1A0NFFrUFEvVVJEaEhCdGpEYXNOalQ4bGtHcVJVc2pHNTI1UDhtMlhSU2hLRE44aTYzZ1E5RktKa0NUbys1c2JvUEcySU5TcGxtZ0h5dGhKbTNEU2tORURXdDhNcjFJYjEzWE56bi84MXlzR1haTlBncncyeW5yNllpcnR1a0RUQm9uelZodjdSRVEydEJ1cENNL1NPd0hjb0kxWWIzMUJobjEzQzFXdEtWamZlakEyOFFDTHhGSHdDR090MkFwa3ZTZjNKSFEwaUMyc3VBNTcrTldsTFZOanVuRmRjRDEzZmEyV0ZzWkIwdjh1ekNaNi9zSUQvOGVEUkZMcXJ2RDV0TWphRDduV0QrUTQzRExFNGJMNEdYUlBGTTJKSm9nbk5MeS9lL2wrUVNRVmNSUW1NeGZOL0J3SkpwM0doMVZYbGN3TVRhUFJTV3NLT3FVSXFJYjh1eXJQRHlneFl4VWh6R3JEZjJpSWh3amcwUE11YkRPWmFleUE5NGdxT3NXeTFXdEtWamZlakEyOFFBWDkrZzlZUEEwQmVsVWc4VXYxTnVxbWVYQTBVam1YYmM1UW9iRENKajlobHNETmZQQkplRkJvQVRkV0IyYmhKd2RNUmsyRWtHcjhJUnErNlhISGF6eDNlQlNxSHlPM3B2NFFINCtxRnZJS0hVbEVyZkhFcVhtUk9WV1ZUZlRaRG5mVlVPMGw5RCt2YzkrK256MmwxQi80aFlnaXZLZVR4eiszUUhtMGgvN3N2N3pGaTFhTk5DdGJXT2VTMy85UWVKcGpHWWNBQlR3UlhNZDFwMGQ2cDNLbU9VaXR6dGlWZ3pFc2xpMDR0ZnY5UjVUdTRCWndaSDN5cGlYZEY3VHlOZGdrOFp4OWJqWWpKaVBQU2laRUlaUzBBdkVodU5XQUpramFRRklFdDBBeStldithN25iVHdqZFRXK0lxYmpuWS9qaUlFRCtXaUVtMEhoSHBWY2dmM1h3SW9ITlhndUg4TEl5dDNXdkVHRG1GTCtuQUJhS2xkNE9QQzhULytWNzRxcFlmcHc1UGpCL1ZvYVdValVjL2FPS3Uxb2VmY0ZhM1hxNi9lVzc3ejVNQmhmTDVmbmdkYm81RnJuME5qZXg4V2hHYWNndi9WZEEwRTNVRGNMdWFKRzg5TXRhOHpoMlVsS1Ruakh6eEZWVHpzZjN2RktOdklBOVF6MTJqKyt4cHBMSXdIMjZOdWxVV2hZKzJzS05OcTRtNXBYM2JjVGMwcjdoa29sWVZueWJSanRzRy9SanRzR0EyWkt0eWFzL3lWaXVwUitkMkFiSkMwbEdkeHJ6ZDNBQUdwV2RWSCtSMmJtR2ZuK0s4RkZJbFhnM0ZSU0lJMXk0ZGdESVI4MHZMOThFMUZ6UEVXcU1nL2ZVS3M3TzBsOUQrdWZ5Z2pRU0NiSlk3c1JTRDEyVXUyaHl4ZW15bks3WGEwak5ES25Nd3VqN3NxL24zUkVVa2dlRXJ5YytQbXJ2UlkyT0lnUVA1ZTFGYTVibWltcDViZnFBSEV2RHhwQURpWGg0bGYzMDhXaWx3c2pXREN4K0p2VlAyNlRzVlhvN2lBQ0VoQ2pKUlJ5dkJaNFBzbFc1TmFYc2FFQUFBcGVxeWVQUTVDWHhtaElUazRMNEpFdyt5dXdoSE95clowSXJNaTBoc25STmhNRkVJY2tlVU9TWHc5SUc1MENreERFcEdGM05FamVqWCtQblFUZFZJUkJpQTdmYkphRVQ0MWdOblkwNjk3eFNqYngvcVBOMHFpMExJZU9JZ1FQNWEwaWtveWp0NWJtdk5WVjdNWWRUalduZVJqOVhwYWgzekVUaUxlaXV6QVNVVGc5Y1FBUWtJVVpLS09WNExQV1J1b3U3amZycE5QS2FBQUQvZ1VxaDhqd0lUdDlqN0lZMittNGRmcmUwcjh0WmRVZ3FLekl0SWJKMFRZVEJSQ0hKSGxEa2w4UFNCdWRBcE1ReEtSaGR6UkkzeGFNOVpYMUZJQ3J3a09IZjQvWmtNSWZPM2tMQUJsU0hzcFJnVTBCV0k0aHFUUGVpS2tubCtWaFJLOWJ2VEVwNko5aEwvVUxQM1FPMndiaWNSYjBWMllDU2ljSHJpQUNFaENqSlJSNDJZMUp5YlJHeHpnRjlWOEFBQUU3VUMwWDZISVMrTTBKQ2NmTUpCSkJWTnlRcFZENUh4enV4bFUzMDJRNTMxVkR0SmZRL3IzUGZ2cDh3MmJpYm1sZmRKd3ZMYzE1UnRzVzZhTExCK0p2VlprVEs3QUVUZVRzVlhvN2lBQ0VoQ2pKUlI0MlkxSnliUkd4emdGOVYrdVJBQUFLWHFzbmowT1FsOFpvU0U0K1lTQ1NDcWJONlBoUEFYM24rQXZPU2xseFg3d3ExN0NyMzF4ekN4b0dEM2xWNzJNRWV1YzVzM0xBZ2hxMTFGSmtTY1JiMGhQbjJLYXlGc1M1cWNIcmlBQ0VoQ2pKUlI0MlkwK3FlTlVFMXBleG9RQUFBQVV2VlpQSG9jaEw0elFrSnljRjhFaVlrd3gzTC9FN1BqdTVvbmpCMnBCYURGbVo5am1YOWU1Nzk5UHVSQURpWGg0dkhYdWFWOXd5VVNzS3o1Tm94MjJEZm94MjJEQWJNbFc1TmsvUXhGcTJMZE5GaXpNMExLb2kxanVOeEVidVh2UUFBQUU3WXFGdzJVZDdxZUhTVTUvUHNQUG9DNlMxTmlEaHJ6MHZNYnBmNTQvMzdBeldWeU9mQVViN0xHQTZmWVhycUUxa1FBYXFKNjRNYytQbGlkUHZ6S2pwblFRV2xlYW15djd4c0FBQUFBQT0iPjwvaW1hZ2U+PC9zdmc+"></head><body><title>BACH Lead Finder</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>.leaflet-image-layer,.leaflet-layer,.leaflet-marker-icon,.leaflet-marker-shadow,.leaflet-pane,.leaflet-pane>canvas,.leaflet-pane>svg,.leaflet-tile,.leaflet-tile-container,.leaflet-zoom-box{position:absolute;left:0;top:0}.leaflet-container{overflow:hidden}.leaflet-marker-icon,.leaflet-marker-shadow,.leaflet-tile{-webkit-user-select:none;-moz-user-select:none;user-select:none;-webkit-user-drag:none}.leaflet-tile::selection{background:0 0}.leaflet-safari .leaflet-tile{image-rendering:-webkit-optimize-contrast}.leaflet-safari .leaflet-tile-container{width:1600px;height:1600px;-webkit-transform-origin:0 0}.leaflet-marker-icon,.leaflet-marker-shadow{display:block}.leaflet-container .leaflet-overlay-pane svg{max-width:none!important;max-height:none!important}.leaflet-container .leaflet-marker-pane img,.leaflet-container .leaflet-shadow-pane img,.leaflet-container .leaflet-tile,.leaflet-container .leaflet-tile-pane img,.leaflet-container img.leaflet-image-layer{max-width:none!important;max-height:none!important;width:auto;padding:0}.leaflet-container img.leaflet-tile{mix-blend-mode:plus-lighter}.leaflet-container.leaflet-touch-zoom{-ms-touch-action:pan-x pan-y;touch-action:pan-x pan-y}.leaflet-container.leaflet-touch-drag{-ms-touch-action:pinch-zoom;touch-action:none;touch-action:pinch-zoom}.leaflet-container.leaflet-touch-drag.leaflet-touch-zoom{-ms-touch-action:none;touch-action:none}.leaflet-container{-webkit-tap-highlight-color:transparent}.leaflet-container a{-webkit-tap-highlight-color:rgba(51,181,229,.4)}.leaflet-tile{filter:inherit;visibility:hidden}.leaflet-tile-loaded{visibility:inherit}.leaflet-zoom-box{width:0;height:0;-moz-box-sizing:border-box;box-sizing:border-box;z-index:800}.leaflet-overlay-pane svg{-moz-user-select:none}.leaflet-pane{z-index:400}.leaflet-tile-pane{z-index:200}.leaflet-overlay-pane{z-index:400}.leaflet-shadow-pane{z-index:500}.leaflet-marker-pane{z-index:600}.leaflet-tooltip-pane{z-index:650}.leaflet-popup-pane{z-index:700}.leaflet-map-pane canvas{z-index:100}.leaflet-map-pane svg{z-index:200}.leaflet-vml-shape{width:1px;height:1px}.lvml{behavior:url(#default#VML);display:inline-block;position:absolute}.leaflet-control{position:relative;z-index:800;pointer-events:visiblePainted;pointer-events:auto}.leaflet-bottom,.leaflet-top{position:absolute;z-index:1000;pointer-events:none}.leaflet-top{top:0}.leaflet-right{right:0}.leaflet-bottom{bottom:0}.leaflet-left{left:0}.leaflet-control{float:left;clear:both}.leaflet-right .leaflet-control{float:right}.leaflet-top .leaflet-control{margin-top:10px}.leaflet-bottom .leaflet-control{margin-bottom:10px}.leaflet-left .leaflet-control{margin-left:10px}.leaflet-right .leaflet-control{margin-right:10px}.leaflet-fade-anim .leaflet-popup{opacity:0;-webkit-transition:opacity .2s linear;-moz-transition:opacity .2s linear;transition:opacity .2s linear}.leaflet-fade-anim .leaflet-map-pane .leaflet-popup{opacity:1}.leaflet-zoom-animated{-webkit-transform-origin:0 0;-ms-transform-origin:0 0;transform-origin:0 0}svg.leaflet-zoom-animated{will-change:transform}.leaflet-zoom-anim .leaflet-zoom-animated{-webkit-transition:-webkit-transform .25s cubic-bezier(0,0,.25,1);-moz-transition:-moz-transform .25s cubic-bezier(0,0,.25,1);transition:transform .25s cubic-bezier(0,0,.25,1)}.leaflet-pan-anim .leaflet-tile,.leaflet-zoom-anim .leaflet-tile{-webkit-transition:none;-moz-transition:none;transition:none}.leaflet-zoom-anim .leaflet-zoom-hide{visibility:hidden}.leaflet-interactive{cursor:pointer}.leaflet-grab{cursor:-webkit-grab;cursor:-moz-grab;cursor:grab}.leaflet-crosshair,.leaflet-crosshair .leaflet-interactive{cursor:crosshair}.leaflet-control,.leaflet-popup-pane{cursor:auto}.leaflet-dragging .leaflet-grab,.leaflet-dragging .leaflet-grab .leaflet-interactive,.leaflet-dragging .leaflet-marker-draggable{cursor:move;cursor:-webkit-grabbing;cursor:-moz-grabbing;cursor:grabbing}.leaflet-image-layer,.leaflet-marker-icon,.leaflet-marker-shadow,.leaflet-pane>svg path,.leaflet-tile-container{pointer-events:none}.leaflet-image-layer.leaflet-interactive,.leaflet-marker-icon.leaflet-interactive,.leaflet-pane>svg path.leaflet-interactive,svg.leaflet-image-layer.leaflet-interactive path{pointer-events:visiblePainted;pointer-events:auto}.leaflet-container{background:#ddd;outline-offset:1px}.leaflet-container a{color:#0078a8}.leaflet-zoom-box{border:2px dotted #38f;background:rgba(255,255,255,.5)}.leaflet-container{font-family:"Helvetica Neue",Arial,Helvetica,sans-serif;font-size:12px;font-size:.75rem;line-height:1.5}.leaflet-bar{box-shadow:0 1px 5px rgba(0,0,0,.65);border-radius:4px}.leaflet-bar a{background-color:#fff;border-bottom:1px solid #ccc;width:26px;height:26px;line-height:26px;display:block;text-align:center;text-decoration:none;color:#000}.leaflet-bar a,.leaflet-control-layers-toggle{background-position:50% 50%;background-repeat:no-repeat;display:block}.leaflet-bar a:focus,.leaflet-bar a:hover{background-color:#f4f4f4}.leaflet-bar a:first-child{border-top-left-radius:4px;border-top-right-radius:4px}.leaflet-bar a:last-child{border-bottom-left-radius:4px;border-bottom-right-radius:4px;border-bottom:none}.leaflet-bar a.leaflet-disabled{cursor:default;background-color:#f4f4f4;color:#bbb}.leaflet-touch .leaflet-bar a{width:30px;height:30px;line-height:30px}.leaflet-touch .leaflet-bar a:first-child{border-top-left-radius:2px;border-top-right-radius:2px}.leaflet-touch .leaflet-bar a:last-child{border-bottom-left-radius:2px;border-bottom-right-radius:2px}.leaflet-control-zoom-in,.leaflet-control-zoom-out{font:bold 18px 'Lucida Console',Monaco,monospace;text-indent:1px}.leaflet-touch .leaflet-control-zoom-in,.leaflet-touch .leaflet-control-zoom-out{font-size:22px}.leaflet-control-layers{box-shadow:0 1px 5px rgba(0,0,0,.4);background:#fff;border-radius:5px}.leaflet-control-layers-toggle{background-image:url(images/layers.png);width:36px;height:36px}.leaflet-retina .leaflet-control-layers-toggle{background-image:url(images/layers-2x.png);background-size:26px 26px}.leaflet-touch .leaflet-control-layers-toggle{width:44px;height:44px}.leaflet-control-layers .leaflet-control-layers-list,.leaflet-control-layers-expanded .leaflet-control-layers-toggle{display:none}.leaflet-control-layers-expanded .leaflet-control-layers-list{display:block;position:relative}.leaflet-control-layers-expanded{padding:6px 10px 6px 6px;color:#333;background:#fff}.leaflet-control-layers-scrollbar{overflow-y:scroll;overflow-x:hidden;padding-right:5px}.leaflet-control-layers-selector{margin-top:2px;position:relative;top:1px}.leaflet-control-layers label{display:block;font-size:13px;font-size:1.08333em}.leaflet-control-layers-separator{height:0;border-top:1px solid #ddd;margin:5px -10px 5px -6px}.leaflet-default-icon-path{background-image:url(images/marker-icon.png)}.leaflet-container .leaflet-control-attribution{background:#fff;background:rgba(255,255,255,.8);margin:0}.leaflet-control-attribution,.leaflet-control-scale-line{padding:0 5px;color:#333;line-height:1.4}.leaflet-control-attribution a{text-decoration:none}.leaflet-control-attribution a:focus,.leaflet-control-attribution a:hover{text-decoration:underline}.leaflet-attribution-flag{display:inline!important;vertical-align:baseline!important;width:1em;height:.6669em}.leaflet-left .leaflet-control-scale{margin-left:5px}.leaflet-bottom .leaflet-control-scale{margin-bottom:5px}.leaflet-control-scale-line{border:2px solid #777;border-top:none;line-height:1.1;padding:2px 5px 1px;white-space:nowrap;-moz-box-sizing:border-box;box-sizing:border-box;background:rgba(255,255,255,.8);text-shadow:1px 1px #fff}.leaflet-control-scale-line:not(:first-child){border-top:2px solid #777;border-bottom:none;margin-top:-2px}.leaflet-control-scale-line:not(:first-child):not(:last-child){border-bottom:2px solid #777}.leaflet-touch .leaflet-bar,.leaflet-touch .leaflet-control-attribution,.leaflet-touch .leaflet-control-layers{box-shadow:none}.leaflet-touch .leaflet-bar,.leaflet-touch .leaflet-control-layers{border:2px solid rgba(0,0,0,.2);background-clip:padding-box}.leaflet-popup{position:absolute;text-align:center;margin-bottom:20px}.leaflet-popup-content-wrapper{padding:1px;text-align:left;border-radius:12px}.leaflet-popup-content{margin:13px 24px 13px 20px;line-height:1.3;font-size:13px;font-size:1.08333em;min-height:1px}.leaflet-popup-content p{margin:17px 0;margin:1.3em 0}.leaflet-popup-tip-container{width:40px;height:20px;position:absolute;left:50%;margin-top:-1px;margin-left:-20px;overflow:hidden;pointer-events:none}.leaflet-popup-tip{width:17px;height:17px;padding:1px;margin:-10px auto 0;pointer-events:auto;-webkit-transform:rotate(45deg);-moz-transform:rotate(45deg);-ms-transform:rotate(45deg);transform:rotate(45deg)}.leaflet-popup-content-wrapper,.leaflet-popup-tip{background:#fff;color:#333;box-shadow:0 3px 14px rgba(0,0,0,.4)}.leaflet-container a.leaflet-popup-close-button{position:absolute;top:0;right:0;border:none;text-align:center;width:24px;height:24px;font:16px/24px Tahoma,Verdana,sans-serif;color:#757575;text-decoration:none;background:0 0}.leaflet-container a.leaflet-popup-close-button:focus,.leaflet-container a.leaflet-popup-close-button:hover{color:#585858}.leaflet-popup-scrolled{overflow:auto}.leaflet-oldie .leaflet-popup-content-wrapper{-ms-zoom:1}.leaflet-oldie .leaflet-popup-tip{width:24px;margin:0 auto}.leaflet-oldie .leaflet-control-layers,.leaflet-oldie .leaflet-control-zoom,.leaflet-oldie .leaflet-popup-content-wrapper,.leaflet-oldie .leaflet-popup-tip{border:1px solid #999}.leaflet-div-icon{background:#fff;border:1px solid #666}.leaflet-tooltip{position:absolute;padding:6px;background-color:#fff;border:1px solid #fff;border-radius:3px;color:#222;white-space:nowrap;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;pointer-events:none;box-shadow:0 1px 3px rgba(0,0,0,.4)}.leaflet-tooltip.leaflet-interactive{cursor:pointer;pointer-events:auto}.leaflet-tooltip-bottom:before,.leaflet-tooltip-left:before,.leaflet-tooltip-right:before,.leaflet-tooltip-top:before{position:absolute;pointer-events:none;border:6px solid transparent;background:0 0;content:""}.leaflet-tooltip-bottom{margin-top:6px}.leaflet-tooltip-top{margin-top:-6px}.leaflet-tooltip-bottom:before,.leaflet-tooltip-top:before{left:50%;margin-left:-6px}.leaflet-tooltip-top:before{bottom:0;margin-bottom:-12px;border-top-color:#fff}.leaflet-tooltip-bottom:before{top:0;margin-top:-12px;margin-left:-6px;border-bottom-color:#fff}.leaflet-tooltip-left{margin-left:-6px}.leaflet-tooltip-right{margin-left:6px}.leaflet-tooltip-left:before,.leaflet-tooltip-right:before{top:50%;margin-top:-6px}.leaflet-tooltip-left:before{right:0;margin-right:-12px;border-left-color:#fff}.leaflet-tooltip-right:before{left:0;margin-left:-12px;border-right-color:#fff}@media print{.leaflet-control{-webkit-print-color-adjust:exact;print-color-adjust:exact}}</style>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+<style>
+/* Layout: brand bar, overview figures, hearing agenda, filters, then list | map + detail.
+   BACH Development brand: orange #FF8300, charcoal #51534A, slate #7B868C; Outfit + Inter */
+:root{
+  --ground:#f5f4f1; --surface:#ffffff; --sunk:#efeeea; --line:#e3e1dc; --line-strong:#d2cfc8;
+  --ink:#24251f; --ink-2:#51534a; --mute:#6f7579;
+  --orange:#ff8300; --orange-ink:#b85a00; --orange-wash:#fff1e3; --on-orange:#1f1300;
+  --heard:#51534a; --vacant:#9aa3a8; --ok:#2f9e5b; --preapp:#b85a00;
+  --map-land:#fbfaf8; --map-city:#f1efea; --map-road:#bdb6a8; --map-edge:#bdb8ad; --map-out:#e9e7e2; --map-out-edge:#d6d2ca; --map-hwy:#f2b36b; --map-major:#d8cfbf; --map-label:#3e4038; --map-halo:#fbfaf8;
+  --logo-ink:#51534a; --logo-sub:#7b868c;
+  --gut:max(24px, env(safe-area-inset-left, 0px)); --gut-r:max(24px, env(safe-area-inset-right, 0px));
+  --ease:cubic-bezier(.23,1,.32,1);
+  --display:Outfit, Inter, system-ui, sans-serif; --text:Inter, system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --ground:#121311; --surface:#1a1b19; --sunk:#222320; --line:#2c2e2a; --line-strong:#3a3c37;
+  --ink:#ecebe7; --ink-2:#c4c3bd; --mute:#9a9f9c;
+  --orange:#ff8f1a; --orange-ink:#ffaa55; --orange-wash:#2e2012; --on-orange:#1f1300;
+  --heard:#c4c3bd; --vacant:#6f777b; --ok:#4cc27e; --preapp:#ffc27a;
+  --map-land:#1d1e1b; --map-city:#242522; --map-road:#55574f; --map-edge:#4a4c46; --map-out:#161715; --map-out-edge:#2c2e2a; --map-hwy:#8a5a22; --map-major:#4a4a42; --map-label:#d8d6cf; --map-halo:#1d1e1b;
+  --logo-ink:#ecebe7; --logo-sub:#9aa3a8; color-scheme:dark;}}
+:root[data-theme="dark"]{
+  --ground:#121311; --surface:#1a1b19; --sunk:#222320; --line:#2c2e2a; --line-strong:#3a3c37;
+  --ink:#ecebe7; --ink-2:#c4c3bd; --mute:#9a9f9c;
+  --orange:#ff8f1a; --orange-ink:#ffaa55; --orange-wash:#2e2012; --on-orange:#1f1300;
+  --heard:#c4c3bd; --vacant:#6f777b; --ok:#4cc27e; --preapp:#ffc27a;
+  --map-land:#1d1e1b; --map-city:#242522; --map-road:#55574f; --map-edge:#4a4c46; --map-out:#161715; --map-out-edge:#2c2e2a; --map-hwy:#8a5a22; --map-major:#4a4a42; --map-label:#d8d6cf; --map-halo:#1d1e1b;
+  --logo-ink:#ecebe7; --logo-sub:#9aa3a8; color-scheme:dark;}
+
+*{box-sizing:border-box}
+body{margin:0;background:var(--ground);color:var(--ink);font:14px/1.5 var(--text);-webkit-font-smoothing:antialiased}
+::selection{background:var(--orange);color:var(--on-orange)}
+:focus-visible{outline:2px solid var(--orange);outline-offset:2px;border-radius:4px}
+*{scrollbar-width:thin;scrollbar-color:var(--line-strong) transparent}
+.num{font-variant-numeric:tabular-nums}
+h1,h2,h3{font-family:var(--display);text-wrap:balance}
+.pad{padding-left:var(--gut);padding-right:var(--gut-r)}
+
+/* shell */
+.bar{display:flex;align-items:center;gap:20px;padding-block:12px;background:var(--surface);border-bottom:1px solid var(--line);
+  position:sticky;top:env(safe-area-inset-top,0px);z-index:1000}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:1001;background:var(--surface)}
+.bar .logo{height:30px;width:auto;display:block}
+.bar .divider{width:1px;height:24px;background:var(--line)}
+.bar h1{font-size:17px;font-weight:600;margin:0;letter-spacing:-.01em;white-space:nowrap}
+.sync{white-space:nowrap}
+@media (max-width:1100px){.bar .scope{display:none}}
+.bar .scope{color:var(--mute);font-size:13px}
+.bar .grow{flex:1}
+.sync{display:inline-flex;align-items:center;gap:7px;font-size:12.5px;color:var(--mute)}
+.sync i{width:7px;height:7px;border-radius:50%;background:var(--vacant)}
+.sync[data-state="live"] i{background:var(--ok)}
+.sync[data-state="local"] i{background:var(--orange)}
+.iconbtn{display:inline-grid;place-items:center;width:34px;height:34px;padding:0;border-radius:8px}
+
+/* controls */
+input,select,button,textarea{font:inherit;color:inherit;background:var(--surface);border:1px solid var(--line-strong);
+  border-radius:8px;padding:7px 10px;transition:border-color 120ms ease,background-color 120ms ease,transform 140ms var(--ease)}
+button{cursor:pointer}
+button:active:not(:disabled){transform:scale(.97)}
+button:disabled,textarea:disabled{opacity:.55;cursor:not-allowed}
+@media (hover:hover){button:hover:not(:disabled),select:hover,input:hover{border-color:var(--mute)}}
+input[type=checkbox]{accent-color:var(--orange);width:16px;height:16px;margin:0}
+.btn-primary{background:var(--orange);border-color:var(--orange);color:var(--on-orange);font-weight:600}
+@media (hover:hover){.btn-primary:hover:not(:disabled){border-color:var(--orange-ink)}}
+.seg{display:inline-flex;background:var(--sunk);border-radius:9px;padding:3px;gap:2px}
+.seg button{border:0;background:transparent;padding:5px 11px;border-radius:7px;color:var(--mute);display:inline-flex;align-items:center;gap:7px}
+.seg button[aria-pressed="true"]{background:var(--surface);color:var(--ink);box-shadow:0 1px 2px rgba(0,0,0,.08)}
+.dot{width:8px;height:8px;border-radius:50%;flex:none;display:inline-block}
+.search{position:relative;flex:1 1 220px;min-width:180px;max-width:340px}
+.search svg{position:absolute;left:10px;top:50%;transform:translateY(-50%);color:var(--mute)}
+.search input{width:100%;padding-left:32px}
+label.inline{display:inline-flex;align-items:center;gap:7px;color:var(--ink-2);font-size:13px}
+label.inline input[type=number]{width:62px}
+.chip{display:inline-flex;align-items:center;gap:6px;background:var(--orange-wash);color:var(--orange-ink);border:1px solid transparent;
+  border-radius:99px;padding:4px 6px 4px 11px;font-size:13px;font-weight:500}
+.chip button{border:0;background:transparent;padding:0 4px;color:inherit;line-height:1}
+
+/* overview */
+.figs{display:flex;gap:40px;padding-block:20px 6px;flex-wrap:wrap}
+.fig b{display:block;font-family:var(--display);font-size:30px;font-weight:600;line-height:1.1;letter-spacing:-.02em}
+.fig span{color:var(--mute);font-size:12.5px}
+.fig.lead b{color:var(--orange-ink)}
+
+/* hearing agenda */
+.agenda{padding-block:14px 4px}
+.agenda-head{display:flex;align-items:baseline;flex-wrap:wrap;gap:4px 12px;margin-bottom:10px}
+.agenda-head h2{font-size:16px;font-weight:600;margin:0}
+.agenda-head p{margin:0;color:var(--mute);font-size:13px}
+.days{display:grid;grid-auto-flow:column;grid-auto-columns:minmax(240px,1fr);gap:12px;overflow-x:auto;padding-bottom:6px}
+.day{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:12px 12px 8px;min-width:0;display:flex;flex-direction:column}
+.day header{display:flex;justify-content:space-between;align-items:baseline;gap:8px;padding-bottom:8px;border-bottom:1px solid var(--line)}
+.day header b{font-family:var(--display);font-size:15px;font-weight:600}
+.day header span{font-size:12px;color:var(--mute);white-space:nowrap}
+.day.soon header span{color:var(--orange-ink);font-weight:600}
+.day ul{list-style:none;margin:0;padding:0}
+.day li button{all:unset;box-sizing:border-box;display:grid;grid-template-columns:1fr auto;gap:2px 10px;width:100%;padding:8px 6px;
+  border-radius:6px;cursor:pointer;transition:background-color 100ms ease}
+.day li + li button{border-top:1px solid var(--line)}
+@media (hover:hover){.day li button:hover{background:var(--sunk)}}
+.day li button:focus-visible{outline:2px solid var(--orange);outline-offset:-2px}
+.day li button[aria-current="true"]{background:var(--orange-wash)}
+.day .who{font-weight:500;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.day .what{grid-column:1;font-size:12px;color:var(--mute);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.day .sc{grid-row:1/3;grid-column:2;align-self:center;font-family:var(--display);font-weight:600}
+.day .sc.hot{color:var(--orange-ink)}
+.day .more{margin-top:auto;padding-top:6px}
+.day .more button{width:100%;border:0;background:transparent;color:var(--orange-ink);font-weight:500;font-size:13px;padding:6px}
+.agenda .none{color:var(--mute);background:var(--surface);border:1px dashed var(--line-strong);border-radius:10px;padding:16px}
+
+.filters{display:flex;flex-wrap:wrap;gap:10px;align-items:center;padding-block:16px 14px}
+#export{margin-left:auto}
+
+/* workspace */
+.work{display:grid;grid-template-columns:minmax(0,1.4fr) minmax(360px,1fr);gap:16px;padding-bottom:24px;height:max(600px, calc(100vh - 140px))}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:10px;overflow:hidden;display:flex;flex-direction:column;min-height:0;min-width:0}
+.tablewrap{overflow:auto;flex:1}
+table{border-collapse:collapse;width:100%}
+th{position:sticky;top:0;z-index:1;background:var(--surface);text-align:left;font-weight:500;font-size:12.5px;color:var(--mute);
+  padding:10px 12px;border-bottom:1px solid var(--line-strong);white-space:nowrap;user-select:none}
+th button{all:unset;cursor:pointer}
+th button:focus-visible{outline:2px solid var(--orange);outline-offset:2px}
+th[aria-sort] button[data-k]{color:var(--ink)}
+th .info{display:inline-grid;place-items:center;width:18px;height:18px;margin-left:3px;vertical-align:-4px;border-radius:50%;color:var(--mute);
+  transition:color 120ms ease,background-color 120ms ease}
+@media (hover:hover){th .info:hover{color:var(--orange-ink);background:var(--orange-wash)}}
+th .info[aria-expanded="true"]{color:var(--orange-ink);background:var(--orange-wash)}
+.tip{position:fixed;z-index:2000;width:min(340px, calc(100vw - 32px));background:var(--surface);color:var(--ink);border:1px solid var(--line-strong);
+  border-radius:10px;padding:12px 14px;box-shadow:0 10px 30px rgba(0,0,0,.16);font-size:13px;line-height:1.5;white-space:normal;
+  transform-origin:top left;animation:tipin 140ms var(--ease)}
+@keyframes tipin{from{opacity:0;transform:scale(.97)}}
+.tip h4{margin:0 0 4px;font:600 14px var(--display)}
+.tip p{margin:0 0 8px;color:var(--ink-2)}
+.tip ul{margin:0;padding:0;list-style:none;display:grid;gap:3px}
+.tip li{display:grid;grid-template-columns:44px 1fr;gap:8px}
+.tip li b{font-variant-numeric:tabular-nums;text-align:right;font-weight:600}
+.tip li b.up{color:var(--ok)}
+.tip li b.down{color:#c4402f}
+.tip .foot{margin-top:8px;color:var(--mute);font-size:12px}
+th.r,td.r{text-align:right}
+td{padding:10px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+tr.row{cursor:pointer;transition:background-color 100ms ease}
+@media (hover:hover){tr.row:hover{background:var(--sunk)}}
+tr.row.sel{background:var(--orange-wash)}
+tr.row.sel td:first-child{box-shadow:inset 2px 0 0 var(--orange)}
+.score{font-family:var(--display);font-weight:600;font-size:16px}
+.score.hot{color:var(--orange-ink)}
+.stage{display:inline-flex;align-items:center;gap:7px;font-weight:500}
+.sub{color:var(--mute);font-size:12.5px}
+.status{font-size:12px;color:var(--ink-2);white-space:nowrap}
+.status.active{color:var(--orange-ink);font-weight:600}
+.show-sm{display:none}
+.empty{padding:48px 24px;text-align:center;color:var(--mute)}
+.empty strong{display:block;color:var(--ink);font-size:15px;margin-bottom:4px}
+
+#map{flex:1 1 58%;min-height:340px;background:var(--ground)}
+.mlabel{white-space:nowrap;pointer-events:none}
+.mlabel span{display:inline-block;transform:translate(-50%,-50%);font:500 11px/1.1 var(--text);color:var(--map-label);
+  text-shadow:0 0 2px var(--map-halo),0 0 2px var(--map-halo),0 0 3px var(--map-halo),0 0 4px var(--map-halo)}
+.mlabel.city span{font-weight:600;font-size:12px}
+.mlabel.big span{font-size:13.5px;font-weight:700}
+.mlabel.hood span{font-size:10.5px;letter-spacing:.04em;text-transform:uppercase;color:var(--mute)}
+.mlabel.street span{font-size:10.5px;color:var(--ink-2)}
+.mlabel.hwy span{font-size:10.5px;font-weight:700;color:var(--orange-ink)}
+.map-bar{display:flex;align-items:center;gap:12px;padding:8px 10px;border-bottom:1px solid var(--line)}
+.map-bar .seg button{padding:4px 12px;font-size:13px}
+.cov-sum{font-size:13px}
+.cov-sum h3{margin:0 0 4px;font-size:15px}
+.cov-sum p{margin:0 0 10px;color:var(--mute)}
+.cov-sum table{width:100%;border-collapse:collapse}
+.cov-sum td,.cov-sum th{padding:5px 6px;border-bottom:1px solid var(--line);text-align:left;font-weight:400}
+.cov-sum th{color:var(--mute);font-size:12px;position:static}
+.cov-sum td.r,.cov-sum th.r{text-align:right}
+.cov-bar{height:6px;background:var(--line);border-radius:3px;overflow:hidden;min-width:60px}
+.cov-bar i{display:block;height:100%;background:var(--ok)}
+.k-sq{width:10px;height:10px;border-radius:2px;display:inline-block}
+.map-key{display:flex;flex-wrap:wrap;gap:4px 16px;padding:6px 12px;font-size:12px;color:var(--mute);border-top:1px solid var(--line)}
+.map-key span{display:inline-flex;align-items:center;gap:6px}
+.k-dot{width:10px;height:10px;border-radius:50%;background:var(--orange);display:inline-block}
+.k-dot.k-approx{background:transparent;border:1.5px dashed var(--orange)}
+.leaflet-container{font:inherit;background:var(--ground)}
+.leaflet-tooltip{font:12.5px var(--text);border-radius:6px;border:1px solid var(--line);background:var(--surface);color:var(--ink);box-shadow:0 4px 12px rgba(0,0,0,.12)}
+.leaflet-tooltip.city{background:transparent;border:0;box-shadow:none;color:var(--mute);font-weight:500;font-size:12px;letter-spacing:.02em}
+.leaflet-tooltip.city::before{display:none}
+.leaflet-bar a{background:var(--surface);color:var(--ink);border-color:var(--line)!important}
+.leaflet-control-attribution{background:transparent!important;color:var(--mute)!important}
+
+.detail{flex:1 1 42%;border-top:1px solid var(--line);padding:16px 18px;overflow:auto}
+.detail.enter{animation:in 180ms var(--ease)}
+@keyframes in{from{opacity:0;transform:translateY(4px)}}
+.detail h2{margin:0;font-size:19px;font-weight:600;letter-spacing:-.01em;line-height:1.25}
+.detail .meta{display:flex;flex-wrap:wrap;gap:6px 14px;margin:6px 0 14px;font-size:13px;color:var(--mute)}
+.detail .meta b{color:var(--orange-ink);font-family:var(--display);font-size:15px}
+.kv{display:grid;grid-template-columns:96px 1fr;gap:6px 14px;font-size:13.5px;margin:0}
+.kv dt{color:var(--mute)}
+.kv dd{margin:0;min-width:0;overflow-wrap:anywhere}
+.why{margin:14px 0 0;padding:10px 12px;background:var(--sunk);border-radius:8px;font-size:13px;color:var(--ink-2)}
+.breakdown{margin:14px 0 0;padding:12px 14px;background:var(--sunk);border-radius:8px;font-size:13px}
+.breakdown h3{margin:0 0 6px;font-size:13px;font-weight:600}
+.breakdown ul{margin:0;padding:0;list-style:none;display:grid;gap:2px}
+.breakdown li{display:grid;grid-template-columns:40px 1fr;gap:8px;color:var(--ink-2)}
+.breakdown li b{text-align:right;font-weight:600}
+.breakdown b.up{color:var(--ok)}
+.breakdown b.down{color:#c4402f}
+.breakdown .total{display:flex;justify-content:space-between;gap:8px;margin-top:6px;padding-top:6px;border-top:1px solid var(--line-strong);font-weight:600}
+.breakdown .total b{white-space:nowrap}
+.breakdown .total small{font-weight:400;color:var(--mute)}
+.breakdown .cat{padding:8px 0;border-top:1px solid var(--line)}
+.breakdown .cat:first-of-type{border-top:0;padding-top:2px}
+.breakdown .cat-head{display:flex;justify-content:space-between;align-items:baseline;font-weight:600;color:var(--ink)}
+.breakdown .cat-head small{font-weight:400;color:var(--mute)}
+.breakdown .meter{height:4px;background:var(--line);border-radius:2px;margin:5px 0 6px;overflow:hidden}
+.breakdown .meter i{display:block;height:100%;background:var(--orange);border-radius:2px}
+.breakdown .none{margin:0;color:var(--mute);font-size:12.5px}
+.tip .cat-title{margin:10px 0 4px;font-weight:600;color:var(--ink)}
+.tip .cat-title span{font-weight:400;color:var(--mute)}
+.links{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+.links a{display:inline-flex;align-items:center;gap:6px;color:var(--ink);text-decoration:none;font-size:13px;font-weight:500;
+  border:1px solid var(--line-strong);border-radius:8px;padding:6px 10px;transition:border-color 120ms ease}
+@media (hover:hover){.links a:hover{border-color:var(--orange)}}
+.track{margin-top:16px;padding-top:14px;border-top:1px solid var(--line)}
+.track-head{display:flex;justify-content:space-between;align-items:baseline;gap:10px;margin-bottom:8px}
+.track h3{font-size:14px;margin:0;font-weight:600}
+.track .seg{flex-wrap:wrap}
+.track textarea{width:100%;margin-top:10px;min-height:72px;resize:vertical}
+.saved{font-size:12px;color:var(--mute);margin-top:4px;min-height:18px}
+.placeholder{color:var(--mute);display:grid;place-items:center;height:100%;text-align:center;padding:20px}
+
+@media (max-width:1000px){
+  .work{grid-template-columns:1fr;height:auto}
+  .tablewrap{max-height:65vh}
+  #map{height:320px;flex:none}
+}
+@media (max-width:640px){
+  :root{--gut:max(16px, env(safe-area-inset-left, 0px));--gut-r:max(16px, env(safe-area-inset-right, 0px))}
+  .bar .scope,.bar .divider,.sync span{display:none}
+  .figs{gap:22px}
+  .fig b{font-size:24px}
+  .days{grid-auto-columns:minmax(78%,1fr)}
+  .hide-sm{display:none}
+  .show-sm{display:inline}
+  td,th{padding:9px 8px}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+</style>
+
+<header class="bar pad">
+  <a href="https://bach-development.com" target="_blank" rel="noopener"><svg class="logo" role="img" aria-label="BACH Development" width="300" height="72" viewBox="0 0 300 72" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g clip-path="url(#clip0_44403_14542)">
+<path fill-rule="evenodd" clip-rule="evenodd" d="M52.2762 14.414C49.1021 14.3854 47.2965 16.1934 45.3189 18.0586C41.9585 14.707 38.6196 11.3768 35.1804 7.94661C31.4546 11.6627 27.8649 15.243 24.1964 18.9019C25.7512 20.4526 27.2845 21.9819 28.9397 23.6327C29.9643 22.6108 30.996 21.5817 32.3001 20.2811C32.4219 24.7547 32.5294 28.8423 32.644 33.0944C28.5313 32.8871 24.569 32.6799 20.1338 32.4512C21.5669 31.0219 22.7276 29.8642 23.9743 28.6208C21.7818 26.434 19.7971 24.4474 17.8052 22.4678C15.4766 20.1453 15.4622 17.8228 17.7694 15.5217C22.4123 10.8909 27.1412 6.3387 31.6624 1.59358C33.8621 -0.71467 37.4947 -0.250162 39.157 1.37919C43.456 5.58834 47.6906 9.86182 52.2619 14.4211L52.2762 14.414Z" fill="#EE7623"/>
+<path fill-rule="evenodd" clip-rule="evenodd" d="M47.0161 51.9748C45.447 50.4098 43.9137 48.8805 42.3087 47.2797C41.2411 48.3445 40.2308 49.3521 38.8981 50.6814C38.7835 46.1792 38.676 42.0629 38.5614 37.8109C42.6884 38.0253 46.6507 38.2254 51.0357 38.4541C49.6528 39.8333 48.5208 40.9624 47.2239 42.2559C47.7541 42.7847 48.1124 43.142 48.4778 43.5065C50.269 45.2931 52.089 47.051 53.8301 48.8733C55.6213 50.7528 55.5855 53.1468 53.7727 54.9691C48.8647 59.8929 43.9423 64.7952 39.0128 69.6976C37.3361 71.3627 34.0474 71.4413 32.2275 69.669C27.8711 65.4384 23.6223 61.0935 19.3376 56.7914C19.3161 56.77 19.3447 56.7057 19.3734 56.5127C22.1391 56.5056 23.9734 54.669 25.8793 52.7752C29.2826 56.1697 32.6072 59.4856 36.0464 62.9158C39.7293 59.2426 43.319 55.6623 47.0233 51.9677L47.0161 51.9748Z" fill="#EE7623"/>
+<path fill-rule="evenodd" clip-rule="evenodd" d="M56.6975 52.0178C56.719 48.8877 54.8776 47.1011 53.0218 45.1502C56.4396 41.7414 59.7856 38.4041 63.1962 35.0025C59.4704 31.2864 55.8735 27.699 52.205 24.0401C50.6287 25.6123 49.1026 27.1344 47.4546 28.7781C48.5079 29.8286 49.5181 30.8362 50.8508 32.1654C46.3225 32.2869 42.2241 32.4012 37.9824 32.5156C38.1902 28.4351 38.3908 24.4403 38.6129 20.0382C40.0101 21.4317 41.1494 22.568 42.4176 23.8329C44.4739 21.7819 46.3727 19.8524 48.3144 17.9729C48.9306 17.3726 49.6256 16.7938 50.3851 16.4079C52.0259 15.5861 53.767 15.9005 55.0782 17.2011C60.0436 22.1249 65.0018 27.063 69.9385 32.0225C71.6079 33.6947 71.7871 36.8176 70.0101 38.6685C65.7541 43.1135 61.3261 47.3941 56.6975 52.0106V52.0178Z" style="fill:var(--logo-sub)"/>
+<path fill-rule="evenodd" clip-rule="evenodd" d="M14.4877 18.8519C14.5307 22.0106 16.279 23.84 18.1849 25.6981C14.7958 29.0782 11.4713 32.3941 8.03204 35.8243C11.7077 39.4904 15.2902 43.0635 19.145 46.9082C20.5279 45.5361 22.0039 44.0997 23.4082 42.599C23.5515 42.4418 23.3867 41.7843 23.1646 41.5342C22.3764 40.6409 21.4951 39.8334 20.4061 38.74C24.8484 38.6185 28.9396 38.5113 33.2386 38.3898C33.0237 42.4918 32.8231 46.4651 32.5938 50.8887C31.4617 49.7596 30.5661 48.9663 29.7994 48.073C29.0829 47.2441 28.5455 47.2512 27.8004 48.0373C26.2312 49.6953 24.5976 51.2889 22.9711 52.8968C20.2198 55.6195 18.0559 55.6267 15.3475 52.9325C10.8049 48.4018 6.34109 43.7924 1.69099 39.3832C-0.637651 37.1821 -0.322389 33.7948 1.23959 32.1511C5.44546 27.7205 9.85196 23.4827 14.4949 18.8519H14.4877Z" style="fill:var(--logo-sub)"/>
+<path d="M37.0868 36.9606C36.2413 37.8038 34.88 37.8038 34.0345 36.9606C33.189 36.1173 33.189 34.7595 34.0345 33.9163C34.88 33.073 36.2413 33.073 37.0868 33.9163C37.9323 34.7595 37.9323 36.1173 37.0868 36.9606Z" style="fill:var(--logo-ink)"/>
+<path fill-rule="evenodd" clip-rule="evenodd" d="M52.2762 14.414C49.1021 14.3854 47.2965 16.1934 45.3189 18.0586C41.9585 14.707 38.6196 11.3768 35.1804 7.94661C31.4546 11.6627 27.8649 15.243 24.1964 18.9019C25.7512 20.4526 27.2845 21.9819 28.9397 23.6327C29.9643 22.6108 30.996 21.5817 32.3001 20.2811C32.4219 24.7547 32.5294 28.8423 32.644 33.0944C28.5313 32.8871 24.569 32.6799 20.1338 32.4512C21.5669 31.0219 22.7276 29.8642 23.9743 28.6208C21.7818 26.434 19.7971 24.4474 17.8052 22.4678C15.4766 20.1453 15.4622 17.8228 17.7694 15.5217C22.4123 10.8909 27.1412 6.3387 31.6624 1.59358C33.8621 -0.71467 37.4947 -0.250162 39.157 1.37919C43.456 5.58834 47.6906 9.86182 52.2619 14.4211L52.2762 14.414Z" fill="#FF8300"/>
+<path fill-rule="evenodd" clip-rule="evenodd" d="M47.0161 51.9748C45.447 50.4098 43.9137 48.8805 42.3087 47.2797C41.2411 48.3445 40.2308 49.3521 38.8981 50.6814C38.7835 46.1792 38.676 42.0629 38.5614 37.8109C42.6884 38.0253 46.6507 38.2254 51.0357 38.4541C49.6528 39.8333 48.5208 40.9624 47.2239 42.2559C47.7541 42.7847 48.1124 43.142 48.4778 43.5065C50.269 45.2931 52.089 47.051 53.8301 48.8733C55.6213 50.7528 55.5855 53.1468 53.7727 54.9691C48.8647 59.8929 43.9423 64.7952 39.0128 69.6976C37.3361 71.3627 34.0474 71.4413 32.2275 69.669C27.8711 65.4384 23.6223 61.0935 19.3376 56.7914C19.3161 56.77 19.3447 56.7057 19.3734 56.5127C22.1391 56.5056 23.9734 54.669 25.8793 52.7752C29.2826 56.1697 32.6072 59.4856 36.0464 62.9158C39.7293 59.2426 43.319 55.6623 47.0233 51.9677L47.0161 51.9748Z" fill="#FF8300"/>
+<path fill-rule="evenodd" clip-rule="evenodd" d="M56.6975 52.0178C56.719 48.8877 54.8776 47.1011 53.0218 45.1502C56.4396 41.7414 59.7856 38.4041 63.1962 35.0025C59.4704 31.2864 55.8735 27.699 52.205 24.0401C50.6287 25.6123 49.1026 27.1344 47.4546 28.7781C48.5079 29.8286 49.5181 30.8362 50.8508 32.1654C46.3225 32.2869 42.2241 32.4012 37.9824 32.5156C38.1902 28.4351 38.3908 24.4403 38.6129 20.0382C40.0101 21.4317 41.1494 22.568 42.4176 23.8329C44.4739 21.7819 46.3727 19.8524 48.3144 17.9729C48.9306 17.3726 49.6256 16.7938 50.3851 16.4079C52.0259 15.5861 53.767 15.9005 55.0782 17.2011C60.0436 22.1249 65.0018 27.063 69.9385 32.0225C71.6079 33.6947 71.7871 36.8176 70.0101 38.6685C65.7541 43.1135 61.3261 47.3941 56.6975 52.0106V52.0178Z" style="fill:var(--logo-sub)"/>
+<path fill-rule="evenodd" clip-rule="evenodd" d="M14.4877 18.8519C14.5307 22.0106 16.279 23.84 18.1849 25.6981C14.7958 29.0782 11.4713 32.3941 8.03204 35.8243C11.7077 39.4904 15.2902 43.0635 19.145 46.9082C20.5279 45.5361 22.0039 44.0997 23.4082 42.599C23.5515 42.4418 23.3867 41.7843 23.1646 41.5342C22.3764 40.6409 21.4951 39.8334 20.4061 38.74C24.8484 38.6185 28.9396 38.5113 33.2386 38.3898C33.0237 42.4918 32.8231 46.4651 32.5938 50.8887C31.4617 49.7596 30.5661 48.9663 29.7994 48.073C29.0829 47.2441 28.5455 47.2512 27.8004 48.0373C26.2312 49.6953 24.5976 51.2889 22.9711 52.8968C20.2198 55.6195 18.0559 55.6267 15.3475 52.9325C10.8049 48.4018 6.34109 43.7924 1.69099 39.3832C-0.637651 37.1821 -0.322389 33.7948 1.23959 32.1511C5.44546 27.7205 9.85196 23.4827 14.4949 18.8519H14.4877Z" style="fill:var(--logo-sub)"/>
+<path d="M37.0868 36.9606C36.2413 37.8038 34.88 37.8038 34.0345 36.9606C33.189 36.1173 33.189 34.7595 34.0345 33.9163C34.88 33.073 36.2413 33.073 37.0868 33.9163C37.9323 34.7595 37.9323 36.1173 37.0868 36.9606Z" style="fill:var(--logo-sub)"/>
+<path d="M72.5326 61.9796H76.8817C79.4898 61.9796 80.844 63.6447 80.844 66.446C80.844 68.9615 79.5256 70.9125 77.0179 70.9125H72.5254V61.9796H72.5326ZM73.464 70.062H76.8531C78.458 70.062 79.8481 69.1831 79.8481 66.446C79.8481 64.0806 78.9166 62.83 76.8531 62.83H73.464V70.062Z" style="fill:var(--logo-sub)"/>
+<path d="M95.1445 61.9796H102.267V62.83H96.0688V65.86H102.037V66.7104H96.0688V70.062H102.367V70.9125H95.1445V61.9796Z" style="fill:var(--logo-sub)"/>
+<path d="M123.232 61.9796H124.235L120.273 70.9125H119.27L115.271 61.9796H116.346L119.807 69.8548L123.232 61.9796Z" style="fill:var(--logo-sub)"/>
+<path d="M137.727 61.9796H144.849V62.83H138.651V65.86H144.619V66.7104H138.651V70.062H144.949V70.9125H137.727V61.9796Z" style="fill:var(--logo-sub)"/>
+<path d="M158.871 61.9796H159.795V70.062H165.477V70.9125H158.871V61.9796Z" style="fill:var(--logo-sub)"/>
+<path d="M183.519 61.7581C186.063 61.7581 188.384 63.2945 188.384 66.446C188.384 69.5975 186.063 71.134 183.519 71.134C180.976 71.134 178.654 69.5975 178.654 66.446C178.654 63.2945 180.976 61.7581 183.519 61.7581ZM183.519 70.2836C185.49 70.2836 187.381 69.133 187.381 66.446C187.381 63.759 185.49 62.6085 183.519 62.6085C181.549 62.6085 179.657 63.759 179.657 66.446C179.657 69.133 181.549 70.2836 183.519 70.2836Z" style="fill:var(--logo-sub)"/>
+<path d="M202.543 61.9796H207.372C208.755 61.9796 210.066 62.6656 210.066 64.5522C210.066 66.2387 208.949 67.1535 206.957 67.1535H203.467V70.9053H202.543V61.9724V61.9796ZM203.467 66.3102H207.057C208.612 66.3102 209.063 65.5956 209.063 64.5594C209.063 63.223 208.311 62.83 207.243 62.83H203.467V66.3102Z" style="fill:var(--logo-sub)"/>
+<path d="M233.251 61.9796H234.569V70.9125H233.645V63.1945H233.616L229.668 70.9125H228.816L224.875 63.1802H224.846V70.9125H223.922V61.9796H225.276L229.267 69.7476L233.258 61.9796H233.251Z" style="fill:var(--logo-sub)"/>
+<path d="M249.078 61.9796H256.2V62.83H250.002V65.86H255.971V66.7104H250.002V70.062H256.3V70.9125H249.078V61.9796Z" style="fill:var(--logo-sub)"/>
+<path d="M270.216 61.9796H271.334L277.589 69.6118H277.61V61.9796H278.535V70.9125H277.46L271.162 63.2802H271.133V70.9125H270.209V61.9796H270.216Z" style="fill:var(--logo-sub)"/>
+<path d="M295.558 62.83H292.047V61.9796H300V62.83H296.489V70.9125H295.565V62.83H295.558Z" style="fill:var(--logo-sub)"/>
+<path d="M92.394 40.3265L86.5545 33.6661L86.4256 53.054H72.5254V19.3807H124.644C125.282 19.3807 125.869 19.5594 126.392 19.9239C126.915 20.2812 127.367 20.7457 127.746 21.3031C128.126 21.8605 128.427 22.4751 128.649 23.1325C128.871 23.79 128.979 24.426 128.979 25.0263V47.7157C128.979 48.2374 128.9 48.8091 128.735 49.4237C128.577 50.0454 128.312 50.6242 127.954 51.1674C127.596 51.7105 127.109 52.1607 126.507 52.518C125.905 52.8753 125.16 53.0611 124.278 53.0611H85.881L85.795 44.7143H113.273C113.631 44.7143 113.975 44.5928 114.298 44.357C114.62 44.114 114.821 43.4994 114.899 42.4989V40.3408H92.3869L92.394 40.3265ZM114.849 31.9868V30.2431C114.849 29.7643 114.649 29.2426 114.247 28.6852C113.846 28.1278 113.402 27.8419 112.922 27.8419H86.5617V31.9868H114.849Z" fill="#FF8300"/>
+<path d="M150.294 44.7714L145.106 36.3102H172.391V29.7642C172.312 29.4426 172.133 29.0424 171.846 28.5636C171.567 28.0848 171.202 27.8419 170.764 27.8419H146.145C145.501 27.8419 145.02 28.1706 144.698 28.8352C144.376 29.4927 144.218 30.1072 144.218 30.6646V53.0539H130.074V24.5975C130.074 24.1187 130.182 23.5755 130.404 22.9753C130.626 22.375 130.927 21.8033 131.307 21.2673C131.686 20.7242 132.116 20.274 132.603 19.9167C133.084 19.5593 133.585 19.3735 134.108 19.3735H182.501C183.783 19.6951 184.808 20.3454 185.567 21.3245C186.327 22.3035 186.714 23.2968 186.714 24.2973V53.0539H172.391V44.7714H150.301H150.294Z" fill="#FF8300"/>
+<path d="M201.812 41.8271C201.812 42.0701 201.869 42.3559 201.991 42.699C202.113 43.042 202.285 43.3564 202.5 43.6566C202.722 43.9567 202.958 44.2211 203.223 44.4355C203.481 44.657 203.732 44.7642 203.976 44.7642H242.194L236.72 53.0468H191.881C191.236 53.0468 190.67 52.8467 190.168 52.4465C189.667 52.0463 189.237 51.5675 188.879 51.0029C188.521 50.4455 188.248 49.8524 188.069 49.2307C187.89 48.6089 187.797 48.0801 187.797 47.637V25.7837C187.797 24.9834 187.904 24.1901 188.126 23.4112C188.349 22.6322 188.678 21.939 189.122 21.3388C189.567 20.7385 190.125 20.2454 190.806 19.8666C191.487 19.4879 192.289 19.2949 193.214 19.2949H238.898C239.177 19.2949 239.643 19.3664 240.281 19.5022C240.926 19.6451 241.556 19.9452 242.179 20.4026C242.803 20.86 243.355 21.5103 243.835 22.3535C244.315 23.1968 244.558 24.2973 244.558 25.6551V33.4588H230.293V30.9362C230.293 30.779 230.25 30.5432 230.171 30.243C230.092 29.9429 229.97 29.6356 229.813 29.314C229.655 28.9924 229.469 28.7137 229.268 28.4707C229.067 28.2278 228.845 28.1134 228.609 28.1134H203.689C202.442 28.1134 201.826 28.8566 201.826 30.3359V41.7985L201.812 41.8271Z" fill="#FF8300"/>
+<path d="M245.633 19.4379H259.655V31.9867H285.893V19.4379H299.858V53.0539H285.893V40.3264H264.391L259.655 31.9796V53.0468H245.633V19.4379Z" fill="#FF8300"/>
+<path d="M72.1016 57.0916H299.856" stroke="#7B868C" stroke-miterlimit="10"/>
+</g>
+<defs>
+<clipPath id="clip0_44403_14542">
+<rect width="300" height="71.134" fill="white"/>
+</clipPath>
+</defs>
+</svg>
+</a>
+  <span class="divider" aria-hidden="true"></span>
+  <h1>Lead Finder</h1>
+  <span class="scope" id="scope"></span>
+  <span class="grow"></span>
+  <span class="sync" id="sync" data-state="wait"><i></i><span id="sync-text">Connecting…</span></span>
+  <button class="iconbtn" id="theme" aria-label="Switch light or dark">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="4.5"/><path d="M12 2.5v2M12 19.5v2M4.6 4.6l1.4 1.4M18 18l1.4 1.4M2.5 12h2M19.5 12h2M4.6 19.4L6 18M18 6l1.4-1.4"/></svg>
+  </button>
+</header>
+
+<section class="figs pad" aria-label="Overview">
+  <div class="fig lead"><b class="num" id="k-pending">0</b><span>before their hearing</span></div>
+  <div class="fig"><b class="num" id="k-total">0</b><span>sites in view</span></div>
+  <div class="fig"><b class="num" id="k-acres">0</b><span>acres in view</span></div>
+  <div class="fig"><b class="num" id="k-worked">0</b><span>in conversation</span></div>
+</section>
+
+<section class="agenda pad" aria-labelledby="agenda-h">
+  <div class="agenda-head"><h2 id="agenda-h">Upcoming hearings</h2><p id="agenda-sub"></p></div>
+  <div class="days" id="days"></div>
+</section>
+
+<div class="filters pad" role="search">
+  <div class="search">
+    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+    <input type="search" id="q" placeholder="Search owner, address, case number" aria-label="Search leads">
+  </div>
+  <div class="seg" role="group" aria-label="Stage">
+    <button aria-pressed="true" data-stage="Pre-application"><span class="dot" style="background:var(--preapp)"></span>Pre-app</button>
+    <button aria-pressed="true" data-stage="Pending hearing"><span class="dot" style="background:var(--orange)"></span>Pending</button>
+    <button aria-pressed="true" data-stage="Recently heard"><span class="dot" style="background:var(--heard)"></span>Heard</button>
+    <button aria-pressed="true" data-stage="Approved PD, still vacant"><span class="dot" style="background:var(--vacant)"></span>Approved, vacant</button>
+  </div>
+  <select id="type" aria-label="Case type"><option value="">All case types</option></select>
+  <select id="status" aria-label="Status"><option value="">Any status</option></select>
+  <select id="territory" aria-label="Territory"><option value="">All states</option><option value="bach">BACH territory (23 states)</option></select>
+  <select id="state" aria-label="State"><option value="">All states</option></select>
+  <select id="juris" aria-label="County or city"><option value="">All counties and cities</option></select>
+  <label class="inline">Score ≥ <input type="number" class="num" id="minScore" value="30" min="0" max="100" step="5"></label>
+  <label class="inline">Acres ≥ <input type="number" class="num" id="minAcres" value="0" min="0" step="1"></label>
+  <label class="inline" title="Hides sites owned by individuals or government. Sites with no owner found yet stay visible."><input type="checkbox" id="company" checked>Hide individual and government owners</label>
+  <span id="dayChip"></span>
+  <button class="btn-primary" id="export">Export list</button>
+</div>
+
+<main class="work pad">
+  <section class="panel" aria-label="Leads">
+    <div class="tablewrap">
+      <table>
+        <thead><tr>
+          <th class="r"><button data-k="score">Score</button><button class="info" data-info="score" aria-label="What Score means" aria-expanded="false"></button></th>
+          <th><button data-k="stage">Stage</button><button class="info" data-info="stage" aria-label="What Stage means" aria-expanded="false"></button></th>
+          <th><button data-k="site_address">Site</button><button class="info" data-info="site" aria-label="What Site means" aria-expanded="false"></button></th>
+          <th class="r hide-sm"><button data-k="acres">Acres</button><button class="info" data-info="acres" aria-label="What Acres means" aria-expanded="false"></button></th>
+          <th><button data-k="owner">Owner</button><button class="info" data-info="owner" aria-label="What Owner means" aria-expanded="false"></button></th>
+          <th class="hide-sm"><button data-k="status">Status</button><button class="info" data-info="status" aria-label="What Status means" aria-expanded="false"></button></th>
+        </tr></thead>
+        <tbody id="rows"></tbody>
+      </table>
+      <div class="empty" id="empty" hidden><strong>No sites match</strong>Lower the score or acreage, or turn a stage back on.</div>
+    </div>
+  </section>
+  <section class="panel" aria-label="Map and lead detail">
+    <div class="map-bar"><div class="seg" role="group" aria-label="Map shows">
+      <button aria-pressed="true" data-mode="leads">Leads</button><button aria-pressed="false" data-mode="coverage">Coverage</button></div>
+      <span class="sub" id="map-note"></span></div>
+    <div id="map" role="img" aria-label="Map of leads"></div>
+    <div class="map-key" id="map-key"></div>
+    <div class="detail" id="detail"><div class="placeholder">Pick a site from the list, the map or a hearing day to see the owner, the case and your team's notes.</div></div>
+  </section>
+</main>
+
+<script type="module">
+// lead data and the drawn map are published as files next to this page
+$rows_loading();
+function $rows_loading() { document.getElementById("rows").innerHTML = `<tr><td colspan="6" class="empty"><strong>Loading leads…</strong></td></tr>`; }
+let DATA, BASEMAP;
+try {
+  [DATA, BASEMAP] = await Promise.all([fetch("leads.json").then(r => r.json()), fetch("basemap.json").then(r => r.json())]);
+} catch (e) {
+  document.getElementById("rows").innerHTML = `<tr><td colspan="6" class="empty"><strong>Couldn't load the leads.</strong>Reload the page to try again.</td></tr>`;
+  throw e;
+}
+const TEXT_FIELDS = ["owner","owner_mail","applicant","site_address","location","land_use","rep_name","rep_phone","purpose","source_url",
+  "sunbiz_url","hearing_date","last_sale_date","folios","uses","state","case_id","case_type"];
+const CATS = [["Timing", 35], ["Size", 25], ["Project fit", 20], ["Developer", 10], ["Land readiness", 10]];
+const STATUSES = ["New","Researching","Contacted","Meeting set","Bidding","Won","Lost","Pass"];
+const ACTIVE = ["Contacted","Meeting set","Bidding"];
+const STAGE = {"Pre-application":{v:"--preapp",short:"Pre-app"},"Pending hearing":{v:"--orange",short:"Pending"},"Recently heard":{v:"--heard",short:"Heard"},"Approved PD, still vacant":{v:"--vacant",short:"Approved, vacant"}};
+const TYPE_NAMES = {"RZ-PD":"PD / PUD","MM":"PD major modification","DRI":"Regional development (DRI)","RZ-STD":"Rezoning","PRS":"PD minor change","PD-APPROVED":"Adopted PD","SITE":"Site plan / subdivision","ANNEX":"Annexation"};
+const STATE_NAMES = {"AL":"Alabama","AK":"Alaska","AZ":"Arizona","AR":"Arkansas","CA":"California","CO":"Colorado","CT":"Connecticut","DE":"Delaware","DC":"District of Columbia","FL":"Florida","GA":"Georgia","HI":"Hawaii","ID":"Idaho","IL":"Illinois","IN":"Indiana","IA":"Iowa","KS":"Kansas","KY":"Kentucky","LA":"Louisiana","ME":"Maine","MD":"Maryland","MA":"Massachusetts","MI":"Michigan","MN":"Minnesota","MS":"Mississippi","MO":"Missouri","MT":"Montana","NE":"Nebraska","NV":"Nevada","NH":"New Hampshire","NJ":"New Jersey","NM":"New Mexico","NY":"New York","NC":"North Carolina","ND":"North Dakota","OH":"Ohio","OK":"Oklahoma","OR":"Oregon","PA":"Pennsylvania","RI":"Rhode Island","SC":"South Carolina","SD":"South Dakota","TN":"Tennessee","TX":"Texas","UT":"Utah","VT":"Vermont","VA":"Virginia","WA":"Washington","WV":"West Virginia","WI":"Wisconsin","WY":"Wyoming"};
+const BACH = new Set(["AZ", "CO", "FL", "GA", "ID", "IL", "IN", "KS", "KY", "MI", "MN", "MO", "NC", "NV", "OH", "OR", "SC", "TN", "TX", "UT", "WA", "WI", "WY"]);
+const css = v => getComputedStyle(document.documentElement).getPropertyValue(v).trim();
+const $ = s => document.querySelector(s);
+const esc = s => String(s ?? "").replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const short = (s, n=56) => s.length > n ? s.slice(0, n-1).trimEnd() + "…" : s;
+const money = n => +n ? "$" + Math.round(+n).toLocaleString() : "—";
+const title = s => (s||"").toLowerCase().replace(/\b([a-z])/g, m => m.toUpperCase()).replace(/\b(Llc|Lp|Inc|Ii|Iii|Pd|Fl|Us)\b/g, m => m.toUpperCase());
+const owner1 = l => title((l.owner || "").split(";")[0]) || (l.applicant ? title(l.applicant) : "") || "Not identified yet";
+const fmtDate = d => d ? new Date(d + "T12:00").toLocaleDateString([], {month:"short", day:"numeric", year:"numeric"}) : "—";
+const ago = iso => { const m = Math.round((Date.now() - new Date(iso)) / 60000);
+  return m < 1 ? "just now" : m < 60 ? `${m} min ago` : m < 1440 ? `${Math.round(m/60)} h ago` : new Date(iso).toLocaleDateString([], {month:"short", day:"numeric"}); };
+
+const leads = DATA.leads.map(l => {
+  const o = {...Object.fromEntries(TEXT_FIELDS.map(k => [k, ""])), units:0, sqft:0, just_value:0, bldg_value:0, last_sale_price:0,
+             filings:1, pts:[], pen:[], ...l};
+  o.score = +o.score; o.acres = +o.acres || 0;
+  o.key = o.id.replace(/[^A-Za-z0-9_\-.~:@+]/g, "-").slice(0, 190);
+  // plain-text reasons for the export, built from the breakdown
+  o.reasons = CATS.map(([n, m], i) => `${n} ${(o.pts[i] || [0])[0]}/${m}`).concat(o.pen.map(([n, t]) => `${n} ${t}`)).join("; ");
+  return o;
+});
+
+/* ---------- pursuit storage: shared db when available, this browser otherwise ---------- */
+const LKEY = "bach.leadfinder.tracking.v2";
+let local = {}; try { local = JSON.parse(localStorage.getItem(LKEY) || "{}"); } catch (e) {}
+const store = { mode:"wait", shared:{}, db:null, user:null, me:null, canWrite:true };
+const rec = l => (store.mode === "shared" ? store.shared[l.key] : local[l.key]) || {};
+const statusOf = l => rec(l).status || "New";
+function setSync(state, text) { $("#sync").dataset.state = state; $("#sync-text").textContent = text; }
+
+(async () => {
+  let db = null, user = null;
+  try { db = await window.claude?.use?.("db"); user = await window.claude?.use?.("user"); } catch (e) {}
+  if (!db) { store.mode = "local"; setSync("local", "Saved in this browser only"); render(); return; }
+  store.db = db; store.user = user;
+  store.me = user ? await user.id() : null;
+  const cw = user ? await user.can("data.write") : null;
+  store.canWrite = cw !== false;
+  const timer = setTimeout(() => setSync("wait", "Can't reach team notes yet"), 10000);
+  db.collection("pursuit").onSnapshot(snap => {
+    const next = {};
+    snap.docs.forEach(d => { if (d.exists) next[d.id] = d.data(); });
+    store.shared = next; store.mode = "shared";
+    if (!snap.metadata.fromCache) { clearTimeout(timer); setSync("live", store.canWrite ? "Shared with your team" : "Team notes, view only"); }
+    render();
+    if (selId) refreshTrack();
+  }, () => { clearTimeout(timer); setSync("local", "Team notes unavailable"); });
+})();
+
+const pending = {};                          // one write at a time per lead
+function save(l, patch) {
+  const body = {...rec(l), ...patch, at:new Date().toISOString()};
+  if (store.mode !== "shared") {
+    local[l.key] = body;
+    try { localStorage.setItem(LKEY, JSON.stringify(local)); return Promise.resolve("Saved in this browser"); }
+    catch (e) { return Promise.resolve("Couldn't save. Your browser is blocking storage."); }
+  }
+  if (store.me) body.by = store.me;
+  store.shared[l.key] = body;
+  const run = () => store.db.collection("pursuit").doc(l.key).set(body)
+    .then(() => "Saved for the team")
+    .catch(e => { if (e && e.code === "invalid_argument") { store.canWrite = false; return "You have view-only access, so this wasn't saved."; }
+                  if (e && e.code === "quota_exceeded") return "The shared notes are full. Ask the owner to clear old leads.";
+                  return "Couldn't save just now. Try again in a moment."; });
+  pending[l.key] = (pending[l.key] || Promise.resolve()).then(run, run);
+  return pending[l.key];
+}
+
+/* ---------- filters ---------- */
+const areas = [...new Set(leads.map(l => l.jurisdiction))].sort();
+const states = [...new Set(leads.map(l => l.state).filter(Boolean))].sort((a, b) => STATE_NAMES[a].localeCompare(STATE_NAMES[b]));
+$("#scope").textContent = `${states.length} states · ${areas.length} counties and cities · ${leads.length.toLocaleString()} sites · updated ${new Date(DATA.generated).toLocaleDateString([], {month:"short", day:"numeric"})}`;
+const fill = (sel, vals, label = v => v) => vals.forEach(v => sel.insertAdjacentHTML("beforeend", `<option value="${esc(v)}">${esc(label(v))}</option>`));
+fill($("#type"), [...new Set(leads.map(l => l.case_type))].sort((a, b) => (TYPE_NAMES[a] || a).localeCompare(TYPE_NAMES[b] || b)), v => TYPE_NAMES[v] || v);
+fill($("#status"), STATUSES);
+function fillStates() {
+  const sel = $("#state"), terr = $("#territory").value, keep = sel.value;
+  sel.innerHTML = `<option value="">All states</option>`;
+  // every state is listed, even with no leads yet, so gaps are visible
+  const counts = {}; leads.forEach(l => counts[l.state] = (counts[l.state] || 0) + 1);
+  const all = Object.keys(STATE_NAMES).sort((a, b) => STATE_NAMES[a].localeCompare(STATE_NAMES[b]));
+  fill(sel, all.filter(v => terr !== "bach" || BACH.has(v)), v => `${STATE_NAMES[v]} (${(counts[v] || 0).toLocaleString()}${counts[v] ? "" : " — not covered yet"})`);
+  if ([...sel.options].some(o => o.value === keep)) sel.value = keep;
+}
+function fillAreas() {
+  const st = $("#state").value, terr = $("#territory").value, sel = $("#juris");
+  sel.innerHTML = `<option value="">All counties and cities</option>`;
+  fill(sel, areas.filter(a => leads.some(l => l.jurisdiction === a && (!st || l.state === st) && (terr !== "bach" || BACH.has(l.state)))));
+}
+fillStates();
+fillAreas();
+$("#territory").addEventListener("input", () => { fillStates(); fillAreas(); fitted = false; selId = null; drawBase(); render(); });
+$("#state").addEventListener("input", () => { fillAreas(); fitted = false; selId = null; drawBase(); render(); });
+$("#juris").addEventListener("input", () => { fitted = false; });
+
+let sortK = "score", sortDir = -1, selId = null, dayFilter = null;
+const stagesOn = () => [...document.querySelectorAll("[data-stage][aria-pressed=true]")].map(b => b.dataset.stage);
+
+function baseFiltered() {
+  const q = $("#q").value.trim().toLowerCase(), st = stagesOn(), ty = $("#type").value, ju = $("#juris").value, sa = $("#state").value, terr = $("#territory").value,
+        ss = $("#status").value, ms = +$("#minScore").value || 0, ma = +$("#minAcres").value || 0, co = $("#company").checked;
+  return leads.filter(l =>
+    st.includes(l.stage) && (!ty || l.case_type === ty) && (!ju || l.jurisdiction === ju) && (!sa || l.state === sa) && (terr !== "bach" || BACH.has(l.state)) &&
+    (!ss || statusOf(l) === ss) && l.score >= ms && l.acres >= ma && (!co || l.owner_is_entity || !(l.owner || l.applicant)) &&
+    (!q || [l.owner, l.applicant, l.site_address, l.location, l.case_id, l.rep_name, l.owner_mail, l.jurisdiction, l.purpose, l.uses]
+      .join(" ").toLowerCase().includes(q)));
+}
+function filtered() {
+  const out = baseFiltered().filter(l => !dayFilter || (l.stage === "Pending hearing" && l.hearing_date === dayFilter));
+  out.sort((a, b) => {
+    const va = sortK === "status" ? statusOf(a) : a[sortK], vb = sortK === "status" ? statusOf(b) : b[sortK];
+    return (va > vb ? 1 : va < vb ? -1 : 0) * sortDir || b.score - a.score;
+  });
+  return out;
+}
+
+/* ---------- map: drawn basemap (no outside tiles) ----------
+   Layers, back to front: states and county lines (basemap.json), freeways, county street detail
+   (map/<FIPS>.json from OpenStreetMap, loaded when zoomed in), lead pins, then text labels. */
+const map = L.map("map", {zoomControl:true, attributionControl:true, zoomSnap:.25, minZoom:3, maxZoom:15}).setView([38.5, -96], 4);
+map.attributionControl.setPrefix(false).addAttribution("© OpenStreetMap contributors · Esri · US Census");
+for (const [name, z] of [["basemap", 300], ["streets", 350], ["pins", 450]]) map.createPane(name).style.zIndex = z;
+const baseRenderer = L.canvas({pane:"basemap"}), streetRenderer = L.canvas({pane:"streets", padding:.3}), pinRenderer = L.canvas({pane:"pins"});
+let base, highways, stateLayers = {};
+const ORDER = {states:0, counties:1, county:2};
+const areas_ = BASEMAP.features.filter(f => ORDER[f.properties.kind] !== undefined).sort((a, b) => ORDER[a.properties.kind] - ORDER[b.properties.kind]);
+const freeways = BASEMAP.features.filter(f => f.properties.kind === "freeways");
+const cityLabels = BASEMAP.features.filter(f => f.properties.kind === "label");
+function drawBase() {
+  if (base) map.removeLayer(base);
+  if (highways) map.removeLayer(highways);
+  stateLayers = {};
+  const pick = $("#state") ? $("#state").value : "";
+  base = L.geoJSON({type:"FeatureCollection", features:areas_}, {interactive:false, renderer:baseRenderer, pane:"basemap", style: f => {
+    const k = f.properties.kind;
+    if (k === "counties") return {color:css("--map-out-edge"), weight:.6, fill:false, opacity:1};
+    if (k === "states") {
+      const on = pick && f.properties.name === pick, ours = $("#territory").value !== "bach" || f.properties.bach !== false;
+      // with "BACH territory" chosen, the other states step back; the chosen state is outlined in orange
+      return {color: on ? css("--orange") : ours ? css("--map-edge") : css("--map-out-edge"), weight: on ? 2.5 : ours ? 1 : .8,
+              fillColor: !ours ? css("--map-out") : pick && !on ? css("--map-city") : css("--map-land"), fillOpacity:1};
+    }
+    return {color:css("--map-edge"), weight:1, fill:false};
+  }, onEachFeature: (f, lyr) => {
+    if (f.properties.kind === "states") stateLayers[f.properties.name] = lyr;
+  }}).addTo(map);
+  highways = L.geoJSON({type:"FeatureCollection", features:freeways}, {interactive:false, renderer:streetRenderer, pane:"streets",
+    style: () => ({color:css("--map-hwy"), weight: map.getZoom() < 7 ? 1 : 1.8, opacity:.9})}).addTo(map);
+  Object.values(streetLayers).forEach(g => g.remove()); streetLayers = {}; refreshDetail();
+}
+
+/* county street detail, loaded on demand */
+let INDEX = [], streetLayers = {}, streetData = {};
+const ROAD_STYLE = {1:[3.2, "--map-hwy"], 2:[2.6, "--map-hwy"], 3:[2, "--map-major"], 4:[1.5, "--map-major"], 5:[1, "--map-road"]};
+fetch("map/index.json").then(r => r.ok ? r.json() : []).then(d => { INDEX = d; refreshDetail(); }).catch(() => {});
+async function loadCounty(c) {
+  if (streetData[c.fips] !== undefined) return streetData[c.fips];
+  streetData[c.fips] = null;
+  try { streetData[c.fips] = await (await fetch(`map/${c.fips}.json`)).json(); } catch (e) { delete streetData[c.fips]; }
+  return streetData[c.fips];
+}
+function drawCounty(fips) {
+  const d = streetData[fips]; if (!d || streetLayers[fips]) return;
+  const g = L.layerGroup();
+  // one combined line per road class (fast to draw); minor roads first so highways sit on top
+  const byCls = {};
+  d.roads.forEach(([cls, , pts]) => (byCls[cls] ||= []).push(pts.map(([x, y]) => [y, x])));
+  [5, 4, 3, 2, 1].forEach(cls => {
+    if (!byCls[cls]) return;
+    const [w, v] = ROAD_STYLE[cls];
+    L.polyline(byCls[cls], {renderer:streetRenderer, pane:"streets", interactive:false, color:css(v), weight:w, opacity:1, cls,
+      lineCap:"round", lineJoin:"round"}).addTo(g);
+  });
+  streetLayers[fips] = g.addTo(map);
+}
+function refreshDetail() {
+  const z = map.getZoom(), b = map.getBounds();
+  if (z >= 8.5) {
+    INDEX.filter(c => b.intersects([[c.bbox[1], c.bbox[0]], [c.bbox[3], c.bbox[2]]]))
+         .forEach(c => loadCounty(c).then(() => { drawCounty(c.fips); styleStreets(); drawLabels(); }));
+  }
+  Object.entries(streetLayers).forEach(([f, g]) => { if (z < 8.5) { g.remove(); delete streetLayers[f]; } });
+  styleStreets();
+  drawLabels();
+}
+function styleStreets() {
+  const z = map.getZoom(), k = z < 10 ? .6 : z < 12 ? .8 : z < 14 ? 1 : 1.3;
+  Object.values(streetLayers).forEach(g => g.eachLayer(l => {
+    const cls = l.options.cls, hide = (cls === 5 && z < 11) || (cls === 4 && z < 9.5);
+    l.setStyle({weight: hide ? 0 : (ROAD_STYLE[cls] || ROAD_STYLE[5])[0] * k, opacity: hide ? 0 : 1});
+  }));
+}
+
+/* text labels: cities from the Census, towns / neighbourhoods / street names from OpenStreetMap */
+const labelLayer = L.layerGroup().addTo(map);
+function drawLabels() {
+  labelLayer.clearLayers();
+  const z = map.getZoom(), b = map.getBounds().pad(.05), taken = new Set();
+  const place = (lat, lon, text, cls, w = 90, h = 22) => {
+    if (!b.contains([lat, lon])) return;
+    const p = map.latLngToContainerPoint([lat, lon]), cell = `${Math.floor(p.x / w)}:${Math.floor(p.y / h)}`;
+    if (taken.has(cell)) return;
+    taken.add(cell);
+    L.marker([lat, lon], {interactive:false, keyboard:false, pane:"markerPane",
+      icon: L.divIcon({className:`mlabel ${cls}`, html:`<span>${esc(text)}</span>`, iconSize:null})}).addTo(labelLayer);
+  };
+  const loaded = Object.keys(streetLayers).length > 0;
+  // street names (zoomed in): one label per name in view, on its longest piece
+  if (z >= 12.5) {
+    const best = {};
+    Object.keys(streetLayers).forEach(f => (streetData[f]?.roads || []).forEach(([cls, name, pts]) => {
+      if (!name || (cls === 5 && z < 13.5) || pts.length < 2) return;
+      const mid = pts[Math.floor(pts.length / 2)];
+      if (!b.contains([mid[1], mid[0]])) return;
+      const len = Math.abs(pts[0][0] - pts.at(-1)[0]) + Math.abs(pts[0][1] - pts.at(-1)[1]);
+      if (!best[name] || best[name].len < len) best[name] = {len, cls, mid};
+    }));
+    Object.entries(best).sort((a, b) => a[1].cls - b[1].cls).forEach(([name, r]) => place(r.mid[1], r.mid[0], name, r.cls <= 2 ? "hwy" : "street", 110, 20));
+  }
+  // towns and neighbourhoods from OpenStreetMap where detail is loaded
+  if (loaded) {
+    Object.keys(streetLayers).forEach(f => (streetData[f]?.places || [])
+      .filter(([rank]) => rank <= (z < 10 ? 2 : z < 11.5 ? 3 : 4)).sort((a, b) => a[0] - b[0])
+      .forEach(([rank, name, x, y]) => place(y, x, name, rank <= 1 ? "city big" : rank <= 2 ? "city" : "hood")));
+  }
+  // cities from the Census everywhere else
+  const minPop = z < 5 ? 1e6 : z < 6 ? 400000 : z < 7 ? 200000 : z < 8 ? 100000 : z < 9 ? 50000 : 20000;
+  if (!(loaded && z >= 10)) cityLabels.filter(f => f.properties.pop >= minPop).sort((a, b) => b.properties.pop - a.properties.pop)
+    .forEach(f => place(f.geometry.coordinates[1], f.geometry.coordinates[0], f.properties.name, f.properties.pop >= 250000 ? "city big" : "city"));
+}
+
+drawBase();
+const layer = L.layerGroup().addTo(map);
+let fitted = false;
+map.on("zoomend", () => { resizePins(); highways && highways.setStyle({weight: map.getZoom() < 7 ? 1 : 1.8}); });
+map.on("moveend", refreshDetail);
+const pinRadius = l => { const z = map.getZoom(), k = z < 6 ? .45 : z < 8 ? .65 : z < 11 ? .85 : 1.1;
+  return Math.max(2.5, (3 + Math.min(9, Math.sqrt(l.acres || 1))) * k); };
+let pins = [];
+function resizePins() { pins.forEach(([m, l]) => m.setRadius(pinRadius(l))); }
+
+/* ---------- hearing agenda ---------- */
+function renderAgenda(list) {
+  const today = new Date(); today.setHours(0,0,0,0);
+  const groups = {};
+  list.filter(l => l.stage === "Pending hearing" && l.hearing_date && new Date(l.hearing_date + "T12:00") >= today)
+      .forEach(l => (groups[l.hearing_date] ||= []).push(l));
+  const dates = Object.keys(groups).sort();
+  const total = dates.reduce((s, d) => s + groups[d].length, 0);
+  $("#agenda-sub").textContent = dates.length
+    ? `${total} site${total === 1 ? "" : "s"} on ${dates.length} hearing day${dates.length === 1 ? "" : "s"}, best leads first. Reach the owner before the vote.`
+    : "";
+  if (!dates.length) { $("#days").innerHTML = `<div class="none">No pending hearings match the filters. Turn on Pending or lower the score.</div>`; return; }
+  $("#days").innerHTML = dates.map(d => {
+    const items = groups[d].sort((a, b) => b.score - a.score), dt = new Date(d + "T12:00");
+    const days = Math.round((dt - today) / 864e5);
+    const when = days === 0 ? "Today" : days === 1 ? "Tomorrow" : `in ${days} days`;
+    const shown = items.slice(0, 4);
+    return `<article class="day${days <= 14 ? " soon" : ""}" aria-label="Hearing ${fmtDate(d)}">
+      <header><b>${dt.toLocaleDateString([], {weekday:"short", month:"short", day:"numeric"})}</b><span>${when} · ${items.length} site${items.length === 1 ? "" : "s"}</span></header>
+      <ul>${shown.map(l => `<li><button data-id="${esc(l.id)}"${l.id === selId ? ' aria-current="true"' : ""}>
+        <span class="who">${esc(owner1(l))}</span>
+        <span class="sc num${l.score >= 60 ? " hot" : ""}">${l.score}</span>
+        <span class="what">${l.acres.toFixed(1)} ac · ${esc(TYPE_NAMES[l.case_type] || l.case_type)}</span></button></li>`).join("")}</ul>
+      ${items.length > shown.length ? `<div class="more"><button data-day="${d}">Show all ${items.length} in the list</button></div>` : ""}
+    </article>`;
+  }).join("");
+}
+
+/* ---------- render ---------- */
+function render() {
+  const list = filtered();
+  $("#k-total").textContent = list.length.toLocaleString();
+  $("#k-pending").textContent = list.filter(l => l.stage === "Pending hearing" || l.stage === "Pre-application").length;
+  $("#k-acres").textContent = Math.round(list.reduce((s, l) => s + l.acres, 0)).toLocaleString();
+  $("#k-worked").textContent = leads.filter(l => ACTIVE.includes(statusOf(l))).length;
+  $("#dayChip").innerHTML = dayFilter ? `<span class="chip">Hearing ${fmtDate(dayFilter)}<button aria-label="Clear hearing day">×</button></span>` : "";
+
+  $("#rows").innerHTML = list.map(l => {
+    const st = statusOf(l), S = STAGE[l.stage];
+    return `<tr class="row${l.id === selId ? " sel" : ""}" data-id="${esc(l.id)}" tabindex="0">
+      <td class="r"><span class="score num${l.score >= 60 ? " hot" : ""}">${l.score}</span></td>
+      <td><span class="stage"><span class="dot" style="background:var(${S.v})"></span>${S.short}</span>
+          <div class="sub num">${esc(l.case_type)} ${esc(l.case_id.split(",")[0])}${l.filings > 1 ? ` +${l.filings - 1}` : ""}${l.hearing_date ? ` · ${fmtDate(l.hearing_date)}` : ""}</div></td>
+      <td>${esc(short(title(l.site_address || l.location || "—")))}<div class="sub">${esc((l.land_use || "").toLowerCase())}<span class="show-sm"> · ${l.acres.toFixed(1)} ac</span></div></td>
+      <td class="r num hide-sm">${l.acres.toFixed(1)}</td>
+      <td>${esc(short(owner1(l), 40))}</td>
+      <td class="hide-sm"><span class="status${ACTIVE.includes(st) ? " active" : ""}">${esc(st)}</span></td></tr>`;
+  }).join("");
+  $("#empty").hidden = list.length > 0;
+  document.querySelectorAll("th button[data-k]").forEach(b => {
+    const th = b.parentElement;
+    if (b.dataset.k === sortK) th.setAttribute("aria-sort", sortDir < 0 ? "descending" : "ascending"); else th.removeAttribute("aria-sort");
+  });
+
+  layer.clearLayers();
+  pins = [];
+  const pts = [], early = l => l.stage === "Pending hearing" || l.stage === "Pre-application";
+  // draw early-stage and higher-scoring pins last so they sit on top
+  list.slice().sort((a, b) => (early(a) - early(b)) || (a.score - b.score)).forEach(l => {
+    if (l.lat == null) return;
+    const c = css(STAGE[l.stage].v), sel = l.id === selId;
+    const m = L.circleMarker([l.lat, l.lon], {renderer:pinRenderer, pane:"pins", radius: pinRadius(l), color: sel ? css("--ink") : c,
+      fillColor:c, fillOpacity: l.approx ? .12 : early(l) ? .85 : .5, weight: sel ? 3 : l.approx ? 1.2 : 1,
+      dashArray: l.approx ? "2 2" : null}).addTo(layer);
+    m.bindTooltip(`${esc(owner1(l))} · ${l.score}${l.approx ? `<br><span class="sub">Approximate: somewhere in ${esc(l.jurisdiction)}</span>` : ""}`);
+    m.on("click", () => select(l.id, true));
+    pins.push([m, l]);
+    pts.push([l.lat, l.lon]);
+  });
+  if (!fitted) {
+    const st = $("#state").value, area = $("#juris").value || $("#q").value.trim();
+    if (st && !area && stateLayers[st]) map.fitBounds(stateLayers[st].getBounds(), {padding:[16, 16]});
+    else if (!st && !area && $("#territory").value === "bach")
+      map.fitBounds(L.featureGroup([...BACH].filter(k => stateLayers[k]).map(k => stateLayers[k])).getBounds(), {padding:[8, 8]});
+    else if (!st && !area) map.fitBounds([[24.4, -125], [49.4, -66.9]], {padding:[8, 8]});  // lower 48
+    else if (pts.length) map.fitBounds(pts, {padding:[24, 24], maxZoom: pins.some(([, l]) => l.approx) ? 9 : 12});
+    fitted = true;
+  }
+  if (mapMode === "coverage") { renderAgenda(baseFiltered()); return; }
+  const exact = pins.filter(([, l]) => !l.approx).length;
+  $("#map").setAttribute("aria-label", `Map of ${pts.length} leads, ${exact} at their exact address`);
+  $("#map-key").innerHTML = `<span><i class="k-dot"></i>Exact address (${exact.toLocaleString()})</span>
+    <span><i class="k-dot k-approx"></i>Approximate, in its city or county (${(pts.length - exact).toLocaleString()})</span>`;
+  renderAgenda(baseFiltered());
+}
+
+/* ---------- detail ---------- */
+async function trackMeta(l) {
+  const r = rec(l);
+  if (!r.at) return "";
+  let who = "";
+  if (store.mode === "shared" && r.by && store.user) {
+    if (r.by === store.me) who = "you";
+    else { const ps = await store.user.profiles([r.by]); who = (ps[r.by] && ps[r.by].name) || "a teammate"; }
+  }
+  return `Updated ${who ? "by " + who + " " : ""}${ago(r.at)}`;
+}
+async function refreshTrack() {
+  const l = leads.find(x => x.id === selId); if (!l) return;
+  const r = rec(l);
+  document.querySelectorAll("#detail [data-s]").forEach(b => b.setAttribute("aria-pressed", b.dataset.s === (r.status || "New")));
+  const ta = $("#d-notes");
+  if (ta && document.activeElement !== ta && ta.value !== (r.notes || "")) ta.value = r.notes || "";
+  const m = $("#track-meta"); if (m) m.textContent = await trackMeta(l);
+}
+
+function select(id, scroll) {
+  selId = id;
+  const l = leads.find(x => x.id === id);
+  render();
+  if (scroll) { const tr = document.querySelector(`tr[data-id="${CSS.escape(id)}"]`); tr && tr.scrollIntoView({block:"nearest"}); }
+  // exact pins zoom to the street; approximate ones only to the city/county, so the view doesn't pretend to precision
+  if (l.lat != null) map.setView([l.lat, l.lon], l.approx ? Math.max(map.getZoom(), 10) : Math.max(map.getZoom(), 14));
+  const r = rec(l), S = STAGE[l.stage], ro = !store.canWrite;
+  const gq = l.approx ? `${l.site_address || l.location}, ${l.jurisdiction}` : `${l.lat},${l.lon}`;
+  const gmaps = l.lat != null ? `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(gq)}` : "";
+  const ext = `<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></svg>`;
+  const d = $("#detail");
+  d.classList.remove("enter"); void d.offsetWidth; d.classList.add("enter");
+  d.innerHTML = `
+    <h2>${esc(short(title(l.site_address || l.location || "Site"), 72))}</h2>
+    <div class="meta"><span>Score <b class="num">${l.score}</b></span>
+      <span class="stage"><span class="dot" style="background:var(${S.v})"></span>${esc(l.stage)}</span>
+      ${l.approved ? "<span>Approval on zoning map</span>" : ""}</div>
+    <dl class="kv">
+      <dt>Where</dt><dd>${esc(l.jurisdiction)}${l.approx ? ` <span class="sub">(map pin is approximate)</span>` : ""}</dd>
+      <dt>Case</dt><dd class="num">${esc(TYPE_NAMES[l.case_type] || l.case_type)} · ${esc(l.case_id)}</dd>
+      <dt>Hearing</dt><dd>${fmtDate(l.hearing_date)}</dd>
+      ${l.applicant ? `<dt>Applicant</dt><dd>${esc(title(l.applicant))}</dd>` : ""}
+      ${l.uses || +l.units || +l.sqft ? `<dt>Building</dt><dd class="num">${esc([l.uses, +l.units ? (+l.units).toLocaleString() + " units" : "", +l.sqft ? (+l.sqft).toLocaleString() + " sq ft" : ""].filter(Boolean).join(" · "))}</dd>` : ""}
+      <dt>Owner</dt><dd>${esc(title(l.owner)) || "Not looked up yet for this area"}</dd>
+      ${l.owner_mail ? `<dt>Mail to</dt><dd>${esc(title(l.owner_mail))}</dd>` : ""}
+      ${l.rep_name ? `<dt>Agent</dt><dd>${esc(l.rep_name)} ${esc(l.rep_phone)}</dd>` : ""}
+      ${l.acres ? `<dt>Land</dt><dd class="num">${l.acres.toFixed(2)} acres${l.land_use ? " · " + esc(l.land_use.toLowerCase()) : ""}</dd>` : ""}
+      ${+l.just_value ? `<dt>Value</dt><dd class="num">${money(l.just_value)} · buildings ${money(l.bldg_value)}</dd>` : ""}
+      ${l.last_sale_date ? `<dt>Last sale</dt><dd class="num">${fmtDate(l.last_sale_date)} for ${money(l.last_sale_price)}</dd>` : ""}
+      ${l.folios ? `<dt>Parcels</dt><dd class="num sub">${esc(l.folios)}</dd>` : ""}
+    </dl>
+    ${l.source_url && l.purpose ? `<p class="why"><strong>On the agenda:</strong> ${esc(short(l.purpose, 320))}</p>` : ""}
+    <section class="breakdown" aria-label="How the score adds up">
+      <h3>How the score adds up</h3>
+      ${CATS.map(([name, max], i) => { const [sc, items] = l.pts[i] || [0, []]; return `
+        <div class="cat"><div class="cat-head"><span>${esc(name)}</span><b class="num">${sc} <small>of ${max}</small></b></div>
+          <div class="meter" aria-hidden="true"><i style="width:${Math.round(100 * sc / max)}%"></i></div>
+          ${items.length ? `<ul>${items.map(([n, t]) => `<li><b class="num up">+${n}</b><span>${esc(t)}</span></li>`).join("")}</ul>`
+                         : `<p class="none">Nothing found for this yet.</p>`}
+        </div>`; }).join("")}
+      ${l.pen.length ? `<div class="cat"><div class="cat-head"><span>Penalties</span></div><ul>${l.pen.map(([n, t]) =>
+        `<li><b class="num down">−${Math.abs(n)}</b><span>${esc(t)}</span></li>`).join("")}</ul></div>` : ""}
+      <div class="total"><span>Score</span><b class="num">${l.score} <small>of 100</small></b></div>
+    </section>
+    <div class="links">
+      ${l.source_url ? `<a href="${esc(l.source_url)}" target="_blank" rel="noopener">Official record and documents ${ext}</a>` : ""}
+      ${l.sunbiz_url ? `<a href="${esc(l.sunbiz_url)}" target="_blank" rel="noopener">Who runs this LLC ${ext}</a>` : ""}
+      ${gmaps ? `<a href="${gmaps}" target="_blank" rel="noopener">Open in Google Maps ${ext}</a>` : ""}
+    </div>
+    <div class="track">
+      <div class="track-head"><h3>Pursuit</h3><span class="sub" id="track-meta"></span></div>
+      <div class="seg" role="group" aria-label="Status">${STATUSES.map(s => `<button aria-pressed="${s === (r.status || "New")}" data-s="${s}"${ro ? " disabled" : ""}>${s}</button>`).join("")}</div>
+      <textarea id="d-notes" aria-label="Notes" placeholder="Who you spoke to, what they're building, next step"${ro ? " disabled" : ""}>${esc(r.notes || "")}</textarea>
+      <div class="saved" id="saved" aria-live="polite">${ro ? "You have view-only access to team notes." : ""}</div>
+    </div>`;
+  refreshTrack();
+  const said = msg => { const el = $("#saved"); if (el && selId === id) el.textContent = msg; };
+  d.querySelectorAll("[data-s]").forEach(b => b.onclick = async () => {
+    d.querySelectorAll("[data-s]").forEach(x => x.setAttribute("aria-pressed", x === b));
+    said("Saving…"); said(await save(l, {status:b.dataset.s})); render(); refreshTrack();
+  });
+  let t;
+  $("#d-notes").oninput = e => { clearTimeout(t); const v = e.target.value; said("Saving…");
+    t = setTimeout(async () => { said(await save(l, {notes:v})); refreshTrack(); }, 800); };
+}
+
+/* ---------- events ---------- */
+$("#rows").addEventListener("click", e => { const tr = e.target.closest("tr.row"); if (tr) select(tr.dataset.id, false); });
+$("#rows").addEventListener("keydown", e => { const tr = e.target.closest("tr.row"); if (tr && (e.key === "Enter" || e.key === " ")) { e.preventDefault(); select(tr.dataset.id, false); } });
+$("#days").addEventListener("click", e => {
+  const b = e.target.closest("[data-id]"); if (b) return select(b.dataset.id, true);
+  const m = e.target.closest("[data-day]"); if (m) { dayFilter = m.dataset.day; render(); document.querySelector(".work").scrollIntoView({block:"start"}); }
+});
+$("#dayChip").addEventListener("click", e => { if (e.target.closest("button")) { dayFilter = null; render(); } });
+document.querySelectorAll("[data-stage]").forEach(b => b.onclick = () => { b.setAttribute("aria-pressed", b.getAttribute("aria-pressed") !== "true"); render(); });
+["#q","#type","#juris","#status","#minScore","#minAcres","#company"].forEach(s => $(s).addEventListener("input", render));
+$("#q").addEventListener("input", () => { fitted = false; });
+document.querySelectorAll("th button[data-k]").forEach(b => b.onclick = () => {
+  const k = b.dataset.k; sortDir = sortK === k ? -sortDir : (k === "score" || k === "acres" ? -1 : 1); sortK = k; render();
+});
+$("#theme").onclick = () => {
+  const r = document.documentElement, cur = r.dataset.theme || (matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+  r.dataset.theme = cur === "dark" ? "light" : "dark"; drawBase(); render();
+};
+matchMedia("(prefers-color-scheme: dark)").addEventListener("change", () => { drawBase(); render(); });
+
+$("#export").onclick = async () => {
+  const cols = ["score","stage","state","jurisdiction","case_type","case_id","hearing_date","site_address","location","acres","units","sqft","uses",
+    "land_use","owner","owner_mail","applicant","rep_name","rep_phone","just_value","bldg_value","last_sale_date","last_sale_price",
+    "source_url","sunbiz_url","folios","purpose","reasons"];
+  const q = v => `"${String(v ?? "").replace(/"/g, '""')}"`;
+  const csv = [[...cols, "status", "notes"].join(",")].concat(filtered().map(l =>
+    [...cols.map(c => q(l[c])), q(statusOf(l)), q(rec(l).notes)].join(","))).join("\n");
+  const filename = `bach_leads_${new Date().toISOString().slice(0, 10)}.csv`;
+  const btn = $("#export");
+  let dl = null; try { dl = await window.claude?.use?.("downloads"); } catch (e) {}
+  if (dl) {
+    try { await dl.save({filename, data:new Blob([csv], {type:"text/csv"})}); btn.textContent = "Exported"; }
+    catch (e) { btn.textContent = "Export cancelled"; }
+    setTimeout(() => btn.textContent = "Export list", 2000);
+    return;
+  }
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(new Blob([csv], {type:"text/csv"})); a.download = filename; a.click();
+};
+
+/* ---------- column help ---------- */
+const pts = (n, t) => `<li><b class="${n > 0 ? "up" : "down"}">${n > 0 ? "+" : "−"}${Math.abs(n)}</b><span>${t}</span></li>`;
+const INFO = {
+  score: `<h4>Score (0–100)</h4><p>Five parts, each with a maximum. The maximums add up to 100, so a perfect lead scores exactly 100 and nothing is ever cut off.</p>
+    <p class="cat-title">Timing, up to 35</p><ul>${pts(30,"Pre-application (earliest)")}${pts(27,"Waiting for its hearing")}${pts(22,"Heard in the last 6 months")}
+    ${pts(15,"Heard 6–18 months ago")}${pts(13,"Approved PD, nothing built yet")}${pts(6,"Heard over 18 months ago")}${pts(3,"Several filings on the same site")}${pts(2,"Approved")}</ul>
+    <p class="cat-title">Size, up to 25 <span>(the strongest one counts)</span></p><ul>${pts(25,"20+ acres, 100+ units or 100,000+ sq ft")}${pts(18,"5–20 acres")}
+    ${pts(15,"20–99 units or 20,000+ sq ft")}${pts(10,"1–5 acres")}</ul>
+    <p class="cat-title">Project fit, up to 20</p><ul>${pts(12,"Commercial, multifamily, hotel, medical, industrial and similar")}${pts(8,"PD/PUD, or site plan or subdivision")}
+    ${pts(8,"Commercial or multifamily land on record (if use unknown)")}${pts(4,"Rezoning")}</ul>
+    <p class="cat-title">Developer, up to 10</p><ul>${pts(10,"Owner or applicant is a company")}</ul>
+    <p class="cat-title">Land readiness, up to 10</p><ul>${pts(6,"Land is vacant")}${pts(4,"Land bought in the last 3 years")}</ul>
+    <p class="cat-title">Penalties</p><ul>${pts(-10,"Single-family homes only")}${pts(-30,"Government owner")}</ul>
+    <div class="foot">Orange scores are 60 or higher. Open any lead to see each part and what earned it. Leads outside Hillsborough can't earn land-readiness points yet because owner records aren't loaded there.</div>`,
+  stage: `<h4>Stage</h4><p>Where the project is in the approval process, earliest first.</p>
+    <ul><li><b>1</b><span><strong>Pre-app:</strong> the developer has met the county before filing. Earliest possible signal.</span></li>
+    <li><b>2</b><span><strong>Pending:</strong> filed, hearing not held yet. Best time to reach the owner.</span></li>
+    <li><b>3</b><span><strong>Heard:</strong> hearing held, usually approved. Site plan and permits come next.</span></li>
+    <li><b>4</b><span><strong>Approved, vacant:</strong> PD approved in recent years, nothing built yet.</span></li></ul>
+    <div class="foot">Below the stage: case type, case number (+N means more filings on the same site) and hearing date.</div>`,
+  site: `<h4>Site</h4><p>The street address, or the location described in the case (such as "southeast corner of 19th Ave and Baseline Rd"). The second line is the land use on record or what the applicant plans to build.</p>`,
+  acres: `<h4>Acres</h4><p>Size of the land in the case, from the property appraiser or the agenda text. 0.0 means the agenda didn't state it; open the official record for the site plan.</p>`,
+  owner: `<h4>Owner</h4><p>The property owner from the county's parcel records where we have them (Hillsborough today). Elsewhere it shows the applicant named on the agenda, often the developer or their LLC.</p>
+    <div class="foot">"Hide individual and government owners" keeps sites where no owner has been found yet.</div>`,
+  status: `<h4>Status</h4><p>Your team's progress on this lead: New, Researching, Contacted, Meeting set, Bidding, Won, Lost or Pass. Set it in the lead panel. Everyone with the link sees the same status.</p>`,
+};
+const infoIcon = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 11v5.5"/><circle cx="12" cy="7.6" r=".6" fill="currentColor"/></svg>`;
+document.querySelectorAll("th .info").forEach(b => b.innerHTML = infoIcon);
+let tip = null, tipBtn = null;
+function closeTip() { if (tip) { tip.remove(); tip = null; } if (tipBtn) { tipBtn.setAttribute("aria-expanded", "false"); tipBtn = null; } }
+document.addEventListener("click", e => {
+  const b = e.target.closest("th .info");
+  if (!b) { if (tip && !e.target.closest(".tip")) closeTip(); return; }
+  e.stopPropagation();
+  if (tipBtn === b) return closeTip();
+  closeTip();
+  tip = document.createElement("div");
+  tip.className = "tip"; tip.id = "tip"; tip.setAttribute("role", "dialog"); tip.setAttribute("aria-label", b.getAttribute("aria-label"));
+  tip.innerHTML = INFO[b.dataset.info];
+  document.body.appendChild(tip);
+  const r = b.getBoundingClientRect(), w = tip.offsetWidth, h = tip.offsetHeight;
+  let left = Math.min(Math.max(16, r.left - 12), innerWidth - w - 16);
+  let top = r.bottom + 8;
+  if (top + h > innerHeight - 16) top = Math.max(16, r.top - h - 8);
+  tip.style.left = left + "px"; tip.style.top = top + "px";
+  tip.style.maxHeight = (innerHeight - 32) + "px"; tip.style.overflow = "auto";
+  b.setAttribute("aria-expanded", "true"); b.setAttribute("aria-controls", "tip"); tipBtn = b;
+});
+document.addEventListener("keydown", e => { if (e.key === "Escape" && tip) { const b = tipBtn; closeTip(); b && b.focus(); } });
+document.querySelector(".tablewrap").addEventListener("scroll", closeTip, {passive:true});
+addEventListener("resize", closeTip);
+
+/* ---------- coverage view: what is covered, what isn't, and why ---------- */
+let COVERAGE = null, covLayer = null, mapMode = "leads";
+const COV_COLOR = {covered:"--ok", gap:"--orange", "n/a":"--map-out-edge"};
+async function loadCoverage() {
+  if (COVERAGE) return COVERAGE;
+  try { COVERAGE = await (await fetch("coverage.json")).json(); } catch (e) { COVERAGE = []; }
+  return COVERAGE;
+}
+async function showCoverage() {
+  const cov = await loadCoverage(), byFips = Object.fromEntries(cov.map(c => [c.fips, c]));
+  if (covLayer) covLayer.remove();
+  const counties = BASEMAP.features.filter(f => f.properties.kind === "counties");
+  covLayer = L.geoJSON({type:"FeatureCollection", features:counties}, {renderer:baseRenderer, pane:"basemap",
+    style: f => { const c = byFips[f.properties.fips];
+      return {color:css("--map-out-edge"), weight:.5, fillColor: css(COV_COLOR[c ? c.status : "gap"]), fillOpacity: c && c.status === "n/a" ? .15 : .45}; },
+    onEachFeature: (f, lyr) => { const c = byFips[f.properties.fips];
+      lyr.bindTooltip(`<b>${esc(f.properties.name)}, ${esc(f.properties.st)}</b><br>${esc(c ? c.why : "Not in the target list")}`); }
+  }).addTo(map);
+  // cities over 25,000 are their own zoning authority: list them in the summary
+  const states = {};
+  cov.forEach(c => { const s = states[c.state] ||= {n:0, cov:0, pop:0, popCov:0, gaps:[]};
+    if (c.status === "n/a") return;
+    s.n++; s.pop += c.pop; if (c.status === "covered") { s.cov++; s.popCov += c.pop; } else s.gaps.push(c); });
+  const all = cov.filter(c => c.status !== "n/a"), covered = all.filter(c => c.status === "covered");
+  const reasons = {}; all.filter(c => c.status === "gap").forEach(c => { const k = c.why.split(" (")[0].replace(/^Uses .*/, "Uses an agenda system not read yet"); reasons[k] = (reasons[k] || 0) + 1; });
+  const rows = Object.entries(states).filter(([st]) => $("#territory").value !== "bach" || BACH.has(st))
+    .sort((a, b) => b[1].pop - a[1].pop);
+  $("#detail").innerHTML = `<div class="cov-sum">
+    <h3>Coverage</h3>
+    <p>${covered.length.toLocaleString()} of ${all.length.toLocaleString()} counties and cities (over 25,000 people) are read automatically.
+      Hover a county on the map to see why it is or isn't covered.</p>
+    <p><strong>Why the rest aren't covered yet:</strong> ${Object.entries(reasons).sort((a, b) => b[1] - a[1]).map(([k, n]) => `${esc(k)} (${n.toLocaleString()})`).join("; ")}</p>
+    <table><tr><th>State</th><th class="r">Governments covered</th><th>Share of people</th></tr>
+    ${rows.map(([st, s]) => `<tr><td>${esc(STATE_NAMES[st] || st)}</td><td class="r num">${s.cov} of ${s.n}</td>
+      <td><div class="cov-bar" title="${Math.round(100 * s.popCov / (s.pop || 1))}%"><i style="width:${Math.round(100 * s.popCov / (s.pop || 1))}%"></i></div></td></tr>`).join("")}
+    </table></div>`;
+  $("#map-key").innerHTML = `<span><i class="k-sq" style="background:var(--ok)"></i>Covered</span>
+    <span><i class="k-sq" style="background:var(--orange)"></i>Not covered yet</span>
+    <span><i class="k-sq" style="background:var(--map-out-edge)"></i>County doesn't zone</span>`;
+  $("#map-note").textContent = `${Math.round(100 * covered.length / (all.length || 1))}% of governments covered`;
+}
+document.querySelectorAll("[data-mode]").forEach(b => b.onclick = () => {
+  mapMode = b.dataset.mode;
+  document.querySelectorAll("[data-mode]").forEach(x => x.setAttribute("aria-pressed", x === b));
+  if (mapMode === "coverage") { layer.remove(); showCoverage(); }
+  else { if (covLayer) { covLayer.remove(); covLayer = null; } layer.addTo(map); $("#map-note").textContent = "";
+         $("#detail").innerHTML = `<div class="placeholder">Pick a site from the list, the map or a hearing day to see the owner, the case and your team's notes.</div>`; render(); }
+});
+render();
+</script>
+</body></html>
