@@ -162,6 +162,7 @@ tr.row.sel td:first-child{box-shadow:inset 2px 0 0 var(--orange)}
 
 #map{flex:1 1 100%;min-height:420px;background:var(--ground)}
 .mlabel{white-space:nowrap;pointer-events:none}
+.leaflet-marker-pane{transition:opacity .18s cubic-bezier(.23,1,.32,1)}
 .mlabel span{display:inline-block;transform:translate(-50%,-50%);font:500 11px/1.1 var(--text);color:var(--map-label);
   text-shadow:0 0 2px var(--map-halo),0 0 2px var(--map-halo),0 0 3px var(--map-halo),0 0 4px var(--map-halo)}
 .mlabel.city span{font-weight:600;font-size:12px}
@@ -231,6 +232,18 @@ tr.row.sel td:first-child{box-shadow:inset 2px 0 0 var(--orange)}
 .detail h2{margin:0;font-size:19px;font-weight:600;letter-spacing:-.01em;line-height:1.25}
 .detail .meta{display:flex;flex-wrap:wrap;gap:6px 14px;margin:6px 0 14px;font-size:13px;color:var(--mute)}
 .detail .meta b{color:var(--orange-ink);font-family:var(--display);font-size:15px}
+.people{margin:18px 0 6px}
+.people h3{font:600 15px var(--display);margin:0 0 8px;display:flex;gap:8px;align-items:baseline}
+.people h3 .sub{font:400 12px var(--text)}
+.people ul{list-style:none;margin:0;padding:0;border:1px solid var(--line);border-radius:10px;overflow:hidden}
+.people li{display:grid;grid-template-columns:84px 1fr auto;gap:12px;align-items:start;padding:10px 12px}
+.people li+li{border-top:1px solid var(--line)}
+.people .role{font-size:11.5px;font-weight:600;letter-spacing:.03em;text-transform:uppercase;color:var(--orange-ink);padding-top:2px}
+.people .who b{font-weight:600;overflow-wrap:anywhere}
+.people .ways{display:flex;flex-wrap:wrap;gap:4px 14px;font-size:13px;color:var(--mute);margin-top:2px}
+.people .ways a{color:var(--ink);text-underline-offset:2px}
+.people > .sub{margin:6px 0 0;font-size:12px}
+@media (max-width:560px){.people li{grid-template-columns:1fr}}
 .kv{display:grid;grid-template-columns:96px 1fr;gap:6px 14px;font-size:13.5px;margin:0}
 .kv dt{color:var(--mute)}
 .kv dd{margin:0;min-width:0;overflow-wrap:anywhere}
@@ -362,8 +375,10 @@ tr.row.sel td:first-child{box-shadow:inset 2px 0 0 var(--orange)}
   <label class="inline">Score ≥ <input type="number" class="num" id="minScore" value="30" min="0" max="100" step="5"></label>
   <label class="inline">Acres ≥ <input type="number" class="num" id="minAcres" value="0" min="0" step="1"></label>
   <label class="inline" title="Hides sites owned by individuals or government. Sites with no owner found yet stay visible."><input type="checkbox" id="company" checked>Hide individual and government owners</label>
+  <label class="inline" title="Only leads where the case documents name an applicant, agent, developer or engineer to contact"><input type="checkbox" id="hasContact">Has a contact</label>
   <span id="dayChip"></span>
   <button id="mailbar" aria-label="Open the postcard list">Postcard list (<span id="mailcount">0</span>)</button>
+  <button id="exportContacts" title="One row per person or company named in the case documents, for your CRM or Apollo">Export contacts</button>
   <button class="btn-primary" id="export">Export list</button>
 </div>
 
@@ -524,11 +539,14 @@ const stagesOn = () => [...document.querySelectorAll("[data-stage][aria-pressed=
 
 function baseFiltered() {
   const q = $("#q").value.trim().toLowerCase(), st = stagesOn(), ty = $("#type").value, ju = $("#juris").value, sa = $("#state").value, terr = $("#territory").value,
-        ss = $("#status").value, ms = +$("#minScore").value || 0, ma = +$("#minAcres").value || 0, co = $("#company").checked;
+        ss = $("#status").value, ms = +$("#minScore").value || 0, ma = +$("#minAcres").value || 0, co = $("#company").checked,
+        hc = $("#hasContact").checked;
   return leads.filter(l =>
     st.includes(l.stage) && (!ty || l.case_type === ty) && (!ju || l.jurisdiction === ju) && (!sa || l.state === sa) && (terr !== "bach" || BACH.has(l.state)) &&
     (!ss || statusOf(l) === ss) && l.score >= ms && l.acres >= ma && (!co || l.owner_is_entity || !(l.owner || l.applicant)) &&
-    (!q || [l.owner, l.applicant, l.site_address, l.location, l.case_id, l.rep_name, l.owner_mail, l.jurisdiction, l.purpose, l.uses]
+    (!hc || (l.contacts && l.contacts.length)) &&
+    (!q || [l.owner, l.applicant, l.site_address, l.location, l.case_id, l.rep_name, l.owner_mail, l.jurisdiction, l.purpose, l.uses,
+            ...(l.contacts || []).map(c => `${c.name} ${c.email}`)]
       .join(" ").toLowerCase().includes(q)));
 }
 function filtered() {
@@ -543,11 +561,20 @@ function filtered() {
 /* ---------- map: drawn basemap (no outside tiles) ----------
    Layers, back to front: states and county lines (basemap.json), freeways, county street detail
    (map/<FIPS>.json from OpenStreetMap, loaded when zoomed in), lead pins, then text labels. */
-const map = L.map("map", {zoomControl:true, attributionControl:true, zoomSnap:.25, minZoom:3, maxZoom:15}).setView([38.5, -96], 4);
+// zoom in half steps: a trackpad pinch no longer fires a full redraw for every tiny wheel tick
+const map = L.map("map", {zoomControl:true, attributionControl:true, zoomSnap:.5, zoomDelta:.5, wheelPxPerZoomLevel:110,
+  wheelDebounceTime:50, minZoom:3, maxZoom:15}).setView([38.5, -96], 4);
+window.__leadMap = map;  // handy for debugging in the browser console
 map.attributionControl.setPrefix(false).addAttribution("© OpenStreetMap contributors · Esri · US Census");
 for (const [name, z] of [["basemap", 300], ["streets", 350], ["pins", 450]]) map.createPane(name).style.zIndex = z;
-const baseRenderer = L.canvas({pane:"basemap"}), streetRenderer = L.canvas({pane:"streets", padding:.3}), pinRenderer = L.canvas({pane:"pins"});
-let base, highways, stateLayers = {};
+const baseRenderer = L.canvas({pane:"basemap", padding:.2}), streetRenderer = L.canvas({pane:"streets", padding:.2});
+let base, highways, countyLines, stateLayers = {}, mapMode = "leads";
+function syncCountyLines() {
+  if (!countyLines) return;
+  const want = map.getZoom() >= 6 && mapMode !== "coverage";
+  if (want && !map.hasLayer(countyLines)) countyLines.addTo(map);
+  else if (!want && map.hasLayer(countyLines)) map.removeLayer(countyLines);
+}
 const ORDER = {states:0, counties:1, county:2};
 const areas_ = BASEMAP.features.filter(f => ORDER[f.properties.kind] !== undefined).sort((a, b) => ORDER[a.properties.kind] - ORDER[b.properties.kind]);
 const freeways = BASEMAP.features.filter(f => f.properties.kind === "freeways");
@@ -557,9 +584,9 @@ function drawBase() {
   if (highways) map.removeLayer(highways);
   stateLayers = {};
   const pick = $("#state") ? $("#state").value : "";
-  base = L.geoJSON({type:"FeatureCollection", features:areas_}, {interactive:false, renderer:baseRenderer, pane:"basemap", style: f => {
+  base = L.geoJSON({type:"FeatureCollection", features:areas_.filter(f => f.properties.kind !== "counties")},
+    {interactive:false, renderer:baseRenderer, pane:"basemap", smoothFactor:1.5, style: f => {
     const k = f.properties.kind;
-    if (k === "counties") return {color:css("--map-out-edge"), weight:.6, fill:false, opacity:1};
     if (k === "states") {
       const on = pick && f.properties.name === pick, ours = $("#territory").value !== "bach" || f.properties.bach !== false;
       // with "BACH territory" chosen, the other states step back; the chosen state is outlined in orange
@@ -570,7 +597,12 @@ function drawBase() {
   }, onEachFeature: (f, lyr) => {
     if (f.properties.kind === "states") stateLayers[f.properties.name] = lyr;
   }}).addTo(map);
-  highways = L.geoJSON({type:"FeatureCollection", features:freeways}, {interactive:false, renderer:streetRenderer, pane:"streets",
+  // county lines are only drawn once zoomed in far enough to read them (3,000 outlines slow every zoom otherwise)
+  if (countyLines) map.removeLayer(countyLines);
+  countyLines = L.geoJSON({type:"FeatureCollection", features:areas_.filter(f => f.properties.kind === "counties")},
+    {interactive:false, renderer:baseRenderer, pane:"basemap", smoothFactor:2, style: () => ({color:css("--map-out-edge"), weight:.6, fill:false, opacity:1})});
+  syncCountyLines();
+  highways = L.geoJSON({type:"FeatureCollection", features:freeways}, {interactive:false, renderer:streetRenderer, pane:"streets", smoothFactor:1.5,
     style: () => ({color:css("--map-hwy"), weight: map.getZoom() < 7 ? 1 : 1.8, opacity:.9})}).addTo(map);
   Object.values(streetLayers).forEach(g => g.remove()); streetLayers = {}; refreshDetail();
 }
@@ -594,7 +626,7 @@ function drawCounty(fips) {
   [5, 4, 3, 2, 1].forEach(cls => {
     if (!byCls[cls]) return;
     const [w, v] = ROAD_STYLE[cls];
-    L.polyline(byCls[cls], {renderer:streetRenderer, pane:"streets", interactive:false, color:css(v), weight:w, opacity:1, cls,
+    L.polyline(byCls[cls], {renderer:streetRenderer, pane:"streets", interactive:false, color:css(v), weight:w, opacity:1, cls, smoothFactor:1.5,
       lineCap:"round", lineJoin:"round"}).addTo(g);
   });
   streetLayers[fips] = g.addTo(map);
@@ -603,15 +635,21 @@ function refreshDetail() {
   const z = map.getZoom(), b = map.getBounds();
   if (z >= 8.5) {
     INDEX.filter(c => b.intersects([[c.bbox[1], c.bbox[0]], [c.bbox[3], c.bbox[2]]]))
-         .forEach(c => loadCounty(c).then(() => { drawCounty(c.fips); styleStreets(); drawLabels(); }));
+         .forEach(c => loadCounty(c).then(() => { if (!streetLayers[c.fips]) { drawCounty(c.fips); styleStreets(); queueLabels(); } }));
   }
   Object.entries(streetLayers).forEach(([f, g]) => { if (z < 8.5) { g.remove(); delete streetLayers[f]; } });
   styleStreets();
-  drawLabels();
+  queueLabels();
 }
-function styleStreets() {
+// labels are rebuilt once per frame at most, after the map stops moving
+let labelFrame = 0;
+function queueLabels() { cancelAnimationFrame(labelFrame); labelFrame = requestAnimationFrame(drawLabels); }
+function styleStreets(force) {
   const z = map.getZoom(), k = z < 10 ? .6 : z < 12 ? .8 : z < 14 ? 1 : 1.3;
   Object.values(streetLayers).forEach(g => g.eachLayer(l => {
+    const band = `${k}|${z < 9.5}|${z < 11}`;
+    if (!force && l._band === band) return;
+    l._band = band;
     const cls = l.options.cls, hide = (cls === 5 && z < 11) || (cls === 4 && z < 9.5);
     l.setStyle({weight: hide ? 0 : (ROAD_STYLE[cls] || ROAD_STYLE[5])[0] * k, opacity: hide ? 0 : 1});
   }));
@@ -656,14 +694,100 @@ function drawLabels() {
 }
 
 drawBase();
-const layer = L.layerGroup().addTo(map);
+/* All lead pins are painted by one canvas in a single pass (15,000+ separate map objects made every zoom step
+   take seconds). Leaflet's canvas base class still handles panning and the zoom animation. */
+const PinLayer = L.Canvas.extend({
+  list: [], hit: null, projZoom: null, proj: null,
+  setPins(list) { this.list = list; this.proj = null; this.paint(); },
+  _update() { L.Canvas.prototype._update.call(this); this.paint(); },
+  _draw() { this.paint(); },                          // Leaflet clears and redraws the canvas on its own schedule too
+  paint() {
+    const map = this._map, ctx = this._ctx;
+    if (!map || !ctx || !this._bounds || map._animatingZoom) return;
+    const z = map.getZoom(), o = map.getPixelOrigin(), b = this._bounds;
+    if (!this.proj || this.projZoom !== z) {           // project every pin once per zoom level
+      this.proj = new Float64Array(this.list.length * 2);
+      this.list.forEach((l, i) => { const p = map.project([l.lat, l.lon], z); this.proj[2 * i] = p.x; this.proj[2 * i + 1] = p.y; });
+      this.projZoom = z;
+    }
+    ctx.save(); ctx.setTransform(1, 0, 0, 1, 0, 0); ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height); ctx.restore();
+    const colors = {}, col = v => colors[v] ||= css(v), CELL = 24, hit = new Map();
+    let sel = -1;
+    // consecutive pins with the same look go into one path: far fewer fill / stroke calls
+    let key = null, run = [];
+    const flush = () => {
+      if (!run.length) return;
+      const [c, fo, approx] = key.split("|");
+      ctx.beginPath();
+      run.forEach(([x, y, r]) => { ctx.moveTo(x + r, y); ctx.arc(x, y, r, 0, 6.2832); });
+      ctx.globalAlpha = +fo; ctx.fillStyle = c; ctx.fill();
+      ctx.globalAlpha = 1; ctx.strokeStyle = c; ctx.lineWidth = approx === "1" ? 1.2 : 1;
+      ctx.setLineDash(approx === "1" ? [2, 2] : []); ctx.stroke();
+      run = [];
+    };
+    this.list.forEach((l, i) => {
+      const x = this.proj[2 * i] - o.x, y = this.proj[2 * i + 1] - o.y, r = pinRadius(l);
+      if (x < b.min.x - r || y < b.min.y - r || x > b.max.x + r || y > b.max.y + r) return;
+      if (l.id === selId) sel = i;
+      const k = `${col(STAGE[l.stage].v)}|${l.approx ? .12 : (l.stage === "Pending hearing" || l.stage === "Pre-application") ? .85 : .5}|${l.approx ? 1 : 0}`;
+      if (k !== key) { flush(); key = k; }
+      run.push([x, y, r]);
+      const cell = `${Math.floor(x / CELL)}:${Math.floor(y / CELL)}`;
+      (hit.get(cell) || hit.set(cell, []).get(cell)).push(i);
+    });
+    flush();
+    if (sel >= 0) {                                   // the selected lead gets a dark ring on top
+      const l = this.list[sel], x = this.proj[2 * sel] - o.x, y = this.proj[2 * sel + 1] - o.y;
+      ctx.beginPath(); ctx.arc(x, y, pinRadius(l) + 1, 0, 6.2832);
+      ctx.setLineDash([]); ctx.lineWidth = 3; ctx.strokeStyle = col("--ink"); ctx.stroke();
+    }
+    this.hit = hit; this.origin = o;
+  },
+  // the topmost pin under a point on the map (layer coordinates), or null
+  at(pt) {
+    if (!this.hit || !this.proj) return null;
+    const CELL = 24, cx = Math.floor(pt.x / CELL), cy = Math.floor(pt.y / CELL), o = this._map.getPixelOrigin();
+    let best = null, bestI = -1;
+    for (let dx = -1; dx <= 1; dx++) for (let dy = -1; dy <= 1; dy++) (this.hit.get(`${cx + dx}:${cy + dy}`) || []).forEach(i => {
+      const l = this.list[i], x = this.proj[2 * i] - o.x, y = this.proj[2 * i + 1] - o.y;
+      if ((x - pt.x) ** 2 + (y - pt.y) ** 2 <= (pinRadius(l) + 3) ** 2 && i > bestI) { best = l; bestI = i; }
+    });
+    return best;
+  },
+});
+const layer = new PinLayer({pane:"pins", padding:.2}).addTo(map);
+const pinTip = L.tooltip({direction:"top", offset:[0, -6]});
+let hovered = null;
+map.on("mousemove", e => {
+  if (!map.hasLayer(layer)) return;
+  const l = layer.at(e.layerPoint);
+  if (l === hovered) return;
+  hovered = l;
+  map.getContainer().style.cursor = l ? "pointer" : "";
+  if (!l) { map.closeTooltip(pinTip); return; }
+  pinTip.setLatLng([l.lat, l.lon]).setContent(`${esc(owner1(l))} · ${l.score}${l.approx ? `<br><span class="sub">Approximate: somewhere in ${esc(l.jurisdiction)}</span>` : ""}`);
+  map.openTooltip(pinTip);
+});
+map.on("mouseout zoomstart", () => { hovered = null; map.closeTooltip(pinTip); map.getContainer().style.cursor = ""; });
+map.on("click", e => { if (!map.hasLayer(layer)) return; const l = layer.at(e.layerPoint); if (l) select(l.id, true); });
 let fitted = false;
-map.on("zoomend", () => { resizePins(); highways && highways.setStyle({weight: map.getZoom() < 7 ? 1 : 1.8}); });
+let hwyBand = null;
+map.on("zoomend", () => {
+  resizePins(); syncCountyLines();
+  const w = map.getZoom() < 7 ? 1 : 1.8;
+  if (highways && w !== hwyBand) { hwyBand = w; highways.setStyle({weight: w}); }
+});
+// labels are HTML on top of the canvas: hide them while zooming instead of letting hundreds of them animate
+map.on("zoomstart", () => map.getPane("markerPane").style.opacity = 0);
+map.on("zoomend", () => map.getPane("markerPane").style.opacity = "");
 map.on("moveend", refreshDetail);
 const pinRadius = l => { const z = map.getZoom(), k = z < 6 ? .45 : z < 8 ? .65 : z < 11 ? .85 : 1.1;
   return Math.max(2.5, (3 + Math.min(9, Math.sqrt(l.acres || 1))) * k); };
 let pins = [];
-function resizePins() { pins.forEach(([m, l]) => m.setRadius(pinRadius(l))); }
+// pins change size in four zoom bands; only touch them when the band changes
+let pinBand = null;
+const bandOf = z => z < 6 ? 0 : z < 8 ? 1 : z < 11 ? 2 : 3;
+function resizePins() { pinBand = bandOf(map.getZoom()); }  // the pin canvas repaints itself after every zoom
 
 /* ---------- hearing agenda ---------- */
 function renderAgenda(list) {
@@ -719,32 +843,22 @@ function render() {
     if (b.dataset.k === sortK) th.setAttribute("aria-sort", sortDir < 0 ? "descending" : "ascending"); else th.removeAttribute("aria-sort");
   });
 
-  layer.clearLayers();
-  pins = [];
-  const pts = [], early = l => l.stage === "Pending hearing" || l.stage === "Pre-application";
+  const early = l => l.stage === "Pending hearing" || l.stage === "Pre-application";
   // draw early-stage and higher-scoring pins last so they sit on top
-  list.slice().sort((a, b) => (early(a) - early(b)) || (a.score - b.score)).forEach(l => {
-    if (l.lat == null) return;
-    const c = css(STAGE[l.stage].v), sel = l.id === selId;
-    const m = L.circleMarker([l.lat, l.lon], {renderer:pinRenderer, pane:"pins", radius: pinRadius(l), color: sel ? css("--ink") : c,
-      fillColor:c, fillOpacity: l.approx ? .12 : early(l) ? .85 : .5, weight: sel ? 3 : l.approx ? 1.2 : 1,
-      dashArray: l.approx ? "2 2" : null}).addTo(layer);
-    m.bindTooltip(`${esc(owner1(l))} · ${l.score}${l.approx ? `<br><span class="sub">Approximate: somewhere in ${esc(l.jurisdiction)}</span>` : ""}`);
-    m.on("click", () => select(l.id, true));
-    pins.push([m, l]);
-    pts.push([l.lat, l.lon]);
-  });
+  pins = list.filter(l => l.lat != null).sort((a, b) => (early(a) - early(b)) || (a.score - b.score));
+  const pts = pins.map(l => [l.lat, l.lon]);
+  layer.setPins(pins);
   if (!fitted) {
     const st = $("#state").value, area = $("#juris").value || $("#q").value.trim();
     if (st && !area && stateLayers[st]) map.fitBounds(stateLayers[st].getBounds(), {padding:[16, 16]});
     else if (!st && !area && $("#territory").value === "bach")
       map.fitBounds(L.featureGroup([...BACH].filter(k => stateLayers[k]).map(k => stateLayers[k])).getBounds(), {padding:[8, 8]});
     else if (!st && !area) map.fitBounds([[24.4, -125], [49.4, -66.9]], {padding:[8, 8]});  // lower 48
-    else if (pts.length) map.fitBounds(pts, {padding:[24, 24], maxZoom: pins.some(([, l]) => l.approx) ? 9 : 12});
+    else if (pts.length) map.fitBounds(pts, {padding:[24, 24], maxZoom: pins.some(l => l.approx) ? 9 : 12});
     fitted = true;
   }
   if (mapMode === "coverage") { renderAgenda(baseFiltered()); return; }
-  const exact = pins.filter(([, l]) => !l.approx).length;
+  const exact = pins.filter(l => !l.approx).length;
   $("#map").setAttribute("aria-label", `Map of ${pts.length} leads, ${exact} at their exact address`);
   $("#map-key").innerHTML = `<span><i class="k-dot"></i>Exact address (${exact.toLocaleString()})</span>
     <span><i class="k-dot k-approx"></i>Approximate, in its city or county (${(pts.length - exact).toLocaleString()})</span>`;
@@ -797,12 +911,13 @@ function select(id, scroll) {
       ${l.uses || +l.units || +l.sqft ? `<dt>Building</dt><dd class="num">${esc([l.uses, +l.units ? (+l.units).toLocaleString() + " units" : "", +l.sqft ? (+l.sqft).toLocaleString() + " sq ft" : ""].filter(Boolean).join(" · "))}</dd>` : ""}
       <dt>Owner</dt><dd>${esc(title(l.owner)) || "Not looked up yet for this area"}</dd>
       ${l.owner_mail ? `<dt>Mail to</dt><dd>${esc(title(l.owner_mail))}</dd>` : ""}
-      ${l.rep_name ? `<dt>Agent</dt><dd>${esc(l.rep_name)} ${esc(l.rep_phone)}</dd>` : ""}
+      ${l.rep_name && !(l.contacts || []).length ? `<dt>Agent</dt><dd>${esc(l.rep_name)} ${esc(l.rep_phone)}</dd>` : ""}
       ${l.acres ? `<dt>Land</dt><dd class="num">${l.acres.toFixed(2)} acres${l.land_use ? " · " + esc(l.land_use.toLowerCase()) : ""}</dd>` : ""}
       ${+l.just_value ? `<dt>Value</dt><dd class="num">${money(l.just_value)} · buildings ${money(l.bldg_value)}</dd>` : ""}
       ${l.last_sale_date ? `<dt>Last sale</dt><dd class="num">${fmtDate(l.last_sale_date)} for ${money(l.last_sale_price)}</dd>` : ""}
       ${l.folios ? `<dt>Parcels</dt><dd class="num sub">${esc(l.folios)}</dd>` : ""}
     </dl>
+    ${contactsHtml(l, r, ro)}
     ${l.source_url && l.purpose ? `<p class="why"><strong>On the agenda:</strong> ${esc(short(l.purpose, 320))}</p>` : ""}
     <section class="breakdown" aria-label="How the score adds up">
       <h3>How the score adds up</h3>
@@ -830,6 +945,11 @@ function select(id, scroll) {
     </div>`;
   refreshTrack();
   drawMailRow(l);
+  d.querySelectorAll("[data-mailto]").forEach(b => b.onclick = async () => {
+    const c = l.contacts[+b.dataset.mailto], on = rec(l).mail === "queued" && rec(l).mailTo === c.name;
+    await save(l, on ? {mail:null, mailTo:null} : {mail:"queued", mailTo:c.name});
+    updateMailCount(); select(l.id);
+  });
   const said = msg => { const el = $("#saved"); if (el && selId === id) el.textContent = msg; };
   d.querySelectorAll("[data-s]").forEach(b => b.onclick = async () => {
     d.querySelectorAll("[data-s]").forEach(x => x.setAttribute("aria-pressed", x === b));
@@ -933,7 +1053,7 @@ document.querySelector(".tablewrap").addEventListener("scroll", closeTip, {passi
 addEventListener("resize", closeTip);
 
 /* ---------- coverage view: what is covered, what isn't, and why ---------- */
-let COVERAGE = null, covLayer = null, mapMode = "leads";
+let COVERAGE = null, covLayer = null;
 const COV_COLOR = {covered:"--ok", gap:"--orange", "n/a":"--map-out-edge"};
 async function loadCoverage() {
   if (COVERAGE) return COVERAGE;
@@ -977,10 +1097,48 @@ async function showCoverage() {
 document.querySelectorAll("[data-mode]").forEach(b => b.onclick = () => {
   mapMode = b.dataset.mode;
   document.querySelectorAll("[data-mode]").forEach(x => x.setAttribute("aria-pressed", x === b));
+  syncCountyLines();
   if (mapMode === "coverage") { layer.remove(); showCoverage(); }
   else { if (covLayer) { covLayer.remove(); covLayer = null; } layer.addTo(map); $("#map-note").textContent = "";
          closeDrawer(); render(); }
 });
+
+/* ---------- people behind the project (from the staff report and application) ---------- */
+const ROLE_NAMES = {applicant:"Applicant", developer:"Developer", agent:"Agent", engineer:"Engineer", owner:"Owner", contact:"Contact"};
+function contactsHtml(l, r, ro) {
+  const cs = l.contacts || [];
+  if (!cs.length) return "";
+  return `<section class="people" aria-label="People behind the project">
+    <h3>Who's behind it <span class="sub">from the case documents</span></h3>
+    <ul>${cs.map((c, i) => {
+      const mail = !!parseMail(c.addr), on = r.mail === "queued" && r.mailTo === c.name;
+      return `<li>
+        <span class="role">${esc(ROLE_NAMES[c.role] || c.role)}</span>
+        <div class="who"><b>${esc(c.name)}</b>
+          <div class="ways">${c.phone ? `<a href="tel:${esc(c.phone.replace(/[^\d+]/g, ""))}">${esc(c.phone)}</a>` : ""}
+            ${c.email ? `<a href="mailto:${esc(c.email)}">${esc(c.email)}</a>` : ""}
+            ${c.addr ? `<span>${esc(c.addr)}</span>` : ""}
+            ${!c.phone && !c.email && !c.addr ? `<span class="sub">Name only. Look them up by name.</span>` : ""}</div></div>
+        ${mail ? `<button data-mailto="${i}"${ro ? " disabled" : ""}>${on ? "Remove postcard" : "Postcard"}</button>` : ""}
+      </li>`; }).join("")}</ul>
+    ${(l.contact_docs || []).length ? `<p class="sub">Read from ${l.contact_docs.map((u, i) => `<a href="${esc(u)}" target="_blank" rel="noopener">document ${i + 1}</a>`).join(", ")}.</p>` : ""}
+  </section>`;
+}
+$("#hasContact").addEventListener("input", () => render());
+$("#exportContacts").onclick = () => {
+  const cols = ["lead_score","stage","jurisdiction","state","case_id","hearing_date","site","acres","uses","role","name","company","phone","email",
+                "mail_address","status","source_url"];
+  const q = v => `"${String(v ?? "").replace(/"/g, '""')}"`;
+  const rows = [];
+  filtered().forEach(l => (l.contacts || []).forEach(c => {
+    const [person, firm] = c.name.split(" · ");
+    rows.push([l.score, l.stage, l.jurisdiction, l.state, l.case_id.split(",")[0], l.hearing_date, title(l.site_address || l.location || ""),
+      l.acres || "", l.uses || "", ROLE_NAMES[c.role] || c.role, person, firm || "", c.phone, c.email, c.addr, statusOf(l), l.source_url].map(q).join(","));
+  }));
+  const btn = $("#exportContacts");
+  if (!rows.length) { btn.textContent = "No contacts in view"; setTimeout(() => btn.textContent = "Export contacts", 2000); return; }
+  downloadFile(`bach_contacts_${new Date().toISOString().slice(0, 10)}.csv`, [cols.join(","), ...rows].join("\n"), btn, "Export contacts");
+};
 
 /* ---------- postcards: pick leads, download a PostGrid-ready list, mark them mailed ---------- */
 function parseMail(s) {
@@ -992,7 +1150,23 @@ function parseMail(s) {
   const city = parts.pop();
   return {line1: parts[0], line2: parts.slice(1).join(", "), city, state: m[1].toUpperCase(), zip: m[2]};
 }
-const mailable = l => !!parseMail(l.owner_mail);
+/* who a postcard for this lead goes to: the contact picked in the lead's details, else the owner, else the applicant / agent */
+const ROLE_ORDER = {applicant:0, developer:1, agent:2, engineer:3, contact:4, owner:5};
+function recipient(l) {
+  const pick = rec(l).mailTo, cs = (l.contacts || []).filter(c => parseMail(c.addr));
+  const c = pick && cs.find(x => x.name === pick);
+  if (c) return contactTo(c);
+  const a = parseMail(l.owner_mail);
+  if (a) { const who = title((l.owner || "").split(";")[0]) || "Property Owner"; return {name:who, company:l.owner_is_entity, addr:a, role:"owner"}; }
+  const first = cs.sort((x, y) => ROLE_ORDER[x.role] - ROLE_ORDER[y.role])[0];
+  return first ? contactTo(first) : null;
+}
+function contactTo(c) {
+  const [person, firm] = c.name.split(" · ");
+  const company = firm || (/\b(LLC|L\.L\.C|INC|LP|LLP|PLLC|PLC|P\.?A|CORP|COMPANY|GROUP|PARTNERS|HOLDINGS|TRUST|DEVELOPMENT|HOMES|ENGINEERING|ASSOCIATES)\b/i.test(person) ? person : "");
+  return {name:person, firm:firm || "", company:!!company && !firm, addr:parseMail(c.addr), role:c.role};
+}
+const mailable = l => !!recipient(l);
 const queued = () => leads.filter(l => rec(l).mail === "queued");
 const mailTag = l => { const r = rec(l);
   return r.mailed ? `<div class="tag">Mailed ${esc(fmtDate(r.mailed.slice(0, 10)))}</div>` : r.mail === "queued" ? `<div class="tag">On postcard list</div>` : ""; };
@@ -1000,8 +1174,9 @@ function updateMailCount() { $("#mailcount").textContent = queued().length; }
 var drawMailRow = function (l) {
   const el = $("#d-mail"); if (!el) return;
   const r = rec(l), ro = !store.canWrite;
-  if (!mailable(l)) { el.innerHTML = `<span class="sub">No owner mailing address on file for this area yet, so it can't go on the postcard list.</span>`; return; }
-  el.innerHTML = `<span class="sub">${r.mailed ? `Postcard mailed ${esc(fmtDate(r.mailed.slice(0, 10)))}` : r.mail === "queued" ? "On the postcard list" : "Mail the owner a postcard"}</span>
+  if (!mailable(l)) { el.innerHTML = `<span class="sub">No mailing address found for the owner or the people behind this case yet, so it can't go on the postcard list.</span>`; return; }
+  const to = recipient(l);
+  el.innerHTML = `<span class="sub">${r.mailed ? `Postcard mailed ${esc(fmtDate(r.mailed.slice(0, 10)))}` : r.mail === "queued" ? `On the postcard list, to ${esc(to.name)}` : `Mail ${esc(to.name)} (${esc(to.role)}) a postcard`}</span>
     <button id="d-mailbtn"${ro ? " disabled" : ""}>${r.mail === "queued" ? "Remove from postcard list" : r.mailed ? "Add again" : "Add to postcard list"}</button>`;
   $("#d-mailbtn").onclick = async () => {
     await save(l, {mail: rec(l).mail === "queued" ? null : "queued"});
@@ -1025,8 +1200,8 @@ function postgridCsv(list) {
                 "siteAddress","caseNumber","caseType","hearingDate","acres","county"];
   const q = v => `"${String(v ?? "").replace(/"/g, '""')}"`;
   const rows = list.map(l => {
-    const a = parseMail(l.owner_mail), who = title((l.owner || "").split(";")[0]);
-    return [l.owner_is_entity ? "" : who, "", l.owner_is_entity ? who : "", a.line1, a.line2, title(a.city), a.state, a.zip, "US",
+    const to = recipient(l), a = to.addr, who = to.name;
+    return [to.company ? "" : who, "", to.company ? who : to.firm, a.line1, a.line2, title(a.city), a.state, a.zip, "US",
             title(l.site_address || l.location), l.case_id.split(",")[0], TYPE_NAMES[l.case_type] || l.case_type,
             l.hearing_date ? fmtDate(l.hearing_date) : "", l.acres ? l.acres.toFixed(1) : "", l.jurisdiction].map(q).join(",");
   });
@@ -1038,7 +1213,7 @@ var showMailPanel = function (note = "") {
   openDrawer();
   $("#detail-body").innerHTML = `<div class="mailpanel">
     <h3>Postcard list</h3>
-    <p>Pick owners to mail, download the list, and upload it to PostGrid to print and mail the cards. Only leads with an owner mailing address can be added.</p>
+    <p>Pick leads to mail, download the list, and upload it to PostGrid to print and mail the cards. Each card goes to the owner, or to the applicant or agent you pick in the lead's details. Only leads with a mailing address can be added.</p>
     ${note ? `<p class="warn">${esc(note)}</p>` : ""}
     <div class="acts">
       <button id="m-addview"${ro || !inView.length ? " disabled" : ""}>Add all ${inView.length.toLocaleString()} in view</button>
@@ -1047,7 +1222,7 @@ var showMailPanel = function (note = "") {
       <button id="m-clear"${ro || !list.length ? " disabled" : ""}>Clear list</button>
     </div>
     <div class="pg" id="pg"></div>
-    <ul>${list.map(l => `<li><span>${esc(owner1(l))}<span class="sub">${esc(short(title(l.site_address || l.location || ""), 50))} · ${esc(l.jurisdiction)}</span></span>
+    <ul>${list.map(l => `<li><span>${esc((recipient(l) || {}).name || owner1(l))}<span class="sub">${esc(short(title(l.site_address || l.location || ""), 50))} · ${esc(l.jurisdiction)}</span></span>
       <button data-unmail="${esc(l.id)}"${ro ? " disabled" : ""}>Remove</button></li>`).join("") || `<li><span class="sub">The list is empty. Use "Add to postcard list" on a lead, or add everything in view.</span></li>`}</ul>
   </div>`;
   $("#m-addview").onclick = async () => {
@@ -1119,12 +1294,12 @@ function pgFrom() {
   return {companyName:f.company, addressLine1:f.line1, addressLine2:f.line2 || undefined, city:f.city, provinceOrState:f.state, postalOrZip:f.zip, countryCode:"US"};
 }
 function pgTo(l) {
-  const a = parseMail(l.owner_mail), who = title((l.owner || "").split(";")[0]) || "Property Owner";
-  return {...(l.owner_is_entity ? {companyName:who} : {firstName:who}), addressLine1:a.line1, addressLine2:a.line2 || undefined,
+  const to = recipient(l), a = to.addr, who = to.name;
+  return {...(to.company ? {companyName:who} : {firstName:who, ...(to.firm ? {companyName:to.firm} : {})}), addressLine1:a.line1, addressLine2:a.line2 || undefined,
           city:title(a.city), provinceOrState:a.state, postalOrZip:a.zip, countryCode:"US"};
 }
 function pgVars(l) {
-  return {ownerName:title((l.owner || "").split(";")[0]), siteAddress:title(l.site_address || l.location || ""), caseNumber:l.case_id.split(",")[0],
+  return {ownerName:(recipient(l) || {}).name || title((l.owner || "").split(";")[0]), siteAddress:title(l.site_address || l.location || ""), caseNumber:l.case_id.split(",")[0],
           caseType:TYPE_NAMES[l.case_type] || l.case_type, hearingDate:l.hearing_date ? fmtDate(l.hearing_date) : "",
           acres:l.acres ? l.acres.toFixed(1) : "", county:l.jurisdiction};
 }
