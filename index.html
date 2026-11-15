@@ -128,6 +128,24 @@ th{position:sticky;top:0;z-index:1;background:var(--surface);text-align:left;fon
 th button{all:unset;cursor:pointer}
 th button:focus-visible{outline:2px solid var(--orange);outline-offset:2px}
 th[aria-sort] button[data-k]{color:var(--ink)}
+.stagefilter{display:inline-flex;align-items:center;gap:4px}
+.seg.stages button{transition:background-color 140ms ease,color 140ms ease,box-shadow 140ms ease,transform 120ms ease}
+.seg.stages button:active{transform:scale(.97)}
+.seg.stages button[aria-pressed="true"]{background:var(--orange);color:var(--on-orange);font-weight:600;box-shadow:0 1px 2px rgba(0,0,0,.12)}
+.seg.stages button[aria-pressed="true"] .dot{box-shadow:0 0 0 1.5px #fff}
+.seg.stages button[aria-pressed="false"] .dot{opacity:.45}
+@media (hover:hover){.seg.stages button[aria-pressed="false"]:hover{color:var(--ink);background:var(--orange-wash)}}
+.seg.stages button:focus-visible{outline:2px solid var(--orange-ink);outline-offset:2px}
+.stagefilter .info{all:unset;cursor:pointer;display:inline-grid;place-items:center;width:24px;height:24px;border-radius:50%;color:var(--mute);
+  transition:color 120ms ease,background-color 120ms ease}
+@media (hover:hover){.stagefilter .info:hover{color:var(--orange-ink);background:var(--orange-wash)}}
+.stagefilter .info[aria-expanded="true"]{color:var(--orange-ink);background:var(--orange-wash)}
+.stagefilter .info:focus-visible{outline:2px solid var(--orange);outline-offset:2px}
+.tip dl.stagedefs{margin:8px 0 0}
+.tip .stagedefs dt{display:flex;align-items:center;gap:7px;font-weight:600}
+.tip .stagedefs dd{margin:2px 0 12px 15px;color:var(--ink-2)}
+.tip .stagedefs dd:last-child{margin-bottom:0}
+.tip .stagedefs dd em{font-style:normal;color:var(--mute);display:block;font-size:12px;margin-top:2px}
 th .info{display:inline-grid;place-items:center;width:18px;height:18px;margin-left:3px;vertical-align:-4px;border-radius:50%;color:var(--mute);
   transition:color 120ms ease,background-color 120ms ease}
 @media (hover:hover){th .info:hover{color:var(--orange-ink);background:var(--orange-wash)}}
@@ -361,11 +379,14 @@ tr.row.sel td:first-child{box-shadow:inset 2px 0 0 var(--orange)}
     <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
     <input type="search" id="q" placeholder="Search owner, address, case number" aria-label="Search leads">
   </div>
-  <div class="seg" role="group" aria-label="Stage">
-    <button aria-pressed="true" data-stage="Pre-application"><span class="dot" style="background:var(--preapp)"></span>Pre-app</button>
-    <button aria-pressed="true" data-stage="Pending hearing"><span class="dot" style="background:var(--orange)"></span>Pending</button>
-    <button aria-pressed="true" data-stage="Recently heard"><span class="dot" style="background:var(--heard)"></span>Heard</button>
-    <button aria-pressed="true" data-stage="Approved PD, still vacant"><span class="dot" style="background:var(--vacant)"></span>Approved, vacant</button>
+  <div class="stagefilter">
+    <div class="seg stages" role="group" aria-label="Stage (orange = shown)">
+      <button aria-pressed="true" data-stage="Pre-application"><span class="dot" style="background:var(--preapp)"></span>Pre-app</button>
+      <button aria-pressed="true" data-stage="Pending hearing"><span class="dot" style="background:var(--orange)"></span>Pending</button>
+      <button aria-pressed="true" data-stage="Recently heard"><span class="dot" style="background:var(--heard)"></span>Heard</button>
+      <button aria-pressed="true" data-stage="Approved PD, still vacant"><span class="dot" style="background:var(--vacant)"></span>Approved, vacant</button>
+    </div>
+    <button class="info" data-info="stages" aria-label="What each stage means" aria-expanded="false"></button>
   </div>
   <select id="type" aria-label="Case type"><option value="">All case types</option></select>
   <select id="status" aria-label="Status"><option value="">Any status</option></select>
@@ -1024,14 +1045,29 @@ const INFO = {
   acres: `<h4>Acres</h4><p>Size of the land in the case, from the property appraiser or the agenda text. 0.0 means the agenda didn't state it; open the official record for the site plan.</p>`,
   owner: `<h4>Owner</h4><p>The property owner from the county's parcel records where we have them (Hillsborough today). Elsewhere it shows the applicant named on the agenda, often the developer or their LLC.</p>
     <div class="foot">"Hide individual and government owners" keeps sites where no owner has been found yet.</div>`,
+  stages: `<h4>Stages</h4><p>Where each project is in the approval process, earliest first. Orange buttons are the stages shown; click one to hide or show it.</p>
+    <dl class="stagedefs">
+      <dt><span class="dot" style="background:var(--preapp)"></span>Pre-app</dt>
+      <dd>The developer met with the city or county before filing anything, to test the idea.
+        <em>Earliest signal, often 2+ years before construction. Nobody is hired yet: the best time to introduce BACH.</em></dd>
+      <dt><span class="dot" style="background:var(--orange)"></span>Pending</dt>
+      <dd>The rezoning, PD or site plan is filed and waiting for its public hearing.
+        <em>Usually 1–2 years out. The developer and their engineer are named in the case: reach them before the vote.</em></dd>
+      <dt><span class="dot" style="background:var(--heard)"></span>Heard</dt>
+      <dd>The hearing has happened, usually with an approval. Site plans and permits come next.
+        <em>Months to a year out. Some teams are set, so move fast on recent ones.</em></dd>
+      <dt><span class="dot" style="background:var(--vacant)"></span>Approved, vacant</dt>
+      <dd>A PD was approved in past years but the land is still empty.
+        <em>Stalled or waiting on financing or a buyer. Often sold to a new developer, who will need a GC.</em></dd>
+    </dl>`,
   status: `<h4>Status</h4><p>Your team's progress on this lead: New, Researching, Contacted, Meeting set, Bidding, Won, Lost or Pass. Set it in the lead panel. Everyone with the link sees the same status.</p>`,
 };
 const infoIcon = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 11v5.5"/><circle cx="12" cy="7.6" r=".6" fill="currentColor"/></svg>`;
-document.querySelectorAll("th .info").forEach(b => b.innerHTML = infoIcon);
+document.querySelectorAll("th .info, .stagefilter .info").forEach(b => b.innerHTML = infoIcon);
 let tip = null, tipBtn = null;
 function closeTip() { if (tip) { tip.remove(); tip = null; } if (tipBtn) { tipBtn.setAttribute("aria-expanded", "false"); tipBtn = null; } }
 document.addEventListener("click", e => {
-  const b = e.target.closest("th .info");
+  const b = e.target.closest("th .info, .stagefilter .info");
   if (!b) { if (tip && !e.target.closest(".tip")) closeTip(); return; }
   e.stopPropagation();
   if (tipBtn === b) return closeTip();
