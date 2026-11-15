@@ -12,7 +12,7 @@
   --ground:#f5f4f1; --surface:#ffffff; --sunk:#efeeea; --line:#e3e1dc; --line-strong:#d2cfc8;
   --ink:#24251f; --ink-2:#51534a; --mute:#6f7579;
   --orange:#ff8300; --orange-ink:#b85a00; --orange-wash:#fff1e3; --on-orange:#1f1300;
-  --heard:#51534a; --vacant:#9aa3a8; --ok:#2f9e5b; --preapp:#b85a00;
+  --heard:#2563eb; --vacant:#15803d; --ok:#2f9e5b; --preapp:#7c3aed; --on-stage:#fff;
   --map-land:#fbfaf8; --map-city:#f1efea; --map-road:#bdb6a8; --map-edge:#bdb8ad; --map-out:#e9e7e2; --map-out-edge:#d6d2ca; --map-hwy:#f2b36b; --map-major:#d8cfbf; --map-label:#3e4038; --map-halo:#fbfaf8;
   --logo-ink:#51534a; --logo-sub:#7b868c;
   --gut:max(24px, env(safe-area-inset-left, 0px)); --gut-r:max(24px, env(safe-area-inset-right, 0px));
@@ -23,14 +23,14 @@
   --ground:#121311; --surface:#1a1b19; --sunk:#222320; --line:#2c2e2a; --line-strong:#3a3c37;
   --ink:#ecebe7; --ink-2:#c4c3bd; --mute:#9a9f9c;
   --orange:#ff8f1a; --orange-ink:#ffaa55; --orange-wash:#2e2012; --on-orange:#1f1300;
-  --heard:#c4c3bd; --vacant:#6f777b; --ok:#4cc27e; --preapp:#ffc27a;
+  --heard:#60a5fa; --vacant:#4ade80; --ok:#4cc27e; --preapp:#b9a2fb; --on-stage:#14130f;
   --map-land:#1d1e1b; --map-city:#242522; --map-road:#55574f; --map-edge:#4a4c46; --map-out:#161715; --map-out-edge:#2c2e2a; --map-hwy:#8a5a22; --map-major:#4a4a42; --map-label:#d8d6cf; --map-halo:#1d1e1b;
   --logo-ink:#ecebe7; --logo-sub:#9aa3a8; color-scheme:dark;}}
 :root[data-theme="dark"]{
   --ground:#121311; --surface:#1a1b19; --sunk:#222320; --line:#2c2e2a; --line-strong:#3a3c37;
   --ink:#ecebe7; --ink-2:#c4c3bd; --mute:#9a9f9c;
   --orange:#ff8f1a; --orange-ink:#ffaa55; --orange-wash:#2e2012; --on-orange:#1f1300;
-  --heard:#c4c3bd; --vacant:#6f777b; --ok:#4cc27e; --preapp:#ffc27a;
+  --heard:#60a5fa; --vacant:#4ade80; --ok:#4cc27e; --preapp:#b9a2fb; --on-stage:#14130f;
   --map-land:#1d1e1b; --map-city:#242522; --map-road:#55574f; --map-edge:#4a4c46; --map-out:#161715; --map-out-edge:#2c2e2a; --map-hwy:#8a5a22; --map-major:#4a4a42; --map-label:#d8d6cf; --map-halo:#1d1e1b;
   --logo-ink:#ecebe7; --logo-sub:#9aa3a8; color-scheme:dark;}
 
@@ -55,7 +55,7 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 .bar .scope{color:var(--mute);font-size:13px}
 .bar .grow{flex:1}
 .sync{display:inline-flex;align-items:center;gap:7px;font-size:12.5px;color:var(--mute)}
-.sync i{width:7px;height:7px;border-radius:50%;background:var(--vacant)}
+.sync i{width:7px;height:7px;border-radius:50%;background:var(--mute)}
 .sync[data-state="live"] i{background:var(--ok)}
 .sync[data-state="local"] i{background:var(--orange)}
 .iconbtn{display:inline-grid;place-items:center;width:34px;height:34px;padding:0;border-radius:8px}
@@ -131,10 +131,12 @@ th[aria-sort] button[data-k]{color:var(--ink)}
 .stagefilter{display:inline-flex;align-items:center;gap:4px}
 .seg.stages button{transition:background-color 140ms ease,color 140ms ease,box-shadow 140ms ease,transform 120ms ease}
 .seg.stages button:active{transform:scale(.97)}
-.seg.stages button[aria-pressed="true"]{background:var(--orange);color:var(--on-orange);font-weight:600;box-shadow:0 1px 2px rgba(0,0,0,.12)}
-.seg.stages button[aria-pressed="true"] .dot{box-shadow:0 0 0 1.5px #fff}
-.seg.stages button[aria-pressed="false"] .dot{opacity:.45}
-@media (hover:hover){.seg.stages button[aria-pressed="false"]:hover{color:var(--ink);background:var(--orange-wash)}}
+/* each stage fills with its own color when shown (the same color as its map pins); hidden stages go quiet */
+.seg.stages button[aria-pressed="true"]{background:var(--c);color:var(--c-ink);font-weight:600;box-shadow:0 1px 2px rgba(0,0,0,.14)}
+.seg.stages button[aria-pressed="true"] .dot{background:currentColor!important}
+.seg.stages button[aria-pressed="false"]{color:var(--mute);text-decoration:line-through;text-decoration-color:var(--line-strong)}
+.seg.stages button[aria-pressed="false"] .dot{opacity:.55}
+@media (hover:hover){.seg.stages button[aria-pressed="false"]:hover{color:var(--ink);background:var(--surface)}}
 .seg.stages button:focus-visible{outline:2px solid var(--orange-ink);outline-offset:2px}
 .stagefilter .info{all:unset;cursor:pointer;display:inline-grid;place-items:center;width:24px;height:24px;border-radius:50%;color:var(--mute);
   transition:color 120ms ease,background-color 120ms ease}
@@ -380,11 +382,11 @@ tr.row.sel td:first-child{box-shadow:inset 2px 0 0 var(--orange)}
     <input type="search" id="q" placeholder="Search owner, address, case number" aria-label="Search leads">
   </div>
   <div class="stagefilter">
-    <div class="seg stages" role="group" aria-label="Stage (orange = shown)">
-      <button aria-pressed="true" data-stage="Pre-application"><span class="dot" style="background:var(--preapp)"></span>Pre-app</button>
-      <button aria-pressed="true" data-stage="Pending hearing"><span class="dot" style="background:var(--orange)"></span>Pending</button>
-      <button aria-pressed="true" data-stage="Recently heard"><span class="dot" style="background:var(--heard)"></span>Heard</button>
-      <button aria-pressed="true" data-stage="Approved PD, still vacant"><span class="dot" style="background:var(--vacant)"></span>Approved, vacant</button>
+    <div class="seg stages" role="group" aria-label="Stage (filled = shown)">
+      <button aria-pressed="true" data-stage="Pre-application" style="--c:var(--preapp);--c-ink:var(--on-stage)"><span class="dot" style="background:var(--preapp)"></span>Pre-app</button>
+      <button aria-pressed="true" data-stage="Pending hearing" style="--c:var(--orange);--c-ink:var(--on-orange)"><span class="dot" style="background:var(--orange)"></span>Pending</button>
+      <button aria-pressed="true" data-stage="Recently heard" style="--c:var(--heard);--c-ink:var(--on-stage)"><span class="dot" style="background:var(--heard)"></span>Heard</button>
+      <button aria-pressed="true" data-stage="Approved PD, still vacant" style="--c:var(--vacant);--c-ink:var(--on-stage)"><span class="dot" style="background:var(--vacant)"></span>Approved, vacant</button>
     </div>
     <button class="info" data-info="stages" aria-label="What each stage means" aria-expanded="false"></button>
   </div>
@@ -1028,7 +1030,7 @@ const INFO = {
   acres: `<h4>Acres</h4><p>Size of the land in the case, from the property appraiser or the agenda text. 0.0 means the agenda didn't state it; open the official record for the site plan.</p>`,
   owner: `<h4>Owner</h4><p>The property owner from the county's parcel records where we have them (Hillsborough today). Elsewhere it shows the applicant named on the agenda, often the developer or their LLC.</p>
     <div class="foot">"Hide individual and government owners" keeps sites where no owner has been found yet.</div>`,
-  stages: `<h4>Stages</h4><p>Where each project is in the approval process, earliest first. Orange buttons are the stages shown; click one to hide or show it.</p>
+  stages: `<h4>Stages</h4><p>Where each project is in the approval process, earliest first. Filled buttons are the stages shown, in the same color as their map pins; click one to hide or show it.</p>
     <dl class="stagedefs">
       <dt><span class="dot" style="background:var(--preapp)"></span>Pre-app</dt>
       <dd>The developer met with the city or county before filing anything, to test the idea.
