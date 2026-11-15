@@ -400,7 +400,6 @@ tr.row.sel td:first-child{box-shadow:inset 2px 0 0 var(--orange)}
   <span id="dayChip"></span>
   <button id="mailbar" aria-label="Open the postcard list">Postcard list (<span id="mailcount">0</span>)</button>
   <button id="exportContacts" title="One row per person or company named in the case documents, for your CRM or Apollo">Export contacts</button>
-  <button class="btn-primary" id="export">Export list</button>
 </div>
 
 <main class="work pad">
@@ -818,10 +817,14 @@ function renderAgenda(list) {
       .forEach(l => (groups[l.hearing_date] ||= []).push(l));
   const dates = Object.keys(groups).sort();
   const total = dates.reduce((s, d) => s + groups[d].length, 0);
+  // say which place the calendar is showing, so a state or county filter is visible here too
+  const st = $("#state").value, ju = $("#juris").value, terr = $("#territory").value;
+  const where = ju ? ju : st ? (STATE_NAMES[st] || st) : terr === "bach" ? "BACH territory" : "";
+  $("#agenda-h").textContent = where ? `Upcoming hearings in ${where}` : "Upcoming hearings";
   $("#agenda-sub").textContent = dates.length
     ? `${total} site${total === 1 ? "" : "s"} on ${dates.length} hearing day${dates.length === 1 ? "" : "s"}, best leads first. Reach the owner before the vote.`
     : "";
-  if (!dates.length) { $("#days").innerHTML = `<div class="none">No pending hearings match the filters. Turn on Pending or lower the score.</div>`; return; }
+  if (!dates.length) { $("#days").innerHTML = `<div class="none">No upcoming hearings${where ? " in " + esc(where) : ""} match the filters. Turn on Pending, lower the score or pick another area.</div>`; return; }
   $("#days").innerHTML = dates.map(d => {
     const items = groups[d].sort((a, b) => b.score - a.score), dt = new Date(d + "T12:00");
     const days = Math.round((dt - today) / 864e5);
@@ -832,7 +835,7 @@ function renderAgenda(list) {
       <ul>${shown.map(l => `<li><button data-id="${esc(l.id)}"${l.id === selId ? ' aria-current="true"' : ""}>
         <span class="who">${esc(owner1(l))}</span>
         <span class="sc num${l.score >= 60 ? " hot" : ""}">${l.score}</span>
-        <span class="what">${l.acres.toFixed(1)} ac · ${esc(TYPE_NAMES[l.case_type] || l.case_type)}</span></button></li>`).join("")}</ul>
+        <span class="what">${ju ? "" : esc(l.jurisdiction.replace(/ County,/, " Co.,")) + " · "}${l.acres.toFixed(1)} ac · ${esc(TYPE_NAMES[l.case_type] || l.case_type)}</span></button></li>`).join("")}</ul>
       ${items.length > shown.length ? `<div class="more"><button data-day="${d}">Show all ${items.length} in the list</button></div>` : ""}
     </article>`;
   }).join("");
@@ -1000,26 +1003,6 @@ $("#theme").onclick = () => {
   r.dataset.theme = cur === "dark" ? "light" : "dark"; drawBase(); render();
 };
 matchMedia("(prefers-color-scheme: dark)").addEventListener("change", () => { drawBase(); render(); });
-
-$("#export").onclick = async () => {
-  const cols = ["score","stage","state","jurisdiction","case_type","case_id","hearing_date","site_address","location","acres","units","sqft","uses",
-    "land_use","owner","owner_mail","applicant","rep_name","rep_phone","just_value","bldg_value","last_sale_date","last_sale_price",
-    "source_url","sunbiz_url","folios","purpose","reasons"];
-  const q = v => `"${String(v ?? "").replace(/"/g, '""')}"`;
-  const csv = [[...cols, "status", "notes"].join(",")].concat(filtered().map(l =>
-    [...cols.map(c => q(l[c])), q(statusOf(l)), q(rec(l).notes)].join(","))).join("\n");
-  const filename = `bach_leads_${new Date().toISOString().slice(0, 10)}.csv`;
-  const btn = $("#export");
-  let dl = null; try { dl = await window.claude?.use?.("downloads"); } catch (e) {}
-  if (dl) {
-    try { await dl.save({filename, data:new Blob([csv], {type:"text/csv"})}); btn.textContent = "Exported"; }
-    catch (e) { btn.textContent = "Export cancelled"; }
-    setTimeout(() => btn.textContent = "Export list", 2000);
-    return;
-  }
-  const a = document.createElement("a");
-  a.href = URL.createObjectURL(new Blob([csv], {type:"text/csv"})); a.download = filename; a.click();
-};
 
 /* ---------- column help ---------- */
 const pts = (n, t) => `<li><b class="${n > 0 ? "up" : "down"}">${n > 0 ? "+" : "−"}${Math.abs(n)}</b><span>${t}</span></li>`;
