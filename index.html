@@ -171,6 +171,18 @@ tr.row.sel td:first-child{box-shadow:inset 2px 0 0 var(--orange)}
 .mlabel.hwy span{font-size:10.5px;font-weight:700;color:var(--orange-ink)}
 .mail{margin-top:12px;padding-top:12px;border-top:1px solid var(--line);display:flex;flex-wrap:wrap;align-items:center;gap:8px 12px}
 .mail .sub{flex:1 1 180px}
+.pg{margin:14px 0;padding:14px;border:1px solid var(--line-strong);border-radius:10px;background:var(--sunk)}
+.pg h4{margin:0 0 6px;font:600 14px var(--display);display:flex;gap:8px;align-items:center}
+.pg .mode{font:600 11px var(--text);padding:2px 8px;border-radius:99px;background:var(--line);color:var(--ink-2)}
+.pg .mode.live{background:var(--orange);color:var(--on-orange)}
+.pg label{display:block;font-size:12.5px;color:var(--mute);margin:8px 0 3px}
+.pg input,.pg select{width:100%}
+.pg .two{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.pg .three{display:grid;grid-template-columns:2fr 1fr 1fr;gap:8px}
+.pg .row2{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px;align-items:center}
+.pg .msg{font-size:13px;margin-top:8px;color:var(--ink-2)}
+.pg .err{color:#c4402f}
+.pg progress{width:100%;height:8px;accent-color:var(--orange)}
 .mailpanel h3{margin:0 0 4px;font-size:15px}
 .mailpanel p{margin:0 0 10px;color:var(--mute);font-size:13px}
 .mailpanel .acts{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0}
@@ -981,7 +993,7 @@ const queued = () => leads.filter(l => rec(l).mail === "queued");
 const mailTag = l => { const r = rec(l);
   return r.mailed ? `<div class="tag">Mailed ${esc(fmtDate(r.mailed.slice(0, 10)))}</div>` : r.mail === "queued" ? `<div class="tag">On postcard list</div>` : ""; };
 function updateMailCount() { $("#mailcount").textContent = queued().length; }
-function drawMailRow(l) {
+var drawMailRow = function (l) {
   const el = $("#d-mail"); if (!el) return;
   const r = rec(l), ro = !store.canWrite;
   if (!mailable(l)) { el.innerHTML = `<span class="sub">No owner mailing address on file for this area yet, so it can't go on the postcard list.</span>`; return; }
@@ -1016,7 +1028,7 @@ function postgridCsv(list) {
   });
   return [cols.join(","), ...rows].join("\n");
 }
-function showMailPanel(note = "") {
+var showMailPanel = function (note = "") {
   const list = queued().sort((a, b) => b.score - a.score), ro = !store.canWrite;
   const inView = filtered().filter(l => mailable(l) && rec(l).mail !== "queued" && !rec(l).mailed);
   openDrawer();
@@ -1030,6 +1042,7 @@ function showMailPanel(note = "") {
       <button id="m-mailed"${ro || !list.length ? " disabled" : ""}>Mark these ${list.length} as mailed</button>
       <button id="m-clear"${ro || !list.length ? " disabled" : ""}>Clear list</button>
     </div>
+    <div class="pg" id="pg"></div>
     <ul>${list.map(l => `<li><span>${esc(owner1(l))}<span class="sub">${esc(short(title(l.site_address || l.location || ""), 50))} · ${esc(l.jurisdiction)}</span></span>
       <button data-unmail="${esc(l.id)}"${ro ? " disabled" : ""}>Remove</button></li>`).join("") || `<li><span class="sub">The list is empty. Use "Add to postcard list" on a lead, or add everything in view.</span></li>`}</ul>
   </div>`;
@@ -1054,6 +1067,8 @@ function showMailPanel(note = "") {
   });
 }
 $("#mailbar").onclick = () => { selId = null; render(); showMailPanel(); };
+const _showMailPanel = showMailPanel;
+showMailPanel = (...a) => { _showMailPanel(...a); renderPostGrid(); };
 updateMailCount();
 
 /* ---------- details drawer ---------- */
@@ -1076,6 +1091,128 @@ function closeDrawer() {
 $("#detail-close").onclick = closeDrawer;
 $("#scrim").onclick = closeDrawer;
 document.addEventListener("keydown", e => { if (e.key === "Escape" && !document.querySelector(".tip")) closeDrawer(); });
+
+/* ---------- PostGrid: connect an account and send postcards straight from the list ----------
+   The API key is kept only in this browser (localStorage). It is never written into the website's files. */
+const PG = "https://api.postgrid.com/print-mail/v1";
+const PGK = "bach.postgrid.v1";
+let pgCfg = {}; try { pgCfg = JSON.parse(localStorage.getItem(PGK) || "{}"); } catch (e) {}
+const pgSave = () => { try { localStorage.setItem(PGK, JSON.stringify(pgCfg)); } catch (e) {} };
+const pgLive = () => /^live_/.test(pgCfg.key || "");
+let pgTemplates = null, pgBusy = false;
+async function pg(path, opts = {}) {
+  const r = await fetch(PG + path, {...opts, headers:{"x-api-key": pgCfg.key, "content-type":"application/json", ...(opts.headers || {})}});
+  const body = await r.json().catch(() => ({}));
+  if (!r.ok) throw new Error((body.error && (body.error.message || body.error.type)) || `PostGrid answered ${r.status}`);
+  return body;
+}
+async function pgLoadTemplates() {
+  const d = await pg("/templates?limit=100");
+  pgTemplates = (d.data || []).map(t => ({id:t.id, name:t.description || t.id}));
+}
+function pgFrom() {
+  const f = pgCfg.from || {};
+  return {companyName:f.company, addressLine1:f.line1, addressLine2:f.line2 || undefined, city:f.city, provinceOrState:f.state, postalOrZip:f.zip, countryCode:"US"};
+}
+function pgTo(l) {
+  const a = parseMail(l.owner_mail), who = title((l.owner || "").split(";")[0]) || "Property Owner";
+  return {...(l.owner_is_entity ? {companyName:who} : {firstName:who}), addressLine1:a.line1, addressLine2:a.line2 || undefined,
+          city:title(a.city), provinceOrState:a.state, postalOrZip:a.zip, countryCode:"US"};
+}
+function pgVars(l) {
+  return {ownerName:title((l.owner || "").split(";")[0]), siteAddress:title(l.site_address || l.location || ""), caseNumber:l.case_id.split(",")[0],
+          caseType:TYPE_NAMES[l.case_type] || l.case_type, hearingDate:l.hearing_date ? fmtDate(l.hearing_date) : "",
+          acres:l.acres ? l.acres.toFixed(1) : "", county:l.jurisdiction};
+}
+function renderPostGrid(msg = "", isErr = false) {
+  const box = $("#pg"); if (!box) return;
+  const list = queued().filter(mailable);
+  if (!pgCfg.key) {
+    box.innerHTML = `<h4>Send with PostGrid</h4>
+      <p class="sub">Connect your PostGrid account to print and mail these cards straight from here. Start with a <strong>test</strong> key
+        (it begins with <code>test_</code>): nothing is mailed and nothing is charged. Your key is saved only in this browser.</p>
+      <label for="pg-key">PostGrid API key</label><input id="pg-key" type="password" autocomplete="off" spellcheck="false" placeholder="test_sk_… or live_sk_…">
+      <div class="row2"><button class="btn-primary" id="pg-connect">Connect PostGrid</button></div>
+      ${msg ? `<div class="msg${isErr ? " err" : ""}">${esc(msg)}</div>` : ""}`;
+    $("#pg-connect").onclick = async () => {
+      const k = $("#pg-key").value.trim();
+      if (!/^(test|live)_/.test(k)) return renderPostGrid("That doesn't look like a PostGrid key. Copy it from PostGrid → Settings → API keys.", true);
+      pgCfg.key = k;
+      try { await pgLoadTemplates(); pgSave(); renderPostGrid("Connected."); }
+      catch (e) { delete pgCfg.key; renderPostGrid(e instanceof TypeError ?
+        "This page can't reach PostGrid from here. Use the public website version of the Lead Finder to send." : "PostGrid refused the key: " + e.message, true); }
+    };
+    return;
+  }
+  const f = pgCfg.from || {}, ready = f.company && f.line1 && f.city && f.state && f.zip && pgCfg.front && pgCfg.back;
+  const opts = (sel) => (pgTemplates || []).map(t => `<option value="${esc(t.id)}"${t.id === sel ? " selected" : ""}>${esc(t.name)}</option>`).join("");
+  box.innerHTML = `<h4>Send with PostGrid <span class="mode${pgLive() ? " live" : ""}">${pgLive() ? "LIVE: cards are mailed and charged" : "TEST mode: nothing is mailed"}</span></h4>
+    <label>Return address (printed on every card)</label>
+    <input id="pg-co" placeholder="Company" value="${esc(f.company || "BACH Development")}">
+    <div class="two" style="margin-top:6px"><input id="pg-l1" placeholder="Street address" value="${esc(f.line1 || "")}"><input id="pg-l2" placeholder="Suite (optional)" value="${esc(f.line2 || "")}"></div>
+    <div class="three" style="margin-top:6px"><input id="pg-city" placeholder="City" value="${esc(f.city || "")}"><input id="pg-st" placeholder="State" maxlength="2" value="${esc(f.state || "")}"><input id="pg-zip" placeholder="ZIP" value="${esc(f.zip || "")}"></div>
+    <div class="three">
+      <div><label for="pg-front">Front template</label><select id="pg-front"><option value="">Pick a template…</option>${opts(pgCfg.front)}</select></div>
+      <div><label for="pg-back">Back template</label><select id="pg-back"><option value="">Pick…</option>${opts(pgCfg.back)}</select></div>
+      <div><label for="pg-size">Size</label><select id="pg-size">${["6x4","9x6","11x6"].map(z => `<option${z === (pgCfg.size || "6x4") ? " selected" : ""}>${z}</option>`).join("")}</select></div>
+    </div>
+    <p class="sub" style="margin-top:8px">In your PostGrid templates you can use {{ownerName}}, {{siteAddress}}, {{caseNumber}}, {{caseType}}, {{hearingDate}}, {{acres}} and {{county}}.</p>
+    <div class="row2">
+      <button class="btn-primary" id="pg-send"${!ready || !list.length || pgBusy ? " disabled" : ""}>Send ${list.length} postcard${list.length === 1 ? "" : "s"} via PostGrid</button>
+      <button id="pg-off">Disconnect</button>
+    </div>
+    ${!ready ? `<div class="msg">Fill in the return address and pick both templates to enable sending.</div>` : ""}
+    <div id="pg-msg" class="msg${isErr ? " err" : ""}">${esc(msg)}</div>`;
+  const keep = () => {
+    pgCfg.from = {company:$("#pg-co").value.trim(), line1:$("#pg-l1").value.trim(), line2:$("#pg-l2").value.trim(),
+                  city:$("#pg-city").value.trim(), state:$("#pg-st").value.trim().toUpperCase(), zip:$("#pg-zip").value.trim()};
+    pgCfg.front = $("#pg-front").value; pgCfg.back = $("#pg-back").value; pgCfg.size = $("#pg-size").value; pgSave();
+  };
+  box.querySelectorAll("input,select").forEach(el => el.addEventListener("change", () => { keep(); renderPostGrid(); }));
+  $("#pg-off").onclick = () => { pgCfg = {from: pgCfg.from}; pgTemplates = null; pgSave(); renderPostGrid("Disconnected. The key was removed from this browser."); };
+  if (!pgTemplates) pgLoadTemplates().then(() => renderPostGrid(msg, isErr)).catch(e => renderPostGrid("Couldn't load your templates: " + e.message, true));
+  $("#pg-send").onclick = async () => {
+    const btn = $("#pg-send");
+    if (!btn.dataset.sure) {
+      btn.dataset.sure = "1";
+      btn.textContent = pgLive() ? `Confirm: mail ${list.length} cards (PostGrid charges your account)` : `Confirm: send ${list.length} test cards`;
+      return;
+    }
+    keep(); pgBusy = true;
+    const out = $("#pg-msg"); let ok = 0, bad = [];
+    out.innerHTML = `<progress max="${list.length}" value="0"></progress>`;
+    for (const [i, l] of list.entries()) {
+      try {
+        const card = await pg("/postcards", {method:"POST", body:JSON.stringify({
+          to: pgTo(l), from: pgFrom(), size: pgCfg.size || "6x4", frontTemplate: pgCfg.front, backTemplate: pgCfg.back,
+          mergeVariables: pgVars(l), description: `BACH lead ${l.case_id.split(",")[0]} · ${l.jurisdiction}`,
+          metadata: {lead: l.key.slice(0, 190)}})});
+        await save(l, {mail:null, mailed:new Date().toISOString(), status: statusOf(l) === "New" ? "Contacted" : statusOf(l),
+                       postgrid:{id:card.id, status:card.status || "ready", live:!!card.live}});
+        ok++;
+      } catch (e) { bad.push(`${owner1(l)}: ${e.message}`); }
+      out.querySelector("progress").value = i + 1;
+    }
+    pgBusy = false; updateMailCount(); render();
+    showMailPanel();
+    renderPostGrid(`${ok} card${ok === 1 ? "" : "s"} ${pgLive() ? "sent to PostGrid for printing and mailing" : "created in TEST mode (nothing mailed)"}.` +
+                   (bad.length ? ` ${bad.length} failed: ${bad.slice(0, 3).join("; ")}` : ""), bad.length > 0);
+  };
+}
+// PostGrid status on the lead panel
+const _drawMailRow = drawMailRow;
+drawMailRow = (l) => {
+  _drawMailRow(l);
+  const pgr = rec(l).postgrid, el = $("#d-mail");
+  if (!pgr || !el) return;
+  el.insertAdjacentHTML("beforeend", `<span class="sub" id="pg-stat">PostGrid card ${esc(pgr.id)} · ${esc(pgr.live ? pgr.status : "test card")}</span>
+    ${pgCfg.key ? `<button id="pg-refresh">Refresh status</button>` : ""}`);
+  const b = $("#pg-refresh");
+  if (b) b.onclick = async () => {
+    try { const c = await pg(`/postcards/${encodeURIComponent(pgr.id)}`); await save(l, {postgrid:{...pgr, status:c.status}}); drawMailRow(l); }
+    catch (e) { $("#pg-stat").textContent = "Couldn't refresh: " + e.message; }
+  };
+};
 render();
 </script>
 </body></html>
